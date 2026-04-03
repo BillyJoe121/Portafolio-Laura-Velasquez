@@ -5,6 +5,18 @@ import { AnimatedTestimonials } from "../../components/ui/animated-testimonials"
 import { IconBrandBehance } from '@tabler/icons-react';
 import './ProjectDetail.css';
 
+// ── Importaciones de imágenes (necesario para que Vite las procese en producción) ──
+import imgColores from '../../assets/proyectos/Luminy/colores.jpeg';
+import imgPc from '../../assets/proyectos/Luminy/pc.jpeg';
+import imgPartes from '../../assets/proyectos/Luminy/partes.jpeg';
+import imgMascota from '../../assets/proyectos/Luminy/mascota luminy.jpeg';
+import imgPlano1 from '../../assets/proyectos/Luminy/plano1.jpeg';
+import imgPlano2 from '../../assets/proyectos/Luminy/plano2.jpeg';
+import imgPlano3 from '../../assets/proyectos/Luminy/plano3.jpeg';
+import imgPlano4 from '../../assets/proyectos/Luminy/plano4.jpeg';
+import imgPlano5 from '../../assets/proyectos/Luminy/plano5.jpeg';
+import imgCierre from '../../assets/proyectos/Luminy/cierre.jpeg';
+
 /**
  * ProjectDetail — Template de página individual de proyecto.
  * - Botón volver: símbolo "‹" ovalado pequeño, negro → blanco al hover
@@ -210,7 +222,7 @@ export function LuminyDetail({ project, onBack }) {
           transition={{ duration: 0.8 }}
         >
           <img
-            src="/src/assets/proyectos/Luminy/colores.jpeg"
+            src={imgColores}
             alt="Colores"
             className="project-standalone-colors-img"
           />
@@ -225,7 +237,7 @@ export function LuminyDetail({ project, onBack }) {
           transition={{ duration: 0.8 }}
         >
           <img
-            src="/src/assets/proyectos/Luminy/pc.jpeg"
+            src={imgPc}
             alt="PC View"
             className="project-standalone-pc-img"
           />
@@ -264,7 +276,7 @@ export function LuminyDetail({ project, onBack }) {
           transition={{ duration: 0.8 }}
         >
           <img
-            src="/src/assets/proyectos/Luminy/partes.jpeg"
+            src={imgPartes}
             alt="Componentes del Sistema"
             className="project-standalone-partes-img"
           />
@@ -291,7 +303,7 @@ export function LuminyDetail({ project, onBack }) {
             </ul>
 
             <img
-              src="/src/assets/proyectos/Luminy/mascota luminy.jpeg"
+              src={imgMascota}
               alt="Mascota Luminy"
               className="features-mascot-img"
             />
@@ -370,11 +382,11 @@ export function LuminyDetail({ project, onBack }) {
         >
           <AnimatedTestimonials
             testimonials={[
-              { src: "/src/assets/proyectos/Luminy/plano1.jpeg" },
-              { src: "/src/assets/proyectos/Luminy/plano2.jpeg" },
-              { src: "/src/assets/proyectos/Luminy/plano3.jpeg" },
-              { src: "/src/assets/proyectos/Luminy/plano4.jpeg" },
-              { src: "/src/assets/proyectos/Luminy/plano5.jpeg" },
+              { src: imgPlano1 },
+              { src: imgPlano2 },
+              { src: imgPlano3 },
+              { src: imgPlano4 },
+              { src: imgPlano5 },
             ]}
             autoplay={true}
           />
@@ -390,7 +402,7 @@ export function LuminyDetail({ project, onBack }) {
         >
           <div className="closure-circle-frame">
             <img
-              src="/src/assets/proyectos/Luminy/cierre.jpeg"
+              src={imgCierre}
               alt="Cierre del proyecto"
               className="closure-img"
             />
