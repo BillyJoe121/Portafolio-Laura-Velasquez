@@ -1,0 +1,14 @@
+/* ═══════════════════════════════════════════
+   PROYECTOS SECTION
+═══════════════════════════════════════════ */
+.section-proyectos {
+  background-color: #fff;
+}
+
+.section-proyectos-scroll {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #fff;
+}

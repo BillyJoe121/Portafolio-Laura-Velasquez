@@ -1,0 +1,902 @@
+/* ═══════════════════════════════════════════
+   PROJECT DETAIL PAGE
+═══════════════════════════════════════════ */
+.project-detail {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  color: #000;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Top Fade Overlay (Para simular transparencia debajo del docker) ── */
+.project-top-fade {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 140px;
+  /* Ajusta la altura del degrado según lo que ocupe tu navbar/docker */
+  /* Degradado de blanco solido a blanco transparente */
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.9) 60px, rgba(255, 255, 255, 0) 100%);
+  z-index: 40;
+  /* Por encima del texto, debajo de la flecha de volver (z:50) y del docker real */
+  pointer-events: none;
+  /* Dejar pasar los clics */
+}
+
+/* Si hay spline, evitamos que el difuminado tape el modelo 3D de la derecha */
+.project-detail.has-spline .project-top-fade {
+  width: 60%;
+  /* Solo afecta la zona de 3/5 del texto */
+}
+
+/* ── Back button — small oval, black → white on hover ── */
+.project-back-btn {
+  position: fixed;
+  top: 80px;
+  left: 36px;
+  z-index: 50;
+  background: #000;
+  color: #fff;
+  border: 2px solid #000;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  padding: 0;
+  /* compensa el peso óptico del símbolo ‹ */
+  padding-right: 2px;
+}
+
+.project-back-btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* ── Layout with Spline Split ────────────── */
+.project-detail.has-spline {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: block;
+  /* Volvemos al flow normal para usar sticky */
+}
+
+.project-detail-spline {
+  width: 50vw;
+  /* Hacemos el canvas más ancho para abarcar el centro del spline */
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: -5vw;
+  /* Dejamos 5vw fuera por la derecha */
+  transform: translateX(-5vw);
+  /* Empujamos todo 5vw más a la izquierda extra */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
+  /* Restaurar clics/interacción */
+  z-index: 5;
+}
+
+/* ── Scrollable content ──────────────────── */
+.project-detail-scroll {
+  width: 100%;
+  /* Eliminamos el alto fijo y el auto para que el padre sea quien haga scroll */
+  height: auto;
+  overflow: visible;
+  padding: 110px 10vw 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  position: relative;
+  z-index: 10;
+}
+
+.project-detail.has-spline .project-detail-scroll {
+  width: 60%;
+  /* 3/5 texto */
+  padding-right: 5vw;
+}
+
+/* ── Title image ─────────────────────────── */
+.project-title-img-wrapper {
+  max-width: 600px;
+}
+
+.project-title-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+/* ── Concepto Section ────────────────────── */
+.project-concept-section {
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.project-concept-title {
+  font-family: 'Surgena', sans-serif;
+  font-size: clamp(3.5rem, 6vw, 6.5rem);
+  font-weight: 700;
+  color: #000;
+  margin: 0;
+  line-height: 1;
+  display: inline-block;
+  background-clip: text;
+}
+
+.project-concept-text {
+  font-family: var(--font-main);
+  font-size: clamp(1.25rem, 1.8vw, 1.6rem);
+  font-weight: 400;
+  line-height: 1.5;
+  color: #334155;
+  margin: 0;
+  max-width: 65ch;
+}
+
+.project-team-section {
+  width: 100%;
+  padding: 20px 0;
+  display: flex;
+  justify-content: flex-start;
+  margin: 10px 0;
+}
+
+.project-team-name {
+  font-family: 'Surgena', sans-serif;
+  font-size: clamp(2rem, 3.5vw, 4rem);
+  /* Tamaño reducido */
+  font-weight: 700;
+  color: #000;
+  margin: 0;
+  line-height: 1;
+  display: inline-block;
+  background-clip: text;
+  white-space: nowrap;
+  /* Una sola línea */
+}
+
+/* ── User Image Section ───────────────────── */
+.project-user-img-wrapper {
+  width: 100%;
+  max-width: 1000px;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-top: 20px;
+  position: relative;
+}
+
+.project-user-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* ── Overlay Text Styles on Image ────────── */
+.project-user-overlays {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.project-user-overlay-item.age-text {
+  position: absolute;
+  top: 40%;
+  left: 10%;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.age-number {
+  font-family: var(--font-main);
+  font-size: clamp(4rem, 8vw, 8rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.age-label {
+  font-family: var(--font-main);
+  font-size: clamp(3rem, 6vw, 6rem);
+  font-weight: 800;
+  color: transparent;
+  -webkit-text-stroke: 2px #ffffff;
+  line-height: 1;
+  text-transform: lowercase;
+}
+
+.project-user-glass-card {
+  position: absolute;
+  top: 55%;
+  /* Debajo del texto 1 (que está en 40%) */
+  left: 10%;
+  max-width: 450px;
+  background: rgba(0, 0, 0, 0.25);
+  /* Fondo más oscuro para contraste */
+  backdrop-filter: blur(16px);
+  /* Más desenfoque */
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 12px;
+  padding: 20px;
+  color: #ffffff;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.project-user-glass-card p {
+  margin: 0;
+  font-family: var(--font-main);
+  font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+  line-height: 1.5;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  /* Sombra para que no se pierda nada */
+}
+
+.project-user-glass-card p+p {
+  margin-top: 12px;
+}
+
+.project-user-glass-card strong {
+  font-weight: 700;
+}
+
+.project-user-motivations {
+  position: absolute;
+  top: 78%;
+  /* Debajo del cuadro de cristal */
+  left: 10%;
+  width: auto;
+}
+
+.motivations-title {
+  color: #ffffff;
+  font-family: var(--font-main);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.motivations-row {
+  display: flex;
+  gap: 16px;
+}
+
+.motivation-glass-item {
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+  padding: 10px 24px;
+  color: #ffffff;
+  font-family: var(--font-main);
+  font-size: 1.1rem;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* ── Meta row ────────────────────────────── */
+.project-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.project-year {
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #9013fe;
+  letter-spacing: 0.05em;
+}
+
+.project-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.project-tag {
+  font-family: var(--font-main);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: rgba(144, 19, 254, 0.08);
+  color: #9013fe;
+  letter-spacing: 0.02em;
+}
+
+/* ── Hero image ──────────────────────────── */
+.project-hero-img-wrapper {
+  width: 100%;
+  max-width: 1000px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.project-hero-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* ── Description ─────────────────────────── */
+.project-description {
+  max-width: 720px;
+}
+
+.project-description p {
+  font-family: var(--font-main);
+  font-size: clamp(1rem, 1.2vw, 1.1rem);
+  font-weight: 400;
+  line-height: 1.7;
+  color: #334155;
+}
+
+/* ── Gallery ─────────────────────────────── */
+.project-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  max-width: 1000px;
+}
+
+.project-gallery-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-gallery-img:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+}
+
+/* ── Blue Banner System ──────────────────── */
+.project-blue-banner {
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
+  border-radius: 20px;
+  background: radial-gradient(circle at 15% 15%, #5c8df6 0%, #2b59c3 100%);
+  margin: 20px 0;
+  /* Margen de 20px arriba y abajo */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 60px;
+}
+
+.banner-content {
+  position: relative;
+  width: 100%;
+  height: clamp(300px, 40vh, 400px);
+  /* El área del título mantiene su tamaño */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner-title {
+  font-family: 'Surgena', sans-serif;
+  font-size: clamp(3rem, 10vw, 8rem);
+  /* Reducimos el máximo */
+  color: #ffffff;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+  letter-spacing: -0.02em;
+}
+
+.banner-text-content {
+  width: 100%;
+  max-width: 800px;
+  padding: 0 40px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.banner-text-content p {
+  font-family: var(--font-main);
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 24px;
+}
+
+/* ── Style Guide Section (Blue Banner) ───── */
+/* ── Independent Typography Banner ──────────────────── */
+.project-typography-banner {
+  width: 100%;
+  max-width: 1000px;
+  background: radial-gradient(circle at 15% 15%, #5c8df6 0%, #2b59c3 100%);
+  border-radius: 20px;
+  padding: 40px 60px;
+  margin-bottom: 20px;
+  /* Margen de 20px */
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.style-guide-rows {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.style-row-item {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.style-label {
+  font-family: var(--font-main);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+  width: 120px;
+  /* Ancho fijo para alinear el contenido de la derecha */
+  flex-shrink: 0;
+}
+
+.style-main-font {
+  font-family: 'Surgena', sans-serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  color: #ffffff;
+  margin: 0;
+  line-height: 1;
+}
+
+.style-pills-row {
+  display: flex;
+  gap: 12px;
+}
+
+.variant-box-pill {
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 8px 24px;
+  border-radius: 50px;
+  color: #ffffff;
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  font-weight: 300;
+  white-space: nowrap;
+}
+
+.variant-box-pill.semibold {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  font-weight: 600;
+}
+
+/* Independent Colors Image (After Blue Banner) */
+.project-colors-independent {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 0 20px 0;
+  /* Margen de 20px */
+}
+
+.project-standalone-colors-img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  /* Misma redondez que el banner */
+  display: block;
+}
+
+/* Independent PC Image section */
+.project-pc-independent {
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 20px;
+}
+
+.project-standalone-pc-img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  display: block;
+}
+
+/* Manual de Uso Section */
+.project-manual-wrapper {
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 20px;
+}
+
+.project-manual-img-container {
+  position: relative;
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.project-standalone-manual-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.project-manual-glass-card {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 12px;
+  padding: 20px 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.project-manual-glass-card h3 {
+  color: #ffffff;
+  font-family: var(--font-main);
+  font-size: clamp(1.2rem, 2vw, 2.5rem);
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Closure Section */
+.project-closure-section {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 40px 0 20px 0; /* Espacio reducido arriba y abajo */
+  margin-top: 20px;
+}
+
+.closure-circle-frame {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 4px solid #5c8df6;
+  box-shadow: 0 10px 30px rgba(92, 141, 246, 0.2);
+}
+
+.closure-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.closure-brand-text {
+  font-family: var(--font-main);
+  font-size: clamp(4rem, 8vw, 8rem);
+  font-weight: 800;
+  color: #5c8df6;
+  margin: 0;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+}
+
+/* Credits Section */
+.project-credits-section {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  justify-content: center;
+  padding: 0 0 60px 0;
+}
+
+.credits-text {
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #5c8df6;
+  margin: 0;
+  text-align: center;
+  margin-bottom: 20px; /* Reducido de 24px */
+}
+
+/* Behance Link Section */
+.project-behance-link-section {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  justify-content: center;
+  padding: 0 0 80px 0; /* Ajustado para ser más compacto */
+}
+
+.behance-cta-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #5c8df6;
+  color: #ffffff;
+  padding: 12px 28px;
+  border-radius: 40px;
+  text-decoration: none;
+  font-family: var(--font-main);
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 25px rgba(92, 141, 246, 0.3);
+}
+
+.behance-cta-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(92, 141, 246, 0.4);
+}
+
+/* Independent Partes Image section */
+.project-partes-independent {
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 20px;
+}
+
+.project-standalone-partes-img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  display: block;
+}
+
+/* Features Summary Section (#dde7ff) */
+.project-features-summary {
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 20px;
+}
+
+.features-summary-container {
+  position: relative;
+  background-color: #dde7ff;
+  border-radius: 20px;
+  padding: 50px 60px 140px 60px;
+  /* Aumentado para dar espacio a la mascota */
+  overflow: hidden;
+}
+
+.features-title {
+  color: #3b66cf;
+  /* Azul para el texto */
+  font-family: var(--font-main);
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  font-weight: 700;
+  margin-bottom: 30px;
+  max-width: 80%;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.features-list li {
+  color: #3b66cf;
+  font-family: var(--font-main);
+  font-size: clamp(1rem, 1.4vw, 1.3rem);
+  font-weight: 600;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.features-list li::before {
+  content: "•";
+  font-size: 1.5rem;
+}
+
+.features-mascot-img {
+  position: absolute;
+  bottom: 0;
+  right: 25px;
+  height: 240px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Secuencia de Uso Section */
+.project-usage-sequence {
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 20px;
+}
+
+.usage-sequence-container {
+  background: radial-gradient(circle at 15% 15%, #5c8df6 0%, #2b59c3 100%);
+  border-radius: 20px;
+  padding: 60px 50px;
+}
+
+.usage-title {
+  color: #ffffff;
+  font-family: var(--font-main);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+.usage-steps-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.usage-step-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+}
+
+/* El círculo doble */
+.step-number-outer {
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.3);
+  /* Círculo exterior suave */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.step-number-inner {
+  width: 75px;
+  height: 75px;
+  background: #e0ebff;
+  /* Color sólido claro para el número */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.step-number-inner span {
+  font-family: var(--font-main);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #3b66cf;
+  /* Azul del número */
+}
+
+/* La tarjeta de instrucción */
+.step-instruction-card {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 15px 30px;
+  height: 80px;
+  /* Altura fija para que todos midan lo mismo como en la imagen */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.step-title {
+  color: #ffffff;
+  font-family: var(--font-main);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.step-desc {
+  color: rgba(255, 255, 255, 0.8);
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  margin: 4px 0 0 0;
+}
+
+/* Animated Stack (Aceternity) */
+.project-animated-stack {
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.banner-label {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 8px 24px;
+  border-radius: 8px;
+  color: #1a3a8a;
+  font-family: var(--font-main);
+  font-size: clamp(0.9rem, 1.5vw, 1.4rem);
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.label-dashboard {
+  top: 25%;
+  left: 22%;
+  /* Movido un poquito a la derecha */
+  transform: rotate(-8deg);
+  opacity: 0.7;
+  /* Por detrás */
+}
+
+.label-sensores {
+  bottom: 20%;
+  left: 45%;
+  transform: translateX(-50%) rotate(2deg);
+  background: rgba(255, 255, 255, 0.45);
+  opacity: 1;
+  /* Por delante */
+}
+
+.label-actuadores {
+  bottom: 18%;
+  right: 14%;
+  transform: rotate(-2deg);
+  opacity: 0.7;
+  /* Por detrás */
+}
+
+/* ── Responsive ──────────────────────────── */
+@media (max-width: 768px) {
+  .project-detail-scroll {
+    padding: 100px 6vw 60px;
+    gap: 24px;
+  }
+
+  .project-back-btn {
+    top: 70px;
+    left: 20px;
+  }
+
+  .project-gallery {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,131 @@
+/* ═══════════════════════════════════════════
+   CONTACTO SECTION
+═══════════════════════════════════════════ */
+.section-contacto {
+  background-color: #fff;
+}
+
+.contact-section-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.contact-header {
+  position: absolute;
+  top: 37%;
+  left: 22%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  max-width: 560px;
+  padding: 0 24px;
+  z-index: 10;
+}
+
+/* ── Video-filled Title ─────────────────────── */
+.video-text-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.video-text-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.contact-video-title {
+  width: 100%;
+  min-height: 80px;
+  aspect-ratio: 5 / 1;
+  max-width: 560px;
+}
+
+.contact-title {
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -2px;
+  color: #ffffff;
+  margin: 0;
+}
+
+.contact-subtitle {
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  font-weight: 400;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 44ch;
+}
+
+.contact-cta-btn {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 13px 32px;
+  border-radius: 30px;
+  background: #000;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.contact-cta-btn:hover {
+  background: #9013fe;
+  transform: translateY(-2px);
+}
+
+/* ── Social Row — Radar dots style ──────────────── */
+.contact-actions {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.contact-social-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.social-icon-link {
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.social-icon-container {
+  width: 44px;
+  height: 44px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.social-icon-link:hover .social-icon-container {
+  color: #9013fe;
+  border-color: rgba(144, 19, 254, 0.2);
+  box-shadow: 0 10px 15px -3px rgba(144, 19, 254, 0.1),
+    0 4px 6px -2px rgba(144, 19, 254, 0.05);
+}

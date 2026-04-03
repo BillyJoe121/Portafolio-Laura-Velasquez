@@ -1,0 +1,102 @@
+.floating-dock-mobile {
+  position: relative;
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .floating-dock-mobile {
+    display: none;
+  }
+}
+
+.fd-mobile-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fd-mobile-item-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 9999px;
+  background-color: #111111;
+  color: white;
+}
+
+.fd-mobile-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 9999px;
+  background-color: #111111;
+  color: white;
+  cursor: pointer;
+}
+
+.floating-dock-desktop {
+  display: none;
+  height: 4rem;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.8rem;
+  padding-bottom: 0px;
+  pointer-events: auto;
+}
+
+@media (min-width: 768px) {
+  .floating-dock-desktop {
+    display: flex;
+  }
+}
+
+/* Los links necesitan pointer-events auto porque el .navbar padre tiene none */
+.fd-link {
+  pointer-events: auto;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.fd-icon-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  background-color: #111111;
+  color: white;
+  font-weight: 300;
+  transform-origin: bottom center;
+  will-change: width, height;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.fd-icon-container:hover {
+  z-index: 10;
+}
+
+.fd-tooltip {
+  position: absolute;
+  top: -2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  border-radius: 0.375rem;
+  border: 1px solid rgba(255,255,255,0.2);
+  background-color: #1a1a1a;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  color: white;
+  pointer-events: none;
+}

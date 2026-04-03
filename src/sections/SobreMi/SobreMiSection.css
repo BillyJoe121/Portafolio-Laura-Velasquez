@@ -1,0 +1,65 @@
+/* ═══════════════════════════════════════════
+   SOBRE MÍ SECTION
+═══════════════════════════════════════════ */
+.section-sobremi {
+  /* Mantiene fixed de App.css para ser pantalla completa */
+  background-color: #000;
+  width: 100vw;
+  height: 100vh;
+}
+
+.section-inner.section-sobremi-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Container para Spline background ── */
+.sobremi-bg-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: auto; /* Activar interacción con Spline */
+}
+
+.sobremi-bg-container div,
+.sobremi-bg-video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+}
+
+/* ── Content overlay over Spline ── */
+.sobremi-content {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  color: #fff;
+  padding: 0 20px;
+  pointer-events: none; /* Dejar que clicks pasen al Spline si no son texto */
+}
+
+.sobremi-content h2 {
+  font-size: 4rem;
+  margin: 0;
+  color: #fff;
+}
+
+/* ── Loading state ── */
+.spline-loading-sobremi {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-main), sans-serif;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.4);
+}
