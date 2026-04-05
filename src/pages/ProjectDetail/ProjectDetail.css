@@ -1,23 +1,23 @@
-/* ═══════════════════════════════════════════
+﻿/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    PROJECT DETAIL PAGE
-═══════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .project-detail {
   width: 100%;
   height: 100%;
   background: #fff;
-  color: #000;
+  color: #28282B;
   position: relative;
   overflow: hidden;
 }
 
-/* ── Top Fade Overlay (Para simular transparencia debajo del docker) ── */
+/* â”€â”€ Top Fade Overlay (Para simular transparencia debajo del docker) â”€â”€ */
 .project-top-fade {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 140px;
-  /* Ajusta la altura del degrado según lo que ocupe tu navbar/docker */
+  /* Ajusta la altura del degrado segÃºn lo que ocupe tu navbar/docker */
   /* Degradado de blanco solido a blanco transparente */
   background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.9) 60px, rgba(255, 255, 255, 0) 100%);
   z-index: 40;
@@ -32,15 +32,15 @@
   /* Solo afecta la zona de 3/5 del texto */
 }
 
-/* ── Back button — small oval, black → white on hover ── */
+/* â”€â”€ Back button â€” small oval, black â†’ white on hover â”€â”€ */
 .project-back-btn {
   position: fixed;
   top: 80px;
   left: 36px;
   z-index: 50;
-  background: #000;
+  background: #28282B;
   color: #fff;
-  border: 2px solid #000;
+  border: 2px solid #28282B;
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -48,20 +48,21 @@
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
-  line-height: 1;
+  line-height: 1.1;
   cursor: pointer;
   transition: background 0.2s ease, color 0.2s ease;
   padding: 0;
-  /* compensa el peso óptico del símbolo ‹ */
-  padding-right: 2px;
+  /* compensa el peso Ã³ptico del sÃ­mbolo â€¹ */
+  padding: 0;
+  padding-bottom: 3px;
 }
 
 .project-back-btn:hover {
   background: #fff;
-  color: #000;
+  color: #28282B;
 }
 
-/* ── Layout with Spline Split ────────────── */
+/* â”€â”€ Layout with Spline Split â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .project-detail.has-spline {
   position: relative;
   width: 100%;
@@ -74,23 +75,23 @@
 
 .project-detail-spline {
   width: 50vw;
-  /* Hacemos el canvas más ancho para abarcar el centro del spline */
+  /* Hacemos el canvas mÃ¡s ancho para abarcar el centro del spline */
   height: 100vh;
   position: fixed;
   top: 0;
   right: -5vw;
   /* Dejamos 5vw fuera por la derecha */
   transform: translateX(-5vw);
-  /* Empujamos todo 5vw más a la izquierda extra */
+  /* Empujamos todo 5vw mÃ¡s a la izquierda extra */
   display: flex;
   justify-content: center;
   align-items: center;
   pointer-events: auto;
-  /* Restaurar clics/interacción */
+  /* Restaurar clics/interacciÃ³n */
   z-index: 5;
 }
 
-/* ── Scrollable content ──────────────────── */
+/* â”€â”€ Scrollable content â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .project-detail-scroll {
   width: 100%;
   /* Eliminamos el alto fijo y el auto para que el padre sea quien haga scroll */
@@ -110,7 +111,7 @@
   padding-right: 5vw;
 }
 
-/* ── Title image ─────────────────────────── */
+/* â”€â”€ Title image â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .project-title-img-wrapper {
   max-width: 600px;
 }
@@ -123,7 +124,7 @@
   border-radius: 12px;
 }
 
-/* ── Concepto Section ────────────────────── */
+/* â”€â”€ Concepto Section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .project-concept-section {
   max-width: 720px;
   display: flex;
@@ -135,9 +136,9 @@
   font-family: 'Surgena', sans-serif;
   font-size: clamp(3.5rem, 6vw, 6.5rem);
   font-weight: 700;
-  color: #000;
+  color: #28282B;
   margin: 0;
-  line-height: 1;
+  line-height: 1.1;
   display: inline-block;
   background-clip: text;
 }
@@ -163,18 +164,18 @@
 .project-team-name {
   font-family: 'Surgena', sans-serif;
   font-size: clamp(2rem, 3.5vw, 4rem);
-  /* Tamaño reducido */
+  /* TamaÃ±o reducido */
   font-weight: 700;
-  color: #000;
+  color: #28282B;
   margin: 0;
-  line-height: 1;
+  line-height: 1.1;
   display: inline-block;
   background-clip: text;
   white-space: nowrap;
-  /* Una sola línea */
+  /* Una sola lÃ­nea */
 }
 
-/* ── User Image Section ───────────────────── */
+/* â”€â”€ User Image Section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .project-user-img-wrapper {
   width: 100%;
   max-width: 1000px;
@@ -191,7 +192,7 @@
   object-fit: cover;
 }
 
-/* ── Overlay Text Styles on Image ────────── */
+/* â”€â”€ Overlay Text Styles on Image â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .project-user-overlays {
   position: absolute;
   top: 0;
@@ -215,7 +216,7 @@
   font-size: clamp(4rem, 8vw, 8rem);
   font-weight: 800;
   color: #ffffff;
-  line-height: 1;
+  line-height: 1.1;
 }
 
 .age-label {
@@ -224,20 +225,20 @@
   font-weight: 800;
   color: transparent;
   -webkit-text-stroke: 2px #ffffff;
-  line-height: 1;
+  line-height: 1.1;
   text-transform: lowercase;
 }
 
 .project-user-glass-card {
   position: absolute;
   top: 55%;
-  /* Debajo del texto 1 (que está en 40%) */
+  /* Debajo del texto 1 (que estÃ¡ en 40%) */
   left: 10%;
   max-width: 450px;
   background: rgba(0, 0, 0, 0.25);
-  /* Fondo más oscuro para contraste */
+  /* Fondo mÃ¡s oscuro para contraste */
   backdrop-filter: blur(16px);
-  /* Más desenfoque */
+  /* MÃ¡s desenfoque */
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 12px;
@@ -299,7 +300,7 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* ── Meta row ────────────────────────────── */
+/* â”€â”€ Meta row â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .project-meta-row {
   display: flex;
   align-items: center;
@@ -332,7 +333,7 @@
   letter-spacing: 0.02em;
 }
 
-/* ── Hero image ──────────────────────────── */
+/* â”€â”€ Hero image â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .project-hero-img-wrapper {
   width: 100%;
   max-width: 1000px;
@@ -347,7 +348,7 @@
   object-fit: cover;
 }
 
-/* ── Description ─────────────────────────── */
+/* â”€â”€ Description â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .project-description {
   max-width: 720px;
 }
@@ -360,7 +361,7 @@
   color: #334155;
 }
 
-/* ── Gallery ─────────────────────────────── */
+/* â”€â”€ Gallery â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .project-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -382,7 +383,7 @@
   box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
 }
 
-/* ── Blue Banner System ──────────────────── */
+/* â”€â”€ Blue Banner System â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .project-blue-banner {
   width: 100%;
   max-width: 1000px;
@@ -404,7 +405,7 @@
   position: relative;
   width: 100%;
   height: clamp(300px, 40vh, 400px);
-  /* El área del título mantiene su tamaño */
+  /* El Ã¡rea del tÃ­tulo mantiene su tamaÃ±o */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -413,7 +414,7 @@
 .banner-title {
   font-family: 'Surgena', sans-serif;
   font-size: clamp(3rem, 10vw, 8rem);
-  /* Reducimos el máximo */
+  /* Reducimos el mÃ¡ximo */
   color: #ffffff;
   margin: 0;
   position: relative;
@@ -437,8 +438,8 @@
   margin-bottom: 24px;
 }
 
-/* ── Style Guide Section (Blue Banner) ───── */
-/* ── Independent Typography Banner ──────────────────── */
+/* â”€â”€ Style Guide Section (Blue Banner) â”€â”€â”€â”€â”€ */
+/* â”€â”€ Independent Typography Banner â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .project-typography-banner {
   width: 100%;
   max-width: 1000px;
@@ -480,7 +481,7 @@
   font-size: clamp(2rem, 4vw, 3.5rem);
   color: #ffffff;
   margin: 0;
-  line-height: 1;
+  line-height: 1.1;
 }
 
 .style-pills-row {
@@ -584,7 +585,8 @@
   display: flex;
   align-items: center;
   gap: 40px;
-  padding: 40px 0 20px 0; /* Espacio reducido arriba y abajo */
+  padding: 40px 0 20px 0;
+  /* Espacio reducido arriba y abajo */
   margin-top: 20px;
 }
 
@@ -610,7 +612,7 @@
   font-weight: 800;
   color: #5c8df6;
   margin: 0;
-  line-height: 1;
+  line-height: 1.1;
   text-transform: uppercase;
   letter-spacing: -2px;
 }
@@ -631,7 +633,8 @@
   color: #5c8df6;
   margin: 0;
   text-align: center;
-  margin-bottom: 20px; /* Reducido de 24px */
+  margin-bottom: 20px;
+  /* Reducido de 24px */
 }
 
 /* Behance Link Section */
@@ -640,7 +643,8 @@
   max-width: 1000px;
   display: flex;
   justify-content: center;
-  padding: 0 0 80px 0; /* Ajustado para ser más compacto */
+  padding: 0 0 80px 0;
+  /* Ajustado para ser mÃ¡s compacto */
 }
 
 .behance-cta-btn {
@@ -722,7 +726,7 @@
 }
 
 .features-list li::before {
-  content: "•";
+  content: "â€¢";
   font-size: 1.5rem;
 }
 
@@ -769,12 +773,12 @@
   position: relative;
 }
 
-/* El círculo doble */
+/* El cÃ­rculo doble */
 .step-number-outer {
   width: 100px;
   height: 100px;
   background: rgba(255, 255, 255, 0.3);
-  /* Círculo exterior suave */
+  /* CÃ­rculo exterior suave */
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -787,7 +791,7 @@
   width: 75px;
   height: 75px;
   background: #e0ebff;
-  /* Color sólido claro para el número */
+  /* Color sÃ³lido claro para el nÃºmero */
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -800,10 +804,10 @@
   font-size: 2.2rem;
   font-weight: 700;
   color: #3b66cf;
-  /* Azul del número */
+  /* Azul del nÃºmero */
 }
 
-/* La tarjeta de instrucción */
+/* La tarjeta de instrucciÃ³n */
 .step-instruction-card {
   flex: 1;
   background: rgba(255, 255, 255, 0.1);
@@ -864,7 +868,7 @@
   /* Movido un poquito a la derecha */
   transform: rotate(-8deg);
   opacity: 0.7;
-  /* Por detrás */
+  /* Por detrÃ¡s */
 }
 
 .label-sensores {
@@ -881,10 +885,10 @@
   right: 14%;
   transform: rotate(-2deg);
   opacity: 0.7;
-  /* Por detrás */
+  /* Por detrÃ¡s */
 }
 
-/* ── Responsive ──────────────────────────── */
+/* â”€â”€ Responsive â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @media (max-width: 768px) {
   .project-detail-scroll {
     padding: 100px 6vw 60px;
@@ -899,4 +903,732 @@
   .project-gallery {
     grid-template-columns: 1fr;
   }
+}
+
+/* -- Milo Challenge Section (RETO) ------------------ */
+.milo-challenge-section {
+  width: 100%;
+  max-width: 1200px;
+  background: #ffffff;
+  border-radius: 0;
+  position: relative;
+  overflow: hidden;
+  padding: 80px 60px;
+  margin: 0 auto;
+}
+
+.milo-challenge-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 180px;
+  background-color: #28282B;
+  clip-path: polygon(0 0, 100% 0, 70% 100%, 0% 100%);
+  z-index: 10;
+}
+
+.challenge-container {
+  display: flex;
+  justify-content: flex-end;
+  /* Mueve el contenido a la derecha */
+  position: relative;
+  z-index: 5;
+}
+
+.challenge-content {
+  width: 100%;
+  max-width: 700px;
+  /* Limitamos el ancho para que no choque con la forma negra */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  /* Alinea texto y elementos a la derecha */
+}
+
+.challenge-title {
+  font-family: var(--font-brand);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  /* Reducido de 10rem max */
+  font-weight: 800;
+  color: #28282B;
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  text-align: right;
+}
+
+.challenge-divider {
+  width: 90%;
+  /* Reducido para mover mÃ¡s a la derecha */
+  height: 2px;
+  background: #28282B;
+  margin: 15px 0 35px 0;
+  position: relative;
+  align-self: flex-end;
+  /* Asegurar que se alinee a la derecha */
+}
+
+.challenge-divider::before,
+.challenge-divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  background: #28282B;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.challenge-divider::before {
+  left: -3px;
+}
+
+.challenge-divider::after {
+  right: -3px;
+}
+
+.challenge-description {
+  font-family: var(--font-main);
+  font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+  /* Ajustado ligeramente */
+  line-height: 1.5;
+  color: #28282B;
+  margin: 0;
+  font-weight: 400;
+  /* Quitada la negrita (era 600) */
+  max-width: 50ch;
+  text-align: right;
+}
+
+@media (max-width: 900px) {
+  .milo-challenge-section {
+    padding: 100px 30px;
+  }
+
+  .challenge-container {
+    justify-content: flex-start;
+  }
+
+  .challenge-content {
+    align-items: flex-start;
+  }
+
+  .challenge-title,
+  .challenge-description {
+    text-align: left;
+  }
+}
+
+/* ── Milo Concept Section (CONCEPTO) ────────────────── */
+.milo-concept-section {
+  width: 100%;
+  max-width: 1200px;
+  background: #f9fc3d;
+  /* Amarillo especificado por el usuario */
+  border-radius: 0;
+  /* Esquinas rectas sugeridas */
+  padding: 80px 60px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.concept-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  position: relative;
+  z-index: 5;
+}
+
+.concept-title {
+  font-family: var(--font-brand);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  /* Igual que el tÃ­tulo RETO */
+  font-weight: 800;
+  color: #28282B;
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.concept-divider {
+  width: 100%;
+  height: 2px;
+  background: #28282B;
+  margin: 10px 0 20px 0;
+  position: relative;
+}
+
+.concept-divider::before,
+.concept-divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  background: #28282B;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.concept-divider::before {
+  left: -3px;
+}
+
+.concept-divider::after {
+  right: -3px;
+}
+
+.concept-intro-text,
+.concept-outro-text {
+  font-family: var(--font-main);
+  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+  line-height: 1.5;
+  color: #28282B;
+  font-weight: 500;
+  max-width: 800px;
+}
+
+.concept-features-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.feature-black-box {
+  background: #28282B;
+  color: #fff;
+  padding: 30px 40px;
+  font-family: var(--font-main);
+  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+  font-weight: 700;
+  text-align: center;
+  border-radius: 0;
+  /* Esquimas rectas, premium */
+  width: 100%;
+  max-width: 500px;
+  line-height: 1.2;
+}
+
+@media (max-width: 900px) {
+  .milo-concept-section {
+    padding: 60px 25px;
+  }
+}
+
+/* ── Milo User Section (LUISA RAMÍREZ) ────────────────── */
+.milo-user-section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.user-card-black {
+  background: #111;
+  color: #fff;
+  padding: 60px 80px 100px 80px;
+  /* Padding extra abajo para la diagonal */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  clip-path: polygon(0 0, 100% 0, 100% 75%, 60% 100%, 0 100%);
+  z-index: 10;
+}
+
+.user-name {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.user-tagline {
+  font-family: var(--font-main);
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+  font-weight: 300;
+  margin: 0 0 40px 0;
+  text-decoration: underline;
+  opacity: 0.95;
+}
+
+.user-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.user-info-list p {
+  font-family: var(--font-main);
+  font-size: clamp(1.1rem, 1.4vw, 1.4rem);
+  margin: 0;
+  color: #fff;
+}
+
+.user-info-list p strong {
+  font-weight: 800;
+}
+
+.user-card-yellow {
+  background: #f9fc3d;
+  color: #28282B;
+  padding: 80px;
+  margin-top: -60px;
+  /* Para que la diagonal encaje bien */
+  padding-top: 120px;
+  /* Espacio para el contenido bajo el negro */
+  z-index: 5;
+  border-radius: 0;
+}
+
+.needs-title {
+  font-family: var(--font-main);
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 30px;
+}
+
+.needs-list {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.needs-list li {
+  font-family: var(--font-main);
+  font-size: clamp(1.1rem, 1.4vw, 1.35rem);
+  font-weight: 600;
+  line-height: 1.4;
+  list-style: none;
+  position: relative;
+  padding-left: 25px;
+}
+
+.needs-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  font-size: 1.8rem;
+  line-height: 1.1;
+}
+
+@media (max-width: 900px) {
+  .user-card-black {
+    padding: 60px 40px 100px 40px;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 100%);
+  }
+
+  .user-card-yellow {
+    padding: 120px 40px 60px 40px;
+  }
+}
+
+
+/* -- Milo Process Section (PROCESO DE DISE�O) ------------------ */
+.milo-process-section {
+  width: 100%;
+  max-width: 1200px;
+  background: #ffffff;
+  padding: 80px 60px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.process-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  position: relative;
+  z-index: 5;
+}
+
+.process-title {
+  font-family: var(--font-brand);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  color: #28282B;
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.process-divider {
+  width: 100%;
+  height: 2px;
+  background: #28282B;
+  margin: 10px 0 20px 0;
+  position: relative;
+}
+
+.process-divider::before,
+.process-divider::after {
+  content: " \;
+ position: absolute;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  background: #28282B;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.process-divider::before {
+  left: -3px;
+}
+
+.process-divider::after {
+  right: -3px;
+}
+
+.process-plans-wrapper {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+/* -- Milo Components Section (COMPONENTES) ----------- */
+.milo-components-section {
+  width: 100%;
+  max-width: 1200px;
+  background: #ffffff;
+  padding: 100px 60px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.milo-components-section::before {
+  content: " \;
+ position: absolute;
+  top: 40px;
+  right: 40px;
+  width: 100px;
+  height: 100px;
+  background-image: radial-gradient(#ccc 1.5px, transparent 1.5px);
+  background-size: 15px 15px;
+  opacity: 0.5;
+}
+
+.components-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  position: relative;
+  z-index: 5;
+}
+
+.components-title {
+  font-family: var(--font-brand);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  color: #28282B;
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.components-divider {
+  width: 100%;
+  height: 2px;
+  background: #28282B;
+  margin: 10px 0 30px 0;
+  position: relative;
+}
+
+.components-divider::before,
+.components-divider::after {
+  content: \\;
+  position: absolute;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  background: #28282B;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.components-divider::before {
+  left: -3px;
+}
+
+.components-divider::after {
+  right: -3px;
+}
+
+.components-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 20px;
+}
+
+.group-title {
+  font-family: var(--font-main);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #28282B;
+  margin-bottom: 25px;
+}
+
+.components-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.components-list li {
+  font-family: var(--font-main);
+  font-size: clamp(1.1rem, 1.4vw, 1.35rem);
+  line-height: 1.5;
+  color: #333;
+  position: relative;
+  padding-left: 25px;
+}
+
+.components-list li::before {
+  content: \�\; position: absolute;
+  left: 0;
+  font-weight: bold;
+  font-size: 1.8rem;
+  line-height: 1.1;
+}
+
+.components-list li strong {
+  font-weight: 800;
+  color: #28282B;
+}
+
+.components-corner-shape {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  height: 150px;
+  background: #28282B;
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  pointer-events: none;
+}
+
+.milo-title-img {
+  border-radius: 0 !important;
+}
+
+/* ── Milo Flow Section (FLUJO C++) ────────────────── */
+.milo-flow-section {
+  width: 100%;
+  max-width: 1200px;
+  background: #f9fc3d;
+  padding: 100px 60px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.flow-cpp-corner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 80px;
+  background: #28282B;
+  clip-path: polygon(0 0, 100% 0, 80% 100%, 0 100%);
+  display: flex;
+  align-items: center;
+  padding-left: 40px;
+  z-index: 10;
+}
+
+.flow-cpp-corner span {
+  color: #fff;
+  font-family: var(--font-main);
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.flow-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  position: relative;
+  z-index: 5;
+}
+
+.flow-title {
+  font-family: var(--font-brand);
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 800;
+  color: #28282B;
+  margin: 0;
+  line-height: 0;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.flow-divider {
+  width: 100%;
+  height: 2px;
+  background: #28282B;
+  margin: 10px 0 40px 0;
+  position: relative;
+}
+
+.flow-diagram-canvas {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 40px;
+}
+
+.flow-node {
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  min-width: 160px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.node-start {
+  background: #00ff88;
+  color: #28282B;
+  border-radius: 40px;
+}
+
+.node-decision {
+  background: #fff;
+  color: #28282B;
+  border: 2px solid #28282B;
+}
+
+.node-white {
+  background: #fff;
+  color: #28282B;
+}
+
+.node-black {
+  background: #28282B;
+  color: #fff;
+}
+
+.node-green {
+  background: #00ff88;
+  color: #28282B;
+}
+
+.node-white.small {
+  font-size: 0.75rem;
+  padding: 6px 12px;
+  min-width: 130px;
+}
+
+.node-black.small {
+  font-size: 0.75rem;
+  padding: 6px 12px;
+  min-width: 130px;
+}
+
+.flow-line-v {
+  width: 2px;
+  height: 30px;
+  background: #28282B;
+}
+
+.flow-line-v.small {
+  height: 15px;
+}
+
+.flow-split-v2 {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.flow-split-v3 {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 30px;
+  width: 100%;
+}
+
+.flow-path {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  flex: 1;
+}
+
+.flow-sub-path {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ── Milo Custom Credits & Behance ──────────────── */
+.milo-credits .credits-text {
+  color: #28282B !important;
+  font-weight: 700 !important;
+}
+
+.milo-behance-btn {
+  background-color: #28282B !important;
+  color: #f9fc3d !important;
+  border: 1px solid #28282B !important;
+}
+
+.milo-behance-btn:hover {
+  background-color: #f9fc3d !important;
+  color: #28282B !important;
+  border: 4px solid #28282B !important;
+}
+
+/* Estilo espec�fico para el bot�n Behance de Milo */
+.milo-behance-btn {
+  border-radius: 0 !important;
+  background-color: #28282B !important;
+  color: #f9fc3d !important;
+  box-shadow: none !important;
+  border: 1px solid #28282B !important;
+  transition: all 0.3s ease !important;
+}
+
+.milo-behance-btn:hover {
+  background-color: #f9fc3d !important;
+  color: #28282B !important;
+  transform: translateY(-5px) !important;
 }

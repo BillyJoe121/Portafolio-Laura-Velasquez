@@ -1,4 +1,4 @@
-/* ═══════════════════════════════════════════
+﻿/* ═══════════════════════════════════════════
    LAYOUT BASE — Fullpage estático
 ═══════════════════════════════════════════ */
 .app-container {
@@ -15,7 +15,7 @@
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: #000;
+  background: #28282B;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -88,7 +88,7 @@
   position: fixed;
   inset: 0;
   z-index: 10;
-  background: #000;
+  background: #28282B;
   opacity: 0;
   pointer-events: none;
 }
@@ -152,7 +152,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #000;
+  background-color: #28282B;
   overflow: hidden;
   z-index: 0;
 }
@@ -218,5 +218,11 @@
 }
 
 .scroll-down-btn:hover .scroll-arrow {
-  color: #000;
+  color: #28282B;
+}
+
+/* Patrón de puntos para el fondo del Hero */
+.bg-dot-pattern {
+  background-image: radial-gradient(#E0E0E0 1px, transparent 1px);
+  background-size: 20px 20px;
 }

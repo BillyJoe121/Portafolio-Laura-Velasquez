@@ -22,6 +22,8 @@ import { PeairDetail } from './pages/ProjectDetail/PeairDetail';
 
 // Assets
 import whiteVideo from './assets/fondos/fondo-golden-white-slow.mp4';
+import fondoHomeNubes from './assets/fondos/fondo home nubes.jpg';
+import fondoHomeTextura from './assets/fondos/fondo home textura.jpg';
 
 function App() {
   // ── Refs ────────────────────────────────────────────────
@@ -87,7 +89,7 @@ function App() {
       {showHeroBg && (
         <div 
           className="bg-cubes-layer bg-active" 
-          style={{ backgroundColor: '#fff' }}
+          style={{ backgroundColor: '#28282B' }}
         />
       )}
 
@@ -119,9 +121,9 @@ function App() {
           }}
         >
           {isScrolledDown ? (
-             <IconArrowUp size={24} className="scroll-arrow" stroke={4} />
+            <IconArrowUp size={24} className="scroll-arrow" stroke={4} />
           ) : (
-             <IconArrowDown size={24} className="scroll-arrow" stroke={4} />
+            <IconArrowDown size={24} className="scroll-arrow" stroke={4} />
           )}
         </motion.button>
       )}
@@ -173,36 +175,36 @@ function App() {
           <motion.div key={activeProject.id} className="section-full"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: 0.8 }}>
-              {activeProject.id === 'luminy' && (
-                <LuminyDetail
-                  project={activeProject}
-                  onBack={() => navigateTo('proyectos')}
-                />
-              )}
-              {activeProject.id === 'milo' && (
-                <MiloDetail
-                  project={activeProject}
-                  onBack={() => navigateTo('proyectos')}
-                />
-              )}
-              {activeProject.id === 'blulelula' && (
-                <BlulelulaDetail
-                  project={activeProject}
-                  onBack={() => navigateTo('proyectos')}
-                />
-              )}
-              {activeProject.id === 'peair' && (
-                <PeairDetail
-                  project={activeProject}
-                  onBack={() => navigateTo('proyectos')}
-                />
-              )}
-              {activeProject.id !== 'luminy' && activeProject.id !== 'milo' && activeProject.id !== 'blulelula' && activeProject.id !== 'peair' && (
-                <ProjectDetail
-                  project={activeProject}
-                  onBack={() => navigateTo('proyectos')}
-                />
-              )}
+            {activeProject.id === 'luminy' && (
+              <LuminyDetail
+                project={activeProject}
+                onBack={() => navigateTo('proyectos')}
+              />
+            )}
+            {activeProject.id === 'milo' && (
+              <MiloDetail
+                project={activeProject}
+                onBack={() => navigateTo('proyectos')}
+              />
+            )}
+            {activeProject.id === 'blulelula' && (
+              <BlulelulaDetail
+                project={activeProject}
+                onBack={() => navigateTo('proyectos')}
+              />
+            )}
+            {activeProject.id === 'peair' && (
+              <PeairDetail
+                project={activeProject}
+                onBack={() => navigateTo('proyectos')}
+              />
+            )}
+            {activeProject.id !== 'luminy' && activeProject.id !== 'milo' && activeProject.id !== 'blulelula' && activeProject.id !== 'peair' && (
+              <ProjectDetail
+                project={activeProject}
+                onBack={() => navigateTo('proyectos')}
+              />
+            )}
           </motion.div>
         )}
       </AnimatePresence>

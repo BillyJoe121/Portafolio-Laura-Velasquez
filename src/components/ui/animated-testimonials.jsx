@@ -5,7 +5,10 @@ import { useEffect, useState } from "react";
 
 export const AnimatedTestimonials = ({
   testimonials,
-  autoplay = false
+  autoplay = false,
+  arrowColor = '#5c8df6',
+  arrowBorder = 'rgba(92, 141, 246, 0.3)',
+  arrowHoverBg = 'rgba(92, 141, 246, 0.1)'
 }) => {
   const [active, setActive] = useState(0);
 
@@ -86,7 +89,7 @@ export const AnimatedTestimonials = ({
         </AnimatePresence>
       </div>
 
-      {/* Navigation arrows below - Botón transparente con flecha azul */}
+      {/* Navigation arrows below - Customizable colors */}
       <div style={{ display: 'flex', gap: '30px', marginTop: '50px', zIndex: 100, position: 'relative' }}>
         <button
           onClick={(e) => { e.stopPropagation(); handlePrev(); }}
@@ -95,8 +98,8 @@ export const AnimatedTestimonials = ({
             width: '56px',
             borderRadius: '50%',
             backgroundColor: 'transparent', 
-            border: '2px solid rgba(92, 141, 246, 0.3)', /* Borde azul sutil */
-            color: '#5c8df6', /* Flecha Azul Luminy */
+            border: `2px solid ${arrowBorder}`,
+            color: arrowColor,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -106,7 +109,7 @@ export const AnimatedTestimonials = ({
             pointerEvents: 'auto'
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = 'rgba(92, 141, 246, 0.1)';
+            e.currentTarget.style.backgroundColor = arrowHoverBg;
             e.currentTarget.style.transform = 'scale(1.1)';
           }}
           onMouseLeave={(e) => {
@@ -123,8 +126,8 @@ export const AnimatedTestimonials = ({
             width: '56px',
             borderRadius: '50%',
             backgroundColor: 'transparent',
-            border: '2px solid rgba(92, 141, 246, 0.3)', /* Borde azul sutil */
-            color: '#5c8df6', /* Flecha Azul Luminy */
+            border: `2px solid ${arrowBorder}`,
+            color: arrowColor,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -134,7 +137,7 @@ export const AnimatedTestimonials = ({
             pointerEvents: 'auto'
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = 'rgba(92, 141, 246, 0.1)';
+            e.currentTarget.style.backgroundColor = arrowHoverBg;
             e.currentTarget.style.transform = 'scale(1.1)';
           }}
           onMouseLeave={(e) => {

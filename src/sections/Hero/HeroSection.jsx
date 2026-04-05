@@ -76,7 +76,7 @@ export function HeroSection({ currentSection, heroTextOpacity }) {
       // 1. Draw "Laura Vela" and "quez" with White Video
       ctx.textBaseline = 'middle';
       ctx.textAlign = 'left';
-      ctx.fillStyle = '#000';
+      ctx.fillStyle = '#28282B';
       ctx.fillText(textLeft, startX, startY);
       ctx.fillText(textRight, startX + mLeft + mMid, startY);
 
@@ -102,7 +102,7 @@ export function HeroSection({ currentSection, heroTextOpacity }) {
       offCtx.font = fontStr;
       offCtx.textBaseline = 'middle';
       offCtx.textAlign = 'left';
-      offCtx.fillStyle = '#000';
+      offCtx.fillStyle = '#28282B';
       offCtx.fillText(textMid, startX + mLeft, startY);
 
       offCtx.globalCompositeOperation = 'source-in';
@@ -121,6 +121,15 @@ export function HeroSection({ currentSection, heroTextOpacity }) {
 
       // Draw offCanvas onto main
       ctx.drawImage(offCanvas, 0, 0, offCanvas.width, offCanvas.height, 0, 0, cw, ch);
+
+      // 3. Draw Outline sutil solicitado
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.shadowBlur = 0; // Desactivar sombra para el delineado nítido
+      ctx.strokeStyle = '#28282B';
+      ctx.lineWidth = 0.5 * dpr;
+      ctx.strokeText(textLeft, startX, startY);
+      ctx.strokeText(textMid, startX + mLeft, startY);
+      ctx.strokeText(textRight, startX + mLeft + mMid, startY);
 
       ctx.restore();
       rafRef.current = requestAnimationFrame(draw);
@@ -173,6 +182,8 @@ export function HeroSection({ currentSection, heroTextOpacity }) {
           width: '100%',
           height: '100%',
           opacity: heroTextOpacity,
+          // Filtro oscuro localizado detrás de las letras ("los círculos")
+          background: 'radial-gradient(circle at center, rgba(0, 0, 0, 0.25) 0%, transparent 70%)',
         }}
       >
         <motion.div
@@ -180,11 +191,20 @@ export function HeroSection({ currentSection, heroTextOpacity }) {
           initial={{ x: '-100%', opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-          style={{ width: '100%', height: '100%' }}
+          style={{ 
+            width: '100%', 
+            height: '100%',
+            filter: 'drop-shadow(0px 15px 40px rgba(0, 0, 0, 0.18))' 
+          }}
         >
           <canvas 
             ref={canvasRef} 
-            style={{ width: '100%', height: '100%', display: 'block' }} 
+            style={{ 
+              width: '100%', 
+              height: '100%', 
+              display: 'block',
+              willChange: 'filter'
+            }} 
           />
         </motion.div>
       </motion.div>

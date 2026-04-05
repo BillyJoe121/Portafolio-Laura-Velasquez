@@ -19,7 +19,7 @@ export function HomeSection({ onNavigate }) {
         position: 'relative',
         width: '100%',
         minHeight: '130vh',
-        backgroundColor: '#fff',
+        backgroundColor: 'transparent',
         overflow: 'hidden',
         WebkitMaskImage:
           'linear-gradient(to bottom, transparent 0%, black 150px)',
@@ -43,7 +43,7 @@ export function HomeSection({ onNavigate }) {
           textAlign: 'left',
           width: '45vw',
           maxWidth: '650px',
-          color: '#000',
+          color: '#28282B',
           zIndex: 10,
           pointerEvents: shouldAnimate ? 'auto' : 'none',
         }}
@@ -78,7 +78,7 @@ export function HomeSection({ onNavigate }) {
               fontWeight: 500,
               lineHeight: 1.1,
               marginBottom: '24px',
-              color: '#000',
+              color: '#28282B',
             }}
           >
             Donde la <span style={{ color: '#9013fe' }}>estética</span> impulsa
@@ -183,10 +183,10 @@ export function HomeSection({ onNavigate }) {
               onClick={() => onNavigate('sobre-mi')}
               style={{
                 backgroundColor: 'transparent',
-                color: '#000',
+                color: '#28282B',
                 padding: '12px 30px',
                 borderRadius: '30px',
-                border: '2px solid #000',
+                border: '2px solid #28282B',
                 fontFamily: 'var(--font-main)',
                 fontWeight: 600,
                 fontSize: '1rem',
@@ -199,8 +199,8 @@ export function HomeSection({ onNavigate }) {
                 e.currentTarget.style.color = '#9013fe';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = '#000';
-                e.currentTarget.style.color = '#000';
+                e.currentTarget.style.borderColor = '#28282B';
+                e.currentTarget.style.color = '#28282B';
               }}
             >
               Conoce mi proceso

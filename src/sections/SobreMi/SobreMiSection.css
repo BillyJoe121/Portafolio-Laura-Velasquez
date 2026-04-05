@@ -1,9 +1,9 @@
-/* ═══════════════════════════════════════════
+﻿/* ═══════════════════════════════════════════
    SOBRE MÍ SECTION
 ═══════════════════════════════════════════ */
 .section-sobremi {
   /* Mantiene fixed de App.css para ser pantalla completa */
-  background-color: #000;
+  background-color: #28282B;
   width: 100vw;
   height: 100vh;
 }

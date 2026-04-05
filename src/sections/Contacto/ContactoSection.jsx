@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import {
   IconBrandBehance,
   IconBrandInstagram,
@@ -16,6 +16,8 @@ import './ContactoSection.css';
  * ContactoSection — Contact section with robot arm Spline and CTA + Social links.
  */
 export function ContactoSection() {
+  const [showToast, setShowToast] = useState(false);
+
   const socialLinks = [
     {
       name: 'Behance',
@@ -35,9 +37,20 @@ export function ContactoSection() {
     {
       name: 'Email',
       icon: <IconMail size={20} stroke={1.5} />,
-      url: 'mailto:laurasvelasquez27@gmail.com',
+      url: 'mailto:lauravelasquez27@gmail.com',
+      copy: 'lauravelasquez27@gmail.com'
     },
   ];
+
+  const handleLinkClick = (e, link) => {
+    if (link.copy) {
+      e.preventDefault();
+      navigator.clipboard.writeText(link.copy).then(() => {
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 2000);
+      });
+    }
+  };
 
   return (
     <div className="contact-section-inner">
@@ -87,25 +100,55 @@ export function ContactoSection() {
           {/* Social Links Row — "Radar Style" icons */}
           <div className="contact-social-row" style={{ pointerEvents: 'auto' }}>
             {socialLinks.map((link, idx) => (
-              <motion.a
-                key={link.name}
-                href={link.url}
-                target={link.url.startsWith('mailto:') ? '_self' : '_blank'}
-                rel="noreferrer"
-                className="social-icon-link"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{
-                  duration: 0.4,
-                  delay: 0.5 + idx * 0.08,
-                  ease: 'backOut',
-                }}
-                whileHover={{ scale: 1.15, y: -4 }}
-                whileTap={{ scale: 0.95 }}
-                title={link.name}
-              >
-                <div className="social-icon-container">{link.icon}</div>
-              </motion.a>
+              <div key={link.name} style={{ position: 'relative' }}>
+                <AnimatePresence>
+                  {link.copy && showToast && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 10, x: '-50%' }}
+                      animate={{ opacity: 1, y: -45, x: '-50%' }}
+                      exit={{ opacity: 0, y: 10, x: '-50%' }}
+                      className="contact-toast"
+                      style={{
+                        position: 'absolute',
+                        left: '50%',
+                        zIndex: 100,
+                        backgroundColor: '#28282B',
+                        color: '#fff',
+                        padding: '6px 14px',
+                        borderRadius: '20px',
+                        fontFamily: 'var(--font-main)',
+                        fontSize: '12px',
+                        fontWeight: 600,
+                        boxShadow: '0 5px 15px rgba(0,0,0,0.2)',
+                        whiteSpace: 'nowrap',
+                        pointerEvents: 'none'
+                      }}
+                    >
+                      Correo copiado
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                <motion.a
+                  href={link.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="social-icon-link"
+                  onClick={(e) => handleLinkClick(e, link)}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{
+                    duration: 0.4,
+                    delay: 0.5 + idx * 0.08,
+                    ease: 'backOut',
+                  }}
+                  whileHover={{ scale: 1.15, y: -4 }}
+                  whileTap={{ scale: 0.95 }}
+                  title={link.name}
+                >
+                  <div className="social-icon-container">{link.icon}</div>
+                </motion.a>
+              </div>
             ))}
           </div>
         </div>
