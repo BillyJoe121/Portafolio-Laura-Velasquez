@@ -1,4 +1,4 @@
-﻿/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    PROJECT DETAIL PAGE
 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .project-detail {
@@ -1279,8 +1279,8 @@
 
 .process-divider::before,
 .process-divider::after {
-  content: " \;
- position: absolute;
+  content: "";
+  position: absolute;
   top: 50%;
   width: 6px;
   height: 6px;
@@ -1316,8 +1316,8 @@
 }
 
 .milo-components-section::before {
-  content: " \;
- position: absolute;
+  content: "";
+  position: absolute;
   top: 40px;
   right: 40px;
   width: 100px;
@@ -1357,7 +1357,7 @@
 
 .components-divider::before,
 .components-divider::after {
-  content: \\;
+  content: "";
   position: absolute;
   top: 50%;
   width: 6px;
@@ -1409,7 +1409,8 @@
 }
 
 .components-list li::before {
-  content: \�\; position: absolute;
+  content: "•";
+  position: absolute;
   left: 0;
   font-weight: bold;
   font-size: 1.8rem;
