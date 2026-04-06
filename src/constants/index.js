@@ -56,7 +56,7 @@ export const PROJECTS = [
       'Esto genera una desconexión que afecta tanto el bienestar del usuario como el de la planta. Se necesita un sistema que facilite la comunicación emocional y haga el cuidado más intuitivo, accesible y significativo.'
     ],
     teamMember: "Carolina Mendoza",
-    conceptImage: getCldImageUrl('assets/proyectos/Luminy/fondo letras'),
+    conceptImage: getCldImageUrl('assets/proyectos/Luminy/fondo%20letras'),
     userImage: getCldImageUrl('assets/proyectos/Luminy/luminy-usuaria'),
     splineUrl: 'https://prod.spline.design/wdxBjBSaDRG5wWLo/scene.splinecode',
     thumbnail: getCldThumbnailUrl('assets/proyectos/Luminy/luminy'),

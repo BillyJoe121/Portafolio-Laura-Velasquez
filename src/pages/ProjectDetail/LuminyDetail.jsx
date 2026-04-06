@@ -4,59 +4,37 @@ import Spline from '@splinetool/react-spline';
 import { AnimatedTestimonials } from "../../components/ui/animated-testimonials";
 import { IconBrandBehance } from '@tabler/icons-react';
 import { CldImage } from '../../components/CldImage';
+import { getCldImageUrl } from '../../lib/cloudinary';
 import './ProjectDetail.css';
-
-// ── Importaciones de imágenes (necesario para que Vite las procese en producción) ──
-import imgColores from '../../assets/proyectos/Luminy/colores.jpeg';
-import imgPc from '../../assets/proyectos/Luminy/pc.jpeg';
-import imgPartes from '../../assets/proyectos/Luminy/partes.jpeg';
-import imgMascota from '../../assets/proyectos/Luminy/mascota luminy.jpeg';
-import imgPlano1 from '../../assets/proyectos/Luminy/plano1.jpeg';
-import imgPlano2 from '../../assets/proyectos/Luminy/plano2.jpeg';
-import imgPlano3 from '../../assets/proyectos/Luminy/plano3.jpeg';
-import imgPlano4 from '../../assets/proyectos/Luminy/plano4.jpeg';
-import imgPlano5 from '../../assets/proyectos/Luminy/plano5.jpeg';
-import imgCierre from '../../assets/proyectos/Luminy/cierre.jpeg';
 
 /**
  * ProjectDetail — Template de página individual de proyecto.
- * - Botón volver: símbolo "‹" ovalado pequeño, negro → blanco al hover
- * - Título: imagen titulo.png del proyecto (en vez de texto)
- * - Sin subtítulo de diseño
  */
 export function LuminyDetail({ project, onBack }) {
   if (!project) return null;
 
   return (
     <div className={`project-detail ${project.splineUrl ? 'has-spline' : ''}`}>
-
-      {/* 
-        Cortina de difuminado (fade) superior. 
-        Simula que el texto pierde opacidad bajo el docker.
-        Si hay un Spline, el CSS limitará su ancho para no taparlo.
-      */}
       <div className="project-top-fade" />
 
-      {/* Botón volver — ovalado pequeño con flecha */}
+      {/* Botón volver */}
       <motion.button
         className="project-back-btn"
         onClick={onBack}
         initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         aria-label="Volver a proyectos"
       >
         ‹
       </motion.button>
 
-      {/* Contenido scrollable (mitad izquierda si hay spline, o completo) */}
       <div className="project-detail-scroll">
-
-        {/* Imagen de título del proyecto */}
+        {/* Imagen de título */}
         <motion.div
           className="project-title-img-wrapper"
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           <CldImage
@@ -66,7 +44,7 @@ export function LuminyDetail({ project, onBack }) {
           />
         </motion.div>
 
-        {/* Concepto Section — Se muestra si existe en el objeto project */}
+        {/* Concepto Section */}
         {project.concept && (
           <motion.div
             className="project-concept-section"
@@ -97,7 +75,7 @@ export function LuminyDetail({ project, onBack }) {
           </motion.div>
         )}
 
-        {/* Team Section — Se muestra si existe en el objeto project */}
+        {/* Team Section */}
         {project.teamMember && (
           <motion.div
             className="project-team-section"
@@ -121,7 +99,7 @@ export function LuminyDetail({ project, onBack }) {
           </motion.div>
         )}
 
-        {/* User Image Section — Se muestra si existe en el objeto project */}
+        {/* User Image Section */}
         {project.userImage && (
           <motion.div
             className="project-user-img-wrapper"
@@ -135,7 +113,6 @@ export function LuminyDetail({ project, onBack }) {
             className="project-user-img"
           />
 
-            {/* Overlay texts on top of user image */}
             <div className="project-user-overlays">
               <div className="project-user-overlay-item age-text">
                 <span className="age-number">32</span>
@@ -159,9 +136,7 @@ export function LuminyDetail({ project, onBack }) {
           </motion.div>
         )}
 
-
-
-        {/* Blue System Banner — Nuevo componente visual */}
+        {/* Blue System Banner */}
         <motion.div
           className="project-blue-banner"
           initial={{ opacity: 0, scale: 0.95 }}
@@ -196,13 +171,10 @@ export function LuminyDetail({ project, onBack }) {
           transition={{ duration: 0.8 }}
         >
           <div className="style-guide-rows">
-            {/* Row 1: Título + Fuente principal */}
             <div className="style-row-item">
               <span className="style-label">Tipografía</span>
               <h3 className="style-main-font">SF Pro</h3>
             </div>
-
-            {/* Row 2: Variantes + Pills */}
             <div className="style-row-item">
               <span className="style-label">Variantes</span>
               <div className="style-pills-row">
@@ -214,7 +186,7 @@ export function LuminyDetail({ project, onBack }) {
           </div>
         </motion.div>
 
-        {/* New Colors Image Section */}
+        {/* Colors Image Section */}
         <motion.div
           className="project-colors-independent"
           initial={{ opacity: 0, y: 30 }}
@@ -223,13 +195,13 @@ export function LuminyDetail({ project, onBack }) {
           transition={{ duration: 0.8 }}
         >
           <CldImage
-            publicId={imgColores}
+            publicId="assets/proyectos/Luminy/colores"
             alt="Colores"
             className="project-standalone-colors-img"
           />
         </motion.div>
 
-        {/* New PC Image Section — Independiente */}
+        {/* PC Image Section */}
         <motion.div
           className="project-pc-independent"
           initial={{ opacity: 0, scale: 0.98 }}
@@ -238,13 +210,13 @@ export function LuminyDetail({ project, onBack }) {
           transition={{ duration: 0.8 }}
         >
           <CldImage
-            publicId={imgPc}
+            publicId="assets/proyectos/Luminy/pc"
             alt="PC View"
             className="project-standalone-pc-img"
           />
         </motion.div>
 
-        {/* Manual de Uso Title — Reemplaza imagen con título estilo Concepto */}
+        {/* Manual de Uso Title */}
         <motion.div
           className="project-concept-section"
           initial={{ opacity: 0, scale: 0.95 }}
@@ -268,7 +240,7 @@ export function LuminyDetail({ project, onBack }) {
           </h3>
         </motion.div>
 
-        {/* Partes Section — Independiente */}
+        {/* Partes Section */}
         <motion.div
           className="project-partes-independent"
           initial={{ opacity: 0, scale: 0.98 }}
@@ -277,13 +249,13 @@ export function LuminyDetail({ project, onBack }) {
           transition={{ duration: 0.8 }}
         >
           <CldImage
-            publicId={imgPartes}
+            publicId="assets/proyectos/Luminy/partes"
             alt="Componentes del Sistema"
             className="project-standalone-partes-img"
           />
         </motion.div>
 
-        {/* Features Summary Section — Recuadro azul claro con mascota */}
+        {/* Features Summary Section */}
         <motion.div
           className="project-features-summary"
           initial={{ opacity: 0, scale: 0.98 }}
@@ -304,7 +276,7 @@ export function LuminyDetail({ project, onBack }) {
             </ul>
 
             <CldImage
-              publicId={imgMascota}
+              publicId="isnknu4td70dasufqjzt"
               alt="Mascota Luminy"
               className="features-mascot-img"
             />
@@ -321,7 +293,6 @@ export function LuminyDetail({ project, onBack }) {
         >
           <div className="usage-sequence-container">
             <h2 className="usage-title">Secuencia de uso</h2>
-
             <div className="usage-steps-grid">
               {[
                 { n: 1, t: "Abre el contenedor de agua (Contenedor 1)", d: "Retira la tapa inferior para tener acceso al depósito." },
@@ -335,9 +306,7 @@ export function LuminyDetail({ project, onBack }) {
               ].map((step, idx) => (
                 <div key={idx} className="usage-step-item">
                   <div className="step-number-outer">
-                    <div className="step-number-inner">
-                      <span>{step.n}</span>
-                    </div>
+                    <div className="step-number-inner"><span>{step.n}</span></div>
                   </div>
                   <div className="step-instruction-card">
                     <p className="step-title">{step.t}</p>
@@ -349,7 +318,7 @@ export function LuminyDetail({ project, onBack }) {
           </div>
         </motion.div>
 
-        {/* Proceso de Diseño Title — Estilo Concepto */}
+        {/* Proceso de Diseño Title */}
         <motion.div
           className="project-concept-section"
           initial={{ opacity: 0, scale: 0.95 }}
@@ -373,7 +342,7 @@ export function LuminyDetail({ project, onBack }) {
           </h3>
         </motion.div>
 
-        {/* Animated Stack Section (Aceternity) */}
+        {/* Animated Stack Section */}
         <motion.div
           className="project-animated-stack"
           initial={{ opacity: 0, scale: 0.98 }}
@@ -383,11 +352,11 @@ export function LuminyDetail({ project, onBack }) {
         >
           <AnimatedTestimonials
             testimonials={[
-              { src: imgPlano1 },
-              { src: imgPlano2 },
-              { src: imgPlano3 },
-              { src: imgPlano4 },
-              { src: imgPlano5 },
+              { src: getCldImageUrl('assets/proyectos/Luminy/plano1') },
+              { src: getCldImageUrl('assets/proyectos/Luminy/plano2') },
+              { src: getCldImageUrl('assets/proyectos/Luminy/plano3') },
+              { src: getCldImageUrl('assets/proyectos/Luminy/plano4') },
+              { src: getCldImageUrl('assets/proyectos/Luminy/plano5') },
             ]}
             autoplay={true}
           />
@@ -403,7 +372,7 @@ export function LuminyDetail({ project, onBack }) {
         >
           <div className="closure-circle-frame">
             <CldImage
-              publicId={imgCierre}
+              publicId="assets/proyectos/Luminy/cierre"
               alt="Cierre del proyecto"
               className="closure-img"
             />
@@ -444,7 +413,6 @@ export function LuminyDetail({ project, onBack }) {
         </motion.div>
       </div>
 
-      {/* 3D Spline fijo a la mitad derecha de la pantalla */}
       {project.splineUrl && (
         <div className="project-detail-spline">
           <Suspense fallback={null}>
