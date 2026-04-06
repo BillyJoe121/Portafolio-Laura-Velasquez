@@ -21,9 +21,6 @@ export const SECTION_COLORS = {
  * URLs de escenas de Spline.
  */
 export const SPLINE_SCENES = {
-  heroLogo: 'https://prod.spline.design/bbbTUxdDN-46-Ct3/scene.splinecode',
-  heroBg: 'https://prod.spline.design/YsBvMrNPZnzDi2P9/scene.splinecode',
-  homeBg: 'https://prod.spline.design/thZdNUA04nli-RPE/scene.splinecode',
   robotArm: 'https://prod.spline.design/BublVOjV4om14zBK/scene.splinecode',
   aboutMeBg: 'https://prod.spline.design/W4P2DSx4K6JfrAK6/scene.splinecode',
 };

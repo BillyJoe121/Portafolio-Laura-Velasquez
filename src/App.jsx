@@ -86,8 +86,8 @@ function App() {
       {/* Capa 0: fondo de base del hero (blanco sólido) */}
       {showHeroBg && (
         <div 
-          className="bg-cubes-layer bg-active" 
-          style={{ backgroundColor: '#28282B' }}
+          className="bg-base-layer" 
+          style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: '#28282B', zIndex: -1 }}
         />
       )}
 
