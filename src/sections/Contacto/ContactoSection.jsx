@@ -6,8 +6,7 @@ import {
   IconBrandWhatsapp,
   IconMail,
 } from '@tabler/icons-react';
-import whiteVideo from '../../assets/fondos/fondo-golden-white-slow.mp4';
-import purpleVideo from '../../assets/fondos/liquid-gold-purple-slow.mp4';
+import { getCldVideoUrl } from '../../lib/cloudinary';
 import { VideoText } from '../../components/VideoText';
 import { RadarContact } from '../../components/RadarContact';
 import './ContactoSection.css';
@@ -53,21 +52,8 @@ export function ContactoSection() {
   };
 
   return (
-    <div className="contact-section-inner">
-      {/* Video Background — liquid gold white */}
-      <div className="contacto-bg-container" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
-        <video 
-          src={whiteVideo} 
-          autoPlay 
-          loop 
-          muted 
-          playsInline 
-          className="contacto-bg-video"
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-        />
-      </div>
-
-      {/* Robot Arm Spline (sobre el video de fondo) */}
+    <div className="contact-section-inner" style={{ backgroundColor: '#ffffff' }}>
+      {/* Robot Arm Spline (interactivo sobre fondo blanco) */}
       <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1, pointerEvents: 'auto' }}>
         <RadarContact visible={true} />
       </div>
@@ -81,7 +67,7 @@ export function ContactoSection() {
         style={{ pointerEvents: 'none' }}
       >
         <VideoText
-          videoSrc={purpleVideo}
+          videoSrc={getCldVideoUrl('assets/fondos/liquid-gold-purple-slow')}
           text="Hablemos"
           fontFamily="Surgena, sans-serif"
           fontSize="clamp(3rem, 7vw, 6rem)"
@@ -97,7 +83,6 @@ export function ContactoSection() {
         </p>
 
         <div className="contact-actions">
-          {/* Social Links Row — "Radar Style" icons */}
           <div className="contact-social-row" style={{ pointerEvents: 'auto' }}>
             {socialLinks.map((link, idx) => (
               <div key={link.name} style={{ position: 'relative' }}>

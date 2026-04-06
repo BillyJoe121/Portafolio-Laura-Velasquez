@@ -1,4 +1,4 @@
-﻿/* ═══════════════════════════════════════════
+/* ═══════════════════════════════════════════
    HERO PARALLAX — Aceternity-style scroll grid
    Light theme (white background)
 ═══════════════════════════════════════════ */
@@ -62,6 +62,21 @@
 }
 
 /* ── Individual product card ── */
+.hp-product-card {
+  height: 20rem;
+  width: 25rem;
+  position: relative;
+  flex-shrink: 0;
+  border-radius: 1rem;
+  overflow: hidden;
+  background-color: transparent;
+  /* Aceleración por hardware para eliminar lag en scroll 3D */
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
 .hp-card {
   position: relative;
   flex-shrink: 0;
