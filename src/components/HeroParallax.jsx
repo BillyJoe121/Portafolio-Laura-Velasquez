@@ -147,6 +147,7 @@ function ProductCard({ product, translate, onSelect }) {
           height="600"
           className="hp-card-img"
           alt={product.title}
+          loading="lazy"
         />
       </a>
       <div className="hp-card-overlay" />

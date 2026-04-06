@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import Spline from '@splinetool/react-spline';
 import { AnimatedTestimonials } from "../../components/ui/animated-testimonials";
 import { IconBrandBehance } from '@tabler/icons-react';
+import { CldImage } from '../../components/CldImage';
 import './ProjectDetail.css';
 
 // ── Importaciones de imágenes (necesario para que Vite las procese en producción) ──
@@ -58,8 +59,8 @@ export function LuminyDetail({ project, onBack }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          <img
-            src={project.titleImage}
+          <CldImage
+            publicId={project.titleImage}
             alt={project.title}
             className="project-title-img"
           />
@@ -128,11 +129,11 @@ export function LuminyDetail({ project, onBack }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
-            <img
-              src={project.userImage}
-              alt="Luminy usuaria"
-              className="project-user-img"
-            />
+          <CldImage
+            publicId={project.userImage}
+            alt="Luminy usuaria"
+            className="project-user-img"
+          />
 
             {/* Overlay texts on top of user image */}
             <div className="project-user-overlays">
@@ -221,8 +222,8 @@ export function LuminyDetail({ project, onBack }) {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <img
-            src={imgColores}
+          <CldImage
+            publicId={imgColores}
             alt="Colores"
             className="project-standalone-colors-img"
           />
@@ -236,8 +237,8 @@ export function LuminyDetail({ project, onBack }) {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <img
-            src={imgPc}
+          <CldImage
+            publicId={imgPc}
             alt="PC View"
             className="project-standalone-pc-img"
           />
@@ -275,8 +276,8 @@ export function LuminyDetail({ project, onBack }) {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <img
-            src={imgPartes}
+          <CldImage
+            publicId={imgPartes}
             alt="Componentes del Sistema"
             className="project-standalone-partes-img"
           />
@@ -302,8 +303,8 @@ export function LuminyDetail({ project, onBack }) {
               <li>Ver el estado emocional de tu planta a través de los códigos de color</li>
             </ul>
 
-            <img
-              src={imgMascota}
+            <CldImage
+              publicId={imgMascota}
               alt="Mascota Luminy"
               className="features-mascot-img"
             />
@@ -401,8 +402,8 @@ export function LuminyDetail({ project, onBack }) {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="closure-circle-frame">
-            <img
-              src={imgCierre}
+            <CldImage
+              publicId={imgCierre}
               alt="Cierre del proyecto"
               className="closure-img"
             />

@@ -1,19 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import { FlipWords } from '../../components/FlipWords';
-import fondoHeroFinal from '../../assets/fondos/fondo-hero-hq.mp4';
+import { CldVideo } from '../../components/CldVideo';
 import './HomeSection.css';
 
 /**
- * HomeSection — Landing section with Spline background, presentation text, and CTAs.
- *
- * @param {{ onNavigate: (target: string) => void }} props
+ * HomeSection — Landing section with background video, presentation text, and CTAs.
  */
 export function HomeSection({ onNavigate }) {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
+
+  // Lazy loading logic: only load video when section is near viewport
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1, rootMargin: '300px' } // Start loading 300px before it enters
+    );
+
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   const shouldAnimate = true;
 
   return (
     <div
+      ref={sectionRef}
       className="section-home"
       style={{
         position: 'relative',
@@ -28,10 +46,6 @@ export function HomeSection({ onNavigate }) {
         paddingTop: '30vh',
       }}
     >
-      {/* Area del antiguo Spline eliminado */}
-
-      {/* Mini Video Esquinero eliminado por refactoring */}
-
       {/* Texto de Presentación */}
       <div
         className="home-presentation-text"
@@ -209,25 +223,27 @@ export function HomeSection({ onNavigate }) {
         </motion.div>
       </div>
 
-      {/* Video Background Bottom Right */}
-      <video
-        src={fondoHeroFinal}
-        autoPlay
-        loop
-        muted
-        playsInline
-        style={{
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          width: '100%',
-          height: '130vh',
-          zIndex: 0,
-          pointerEvents: 'none',
-          objectFit: 'contain',
-          objectPosition: 'bottom right',
-        }}
-      />
+      {/* Video Background Bottom Right - Optimized via Cloudinary with Lazy Load */}
+      {isVisible && (
+        <CldVideo
+          publicId="fondo_hero_final_optimized_jndhj5"
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            width: '100%',
+            height: '130vh',
+            zIndex: 0,
+            pointerEvents: 'none',
+            objectFit: 'contain',
+            objectPosition: 'bottom right',
+          }}
+        />
+      )}
     </div>
   );
 }

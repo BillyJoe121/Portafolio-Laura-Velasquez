@@ -21,9 +21,7 @@ import { BlulelulaDetail } from './pages/ProjectDetail/BlulelulaDetail';
 import { PeairDetail } from './pages/ProjectDetail/PeairDetail';
 
 // Assets
-import whiteVideo from './assets/fondos/fondo-golden-white-slow.mp4';
-import fondoHomeNubes from './assets/fondos/fondo home nubes.jpg';
-import fondoHomeTextura from './assets/fondos/fondo home textura.jpg';
+
 
 function App() {
   // ── Refs ────────────────────────────────────────────────

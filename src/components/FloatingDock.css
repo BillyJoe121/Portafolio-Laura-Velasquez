@@ -1,4 +1,4 @@
-﻿.floating-dock-mobile {
+.floating-dock-mobile {
   position: relative;
   display: block;
 }
@@ -45,8 +45,8 @@
 
 .floating-dock-desktop {
   display: none;
-  height: 4rem;
-  align-items: flex-end;
+  height: 3rem;
+  align-items: center;
   justify-content: center;
   gap: 0.8rem;
   padding-bottom: 0px;
@@ -76,7 +76,7 @@
   background-color: #28282B;
   color: white;
   font-weight: 300;
-  transform-origin: bottom center;
+  transform-origin: center center;
   will-change: width, height;
   pointer-events: auto;
   cursor: pointer;

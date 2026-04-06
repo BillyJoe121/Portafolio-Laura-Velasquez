@@ -2,6 +2,7 @@
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
+import { CldImage } from "../CldImage";
 
 export const AnimatedTestimonials = ({
   testimonials,
@@ -72,8 +73,8 @@ export const AnimatedTestimonials = ({
                 originBottom: 'bottom'
               }}
             >
-              <img
-                src={testimonial.src}
+              <CldImage
+                publicId={testimonial.src}
                 alt="Planos Stack"
                 style={{
                   height: '100%',

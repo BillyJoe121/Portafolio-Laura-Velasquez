@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { motion } from 'motion/react';
-import purpleVideo from '../../assets/fondos/liquid-gold-purple-slow.mp4';
-import whiteVideo from '../../assets/fondos/fondo-golden-white-slow.mp4';
+import { getCldVideoUrl } from '../../lib/cloudinary';
 import './HeroSection.css';
 
 /**
@@ -159,20 +158,22 @@ export function HeroSection({ currentSection, heroTextOpacity }) {
     >
       <video
         ref={videoPurpleRef}
-        src={purpleVideo}
+        src={getCldVideoUrl('assets/fondos/liquid-gold-purple-slow')}
         autoPlay
         loop
         muted
         playsInline
+        preload="auto"
         style={{ position: 'absolute', width: 0, height: 0, opacity: 0, pointerEvents: 'none' }}
       />
       <video
         ref={videoWhiteRef}
-        src={whiteVideo}
+        src={getCldVideoUrl('assets/fondos/fondo-golden-white-slow')}
         autoPlay
         loop
         muted
         playsInline
+        preload="auto"
         style={{ position: 'absolute', width: 0, height: 0, opacity: 0, pointerEvents: 'none' }}
       />
 

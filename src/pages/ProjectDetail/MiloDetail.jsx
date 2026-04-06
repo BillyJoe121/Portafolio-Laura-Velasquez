@@ -7,6 +7,7 @@ import imgPlano2 from '../../assets/proyectos/Milo/plano2.jpeg';
 import imgPlano3 from '../../assets/proyectos/Milo/plano3.jpeg';
 import { AnimatedTestimonials } from "../../components/ui/animated-testimonials";
 import { IconBrandBehance } from '@tabler/icons-react';
+import { CldImage } from '../../components/CldImage';
 import './ProjectDetail.css';
 
 /**
@@ -47,8 +48,8 @@ export function MiloDetail({ project, onBack }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          <img
-            src={project.titleImage}
+          <CldImage
+            publicId={project.titleImage}
             alt={project.title}
             className="project-title-img milo-title-img"
           />

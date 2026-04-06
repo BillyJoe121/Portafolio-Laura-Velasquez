@@ -1,3 +1,5 @@
+import { getCldImageUrl, getCldThumbnailUrl } from '../lib/cloudinary';
+
 // ═══════════════════════════════════════════
 // CONSTANTES CENTRALIZADAS
 // ═══════════════════════════════════════════
@@ -38,8 +40,8 @@ export const PROJECTS = [
     subtitle: 'Diseño Industrial',
     description:
       'Descripción del proyecto. Reemplazar con datos reales cuando estén disponibles.',
-    thumbnail: new URL('../assets/proyectos/Blulelula/blulelula.png', import.meta.url).href,
-    titleImage: new URL('../assets/proyectos/Blulelula/titulo.png', import.meta.url).href,
+    thumbnail: getCldThumbnailUrl('assets/proyectos/Blulelula/blulelula'),
+    titleImage: getCldImageUrl('assets/proyectos/Blulelula/titulo'),
     splineUrl: 'https://prod.spline.design/6sqf1Ff1MJ0Y8QfK/scene.splinecode',
     images: [],
     tags: ['Diseño', 'Prototipado'],
@@ -57,11 +59,11 @@ export const PROJECTS = [
       'Esto genera una desconexión que afecta tanto el bienestar del usuario como el de la planta. Se necesita un sistema que facilite la comunicación emocional y haga el cuidado más intuitivo, accesible y significativo.'
     ],
     teamMember: "Carolina Mendoza",
-    conceptImage: new URL('../assets/proyectos/Luminy/fondo letras.png', import.meta.url).href,
-    userImage: new URL('../assets/proyectos/Luminy/luminy-usuaria.webp', import.meta.url).href,
+    conceptImage: getCldImageUrl('assets/proyectos/Luminy/fondo letras'),
+    userImage: getCldImageUrl('assets/proyectos/Luminy/luminy-usuaria'),
     splineUrl: 'https://prod.spline.design/wdxBjBSaDRG5wWLo/scene.splinecode',
-    thumbnail: new URL('../assets/proyectos/Luminy/luminy.png', import.meta.url).href,
-    titleImage: new URL('../assets/proyectos/Luminy/titulo.png', import.meta.url).href,
+    thumbnail: getCldThumbnailUrl('assets/proyectos/Luminy/luminy'),
+    titleImage: getCldImageUrl('assets/proyectos/Luminy/titulo'),
     images: [],
     tags: ['Producto', 'UX'],
     year: '2025',
@@ -73,8 +75,8 @@ export const PROJECTS = [
     subtitle: 'Estrategia de Diseño',
     description:
       'Descripción del proyecto. Reemplazar con datos reales cuando estén disponibles.',
-    thumbnail: new URL('../assets/proyectos/Milo/milo.png', import.meta.url).href,
-    titleImage: new URL('../assets/proyectos/Milo/titulo.png', import.meta.url).href,
+    thumbnail: getCldThumbnailUrl('assets/proyectos/Milo/milo'),
+    titleImage: getCldImageUrl('assets/proyectos/Milo/titulo'),
     splineUrl: 'https://prod.spline.design/DvX3ktNrsZZ7rbu7/scene.splinecode',
     images: [],
     tags: ['Estrategia', 'Innovación'],
@@ -87,8 +89,8 @@ export const PROJECTS = [
     subtitle: 'Diseño Sostenible',
     description:
       'Descripción del proyecto. Reemplazar con datos reales cuando estén disponibles.',
-    thumbnail: new URL('../assets/proyectos/peair/peair.png', import.meta.url).href,
-    titleImage: new URL('../assets/proyectos/peair/titulo.png', import.meta.url).href,
+    thumbnail: getCldThumbnailUrl('assets/proyectos/peair/peair'),
+    titleImage: getCldImageUrl('assets/proyectos/peair/titulo'),
     splineUrl: 'https://prod.spline.design/xQ4CEqEepGQNe7x8/scene.splinecode',
     images: [],
     tags: ['Sostenibilidad', 'Diseño Industrial'],

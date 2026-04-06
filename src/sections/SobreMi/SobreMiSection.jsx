@@ -1,5 +1,5 @@
 import React from 'react';
-import purpleVideo from '../../assets/fondos/liquid-gold-purple-slow.mp4';
+import { CldVideo } from '../../components/CldVideo';
 import './SobreMiSection.css';
 
 /**
@@ -8,10 +8,10 @@ import './SobreMiSection.css';
 export function SobreMiSection() {
   return (
     <div className="section-inner section-sobremi-inner">
-      {/* Background Video — liquid gold purple */}
+      {/* Background Video — liquid gold purple Optimized via Cloudinary */}
       <div className="sobremi-bg-container">
-        <video 
-          src={purpleVideo} 
+        <CldVideo 
+          publicId="assets/fondos/liquid-gold-purple-slow"
           autoPlay 
           loop 
           muted 
