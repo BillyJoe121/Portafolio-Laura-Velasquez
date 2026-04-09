@@ -34,7 +34,15 @@
   position: relative;
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(175deg, #ffe14a 0%, #ffaa00 45%, var(--pvz-orange-deep) 100%);
+  /* Geometric angular panels — bright yellow + deep orange/amber */
+  background:
+    linear-gradient(155deg, #ffe12a 0%, #ffe12a 22%, transparent 22%) no-repeat,
+    linear-gradient(165deg, transparent 18%, #ffb800 18%, #ffb800 40%, transparent 40%) no-repeat,
+    linear-gradient(150deg, transparent 38%, #fe9402 38%, #fe9402 58%, transparent 58%) no-repeat,
+    linear-gradient(170deg, transparent 55%, #e88400 55%, #e88400 72%, transparent 72%) no-repeat,
+    linear-gradient(145deg, transparent 70%, #d6740a 70%, #d6740a 85%, transparent 85%) no-repeat,
+    linear-gradient(160deg, transparent 82%, #b85d00 82%) no-repeat;
+  background-color: #ffcc00;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,36 +51,23 @@
   padding: 140px 5vw 120px;
 }
 
-/* Slow sunray rotation — will-change keeps it on GPU */
+/* Soft light wash at top to brighten title area */
 .peair-hero::before {
   content: "";
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: repeating-conic-gradient(rgba(255, 255, 255, 0.055) 0deg, rgba(255, 255, 255, 0) 2.5deg 10deg);
-  animation: raysRotate 45s linear infinite;
+  top: 0; left: 0;
+  width: 100%; height: 60%;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.25) 0%, transparent 65%);
   pointer-events: none;
-  will-change: transform;
 }
 
-@keyframes raysRotate {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Central light crown — static, no repaint */
+/* Bottom vignette for depth */
 .peair-hero::after {
   content: "";
   position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  height: 70%;
-  background: radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.32) 0%, transparent 60%);
+  bottom: 0; left: 0;
+  width: 100%; height: 40%;
+  background: linear-gradient(to top, rgba(0,0,0,0.15) 0%, transparent 100%);
   pointer-events: none;
 }
 
@@ -208,19 +203,34 @@
 
 .peair-context-section {
   position: relative;
-  background: var(--pvz-green);
+  /* PvZ-style swirl vortex — layered conic gradients */
+  background:
+    conic-gradient(
+      from 0deg at 65% 50%,
+      #4a9e22 0deg, #3a8818 30deg,
+      #55b22a 60deg, #2f7012 90deg,
+      #62b12f 120deg, #3a8818 150deg,
+      #4a9e22 180deg, #347a14 210deg,
+      #55b22a 240deg, #2f7012 270deg,
+      #4a9e22 300deg, #3a8818 330deg,
+      #4a9e22 360deg
+    ),
+    radial-gradient(ellipse 90% 80% at 65% 50%, transparent 30%, rgba(20,80,10,0.4) 100%);
+  background-color: #4a9e22;
   padding: 0 0 120px;
   overflow: hidden;
 }
 
-/* Subtle depth without heavy filter */
+/* Vignette edges for depth */
 .peair-context-section::before {
   content: "";
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 70% 50% at 15% 50%, rgba(255, 255, 255, 0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 70% at 85% 50%, rgba(0, 60, 0, 0.25) 0%, transparent 60%);
+    radial-gradient(ellipse at 0% 0%, rgba(10,50,5,0.35) 0%, transparent 45%),
+    radial-gradient(ellipse at 100% 100%, rgba(10,50,5,0.35) 0%, transparent 45%),
+    radial-gradient(ellipse at 0% 100%, rgba(10,50,5,0.25) 0%, transparent 40%),
+    radial-gradient(ellipse at 100% 0%, rgba(10,50,5,0.25) 0%, transparent 40%);
   pointer-events: none;
 }
 
@@ -415,22 +425,26 @@
 }
 
 .peair-product-section {
-  background: linear-gradient(160deg, #ffe55a 0%, var(--pvz-orange) 60%, var(--pvz-orange-deep) 100%);
+  /* Geometric orange panels — shifted angle for variety */
+  background:
+    linear-gradient(200deg, #ffcc00 0%, #ffcc00 18%, transparent 18%) no-repeat,
+    linear-gradient(195deg, transparent 15%, #ffb200 15%, #ffb200 35%, transparent 35%) no-repeat,
+    linear-gradient(205deg, transparent 32%, #fe9402 32%, #fe9402 55%, transparent 55%) no-repeat,
+    linear-gradient(190deg, transparent 52%, #e88400 52%, #e88400 70%, transparent 70%) no-repeat,
+    linear-gradient(200deg, transparent 68%, #d6740a 68%) no-repeat;
+  background-color: #ffcc00;
   padding: 90px 8vw 110px;
   position: relative;
   overflow: hidden;
 }
 
-/* Subtle sun rays, no repaint on scroll */
+/* Top-left light accent for depth */
 .peair-product-section::before {
   content: "";
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 120%;
-  height: 120%;
-  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.08) 0%, transparent 55%);
+  top: 0; left: 0;
+  width: 50%; height: 50%;
+  background: radial-gradient(ellipse at 0% 0%, rgba(255,255,255,0.18) 0%, transparent 65%);
   pointer-events: none;
 }
 
