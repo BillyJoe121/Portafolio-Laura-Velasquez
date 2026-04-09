@@ -34,12 +34,32 @@ export function HeroParallax({ products, onSelect, containerRef }) {
     offset: ['start start', 'end start'],
   });
 
-  const translateX = useTransform(scrollYProgress, [0, 1], [0, 1000]);
-  const translateXReverse = useTransform(scrollYProgress, [0, 1], [0, -1000]);
-  const rotateX = useTransform(scrollYProgress, [0, 0.2], [15, 0]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2], [0.1, 1]);
-  const rotateZ = useTransform(scrollYProgress, [0, 0.2], [20, 0]);
-  const translateY = useTransform(scrollYProgress, [0, 0.2], [-400, 100]);
+  const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
+
+  const translateX = useSpring(
+    useTransform(scrollYProgress, [0, 1], [0, 1000]),
+    springConfig
+  );
+  const translateXReverse = useSpring(
+    useTransform(scrollYProgress, [0, 1], [0, -1000]),
+    springConfig
+  );
+  const rotateX = useSpring(
+    useTransform(scrollYProgress, [0, 0.2], [15, 0]),
+    springConfig
+  );
+  const opacity = useSpring(
+    useTransform(scrollYProgress, [0, 0.2], [0.1, 1]),
+    springConfig
+  );
+  const rotateZ = useSpring(
+    useTransform(scrollYProgress, [0, 0.2], [20, 0]),
+    springConfig
+  );
+  const translateY = useSpring(
+    useTransform(scrollYProgress, [0, 0.2], [-400, 100]),
+    springConfig
+  );
 
   return (
     <div ref={ref} className="hp-container">
@@ -131,10 +151,11 @@ function ProductCard({ product, translate, onSelect }) {
         ) : product.thumbnail ? (
           <img
             src={product.thumbnail}
+            width="600"
+            height="600"
             className="hp-card-img"
             alt={product.title}
-            decoding="async"
-            draggable={false}
+            loading="lazy"
           />
         ) : (
           <div
