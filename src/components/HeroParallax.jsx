@@ -129,6 +129,8 @@ function ProductCard({ product, translate, onSelect }) {
     }
   };
 
+  const CardComponent = product.cardComponent || null;
+
   return (
     <motion.div
       style={{ x: translate }}
@@ -141,7 +143,12 @@ function ProductCard({ product, translate, onSelect }) {
         onClick={handleClick}
         className="hp-card-link"
       >
-        {product.thumbnail ? (
+        {CardComponent ? (
+          /* Animated CSS card — no image needed */
+          <div className="hp-card-img hp-card-component">
+            <CardComponent />
+          </div>
+        ) : product.thumbnail ? (
           <img
             src={product.thumbnail}
             width="600"
@@ -151,14 +158,14 @@ function ProductCard({ product, translate, onSelect }) {
             loading="lazy"
           />
         ) : (
-          <div 
-            className="hp-card-img" 
-            style={{ 
-              backgroundColor: '#000', 
-              color: '#fff', 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'center', 
+          <div
+            className="hp-card-img"
+            style={{
+              backgroundColor: '#000',
+              color: '#fff',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
               fontFamily: 'Surgena, sans-serif',
               fontSize: '3rem',
               width: '100%',

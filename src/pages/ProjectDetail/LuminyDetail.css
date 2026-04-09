@@ -22,7 +22,9 @@
   overflow-x: hidden;
   font-family: var(--font-main);
   color: var(--lum-text);
-  /* NO scroll-behavior: smooth — causes jank with Framer Motion */
+  /* Fix 1: compositor-thread scroll for touchpad */
+  touch-action: pan-y;
+  overscroll-behavior: contain;
   background-image:
     radial-gradient(ellipse at 50% 0%, rgba(79,140,247,0.10) 0%, transparent 60%);
 }
@@ -162,6 +164,9 @@
   position: relative;
   overflow: hidden;
   background: linear-gradient(180deg, var(--lum-bg) 0%, var(--lum-surface) 100%);
+  contain: layout style;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 700px;
 }
 
 .luminy-concept-inner {
@@ -297,6 +302,9 @@
   width: 100%;
   padding: 80px 8vw;
   position: relative;
+  contain: layout style;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
 }
 
 .luminy-band-inner {

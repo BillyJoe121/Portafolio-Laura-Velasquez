@@ -25,6 +25,9 @@
   overflow-x: hidden;
   font-family: var(--font-main);
   color: var(--pvz-brown);
+  /* Fix 1: compositor-thread scroll for touchpad */
+  touch-action: pan-y;
+  overscroll-behavior: contain;
 }
 
 /* ══════════════════════════════════════════
@@ -219,6 +222,11 @@
   background-color: #4a9e22;
   padding: 0 0 120px;
   overflow: hidden;
+  /* Fix 2: layout containment */
+  contain: layout style;
+  /* Fix 3: skip render until near viewport */
+  content-visibility: auto;
+  contain-intrinsic-size: 0 700px;
 }
 
 /* Vignette edges for depth */
@@ -436,6 +444,9 @@
   padding: 90px 8vw 110px;
   position: relative;
   overflow: hidden;
+  contain: layout style;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 900px;
 }
 
 /* Top-left light accent for depth */
@@ -560,6 +571,9 @@
   background: var(--pvz-deeper-green);
   padding: 0 8vw 130px;
   overflow: hidden;
+  contain: layout style;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 700px;
 }
 
 .peair-packaging-section::before {

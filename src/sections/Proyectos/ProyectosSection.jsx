@@ -22,6 +22,7 @@ export function ProyectosSection({ onSelectProject }) {
     title: p.title,
     link: '#',
     thumbnail: p.thumbnail,
+    cardComponent: p.cardComponent || null,
   }));
 
   const products = [];

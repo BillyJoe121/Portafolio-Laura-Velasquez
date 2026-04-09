@@ -14,8 +14,11 @@
   display: flex;
   flex-direction: column;
   align-self: auto;
+  /* perspective: needed for rotateX/rotateZ 3D tilt on child motion.div */
   perspective: 1000px;
-  transform-style: preserve-3d;
+  /* transform-style: preserve-3d REMOVED — it forces full-tree 3D compositing
+     on every scroll tick, killing touchpad performance. perspective alone is enough */
+  contain: layout style;
 }
 
 /* ── Header section (sits on top of cards) ── */
@@ -70,19 +73,19 @@
   border-radius: 1rem;
   overflow: hidden;
   background-color: transparent;
-  /* Aceleración por hardware para eliminar lag en scroll 3D */
-  will-change: transform, opacity;
+  will-change: transform;
   transform: translateZ(0);
   backface-visibility: hidden;
-  perspective: 1000px;
 }
 
 .hp-card {
   position: relative;
   flex-shrink: 0;
-  height: 384px;    /* 24rem */
-  width: 480px;     /* 30rem */
+  height: 384px;
+  width: 480px;
   cursor: pointer;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .hp-card-link {
@@ -103,6 +106,12 @@
   height: 100%;
   object-fit: cover;
   object-position: left top;
+  border-radius: 12px;
+}
+
+/* Wrapper for animated CSS component cards */
+.hp-card-component {
+  overflow: hidden;
   border-radius: 12px;
 }
 

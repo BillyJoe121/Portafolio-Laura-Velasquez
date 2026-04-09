@@ -1,0 +1,358 @@
+/* =========================================
+   PROJECT CARDS — CSS-animated thumbnails
+   Luminy · Milo · Peair
+   Performance: paused until hover,
+   only transform/opacity in keyframes,
+   contain: strict on each card
+========================================= */
+
+/* ── SHARED BASE ── */
+.pc-luminy,
+.pc-milo,
+.pc-peair {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  will-change: transform;
+  transform: translateZ(0);
+  /* Isolate layout/style/paint from parent tree */
+  contain: strict;
+}
+
+/* Global rule: all card animations paused by default.
+   They only run when the parent hp-card is hovered.
+   This drops active animation count from 165 → ~11 */
+.pc-luminy *,
+.pc-milo *,
+.pc-peair * {
+  animation-play-state: paused;
+}
+.hp-card:hover .pc-luminy *,
+.hp-card:hover .pc-milo *,
+.hp-card:hover .pc-peair * {
+  animation-play-state: running;
+}
+
+/* ═══════════════════════════════════════
+   LUMINY — Dark blue · IoT · Glassmorphism
+═══════════════════════════════════════ */
+.pc-luminy {
+  background: #06091f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ambient blobs — static blur (rasterized once), only translate animates */
+.pc-lum-blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+}
+.pc-lum-blob--1 {
+  width: 180px; height: 180px;
+  background: #4f8cf7;
+  top: -70px; left: -50px;
+  filter: blur(40px);
+  opacity: 0.25;
+  animation: lumBlobDrift 12s ease-in-out infinite alternate;
+}
+.pc-lum-blob--2 {
+  width: 140px; height: 140px;
+  background: #3b59c3;
+  bottom: -50px; right: -30px;
+  filter: blur(35px);
+  opacity: 0.2;
+  animation: lumBlobDrift 15s ease-in-out infinite alternate-reverse;
+}
+@keyframes lumBlobDrift {
+  from { transform: translateZ(0) translate(0, 0); }
+  to   { transform: translateZ(0) translate(15px, 10px); }
+}
+
+/* Sensor rings */
+.pc-lum-rings {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  z-index: 2;
+}
+.pc-lum-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(79, 140, 247, 0.3);
+  will-change: transform, opacity;
+  animation: lumRingPulse 3s ease-in-out infinite;
+}
+.pc-lum-ring--1 { width: 60px;  height: 60px;  animation-delay: 0s; }
+.pc-lum-ring--2 { width: 90px;  height: 90px;  animation-delay: 0.4s; border-color: rgba(79,140,247,0.2); }
+.pc-lum-ring--3 { width: 120px; height: 120px; animation-delay: 0.8s; border-color: rgba(79,140,247,0.12); }
+@keyframes lumRingPulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50%       { transform: scale(1.08); opacity: 1; }
+}
+
+.pc-lum-core {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4f8cf7, #3b59c3);
+  box-shadow: 0 0 20px rgba(79,140,247,0.6);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 3;
+}
+.pc-lum-pulse {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0.9;
+  animation: lumCorePulse 1.8s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+@keyframes lumCorePulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50%       { transform: scale(0.6); opacity: 0.4; }
+}
+
+/* Data pills */
+.pc-lum-pill {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(79, 140, 247, 0.1);
+  border: 1px solid rgba(79, 140, 247, 0.25);
+  color: #4f8cf7;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 20px;
+  z-index: 4;
+  will-change: transform;
+  animation: lumPillFloat 4s ease-in-out infinite;
+}
+.pc-lum-pill--temp { bottom: 48px; left: 28px; animation-delay: 0s; }
+.pc-lum-pill--hum  { top: 50px;  right: 28px; animation-delay: 1.5s; }
+@keyframes lumPillFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-5px); }
+}
+.pc-lum-pill-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #4f8cf7;
+  box-shadow: 0 0 6px #4f8cf7;
+  animation: lumCorePulse 1.8s ease-in-out infinite;
+}
+
+.pc-lum-label {
+  font-family: 'Surgena', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.85);
+  letter-spacing: 6px;
+  z-index: 4;
+  position: relative;
+  margin-top: 8px;
+}
+
+/* ═══════════════════════════════════════
+   MILO — Electric yellow · Neo-Brutalism
+═══════════════════════════════════════ */
+.pc-milo {
+  background: #111111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pc-milo-block {
+  position: absolute;
+  background: #f9fc3d;
+  pointer-events: none;
+}
+.pc-milo-block--top {
+  top: 0; left: 0; right: 0; height: 4px;
+  box-shadow: 0 0 14px rgba(249,252,61,0.5);
+}
+.pc-milo-block--bot {
+  bottom: 0; left: 0; right: 0; height: 4px;
+  box-shadow: 0 0 14px rgba(249,252,61,0.5);
+}
+
+.pc-milo-ticker {
+  position: absolute;
+  top: 18px; left: 0; right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  z-index: 2;
+}
+.pc-milo-tick {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #f9fc3d;
+  will-change: opacity;
+  animation: miloTickBlink 1.4s ease-in-out infinite;
+}
+@keyframes miloTickBlink {
+  0%, 80%, 100% { opacity: 0.2; }
+  40%           { opacity: 1; }
+}
+
+.pc-milo-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 3;
+}
+.pc-milo-title {
+  font-family: 'Surgena', sans-serif;
+  font-size: clamp(3rem, 8vw, 4.5rem);
+  font-weight: 900;
+  color: #f9fc3d;
+  letter-spacing: -2px;
+  line-height: 0.9;
+  text-shadow: 4px 4px 0 #000, -2px -2px 0 rgba(249,252,61,0.2);
+  will-change: transform;
+  animation: miloTitleJitter 7s ease-in-out infinite;
+}
+@keyframes miloTitleJitter {
+  0%, 100% { transform: translateX(0); }
+  48%       { transform: translateX(0); }
+  50%       { transform: translateX(-2px); }
+  52%       { transform: translateX(2px); }
+  54%       { transform: translateX(0); }
+}
+
+/* Reflection — static blur, no animation needed */
+.pc-milo-reflect {
+  font-family: 'Surgena', sans-serif;
+  font-size: clamp(3rem, 8vw, 4.5rem);
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 0.9;
+  color: transparent;
+  background: linear-gradient(to bottom, rgba(249,252,61,0.25) 0%, transparent 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: scaleY(-1);
+  filter: blur(1px);
+  margin-top: 2px;
+  display: block;
+  text-align: center;
+}
+
+.pc-milo-tag {
+  position: absolute;
+  bottom: 20px;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(249,252,61,0.5);
+  z-index: 3;
+}
+
+/* ═══════════════════════════════════════
+   PEAIR — Orange+Green · PvZ Geometric
+═══════════════════════════════════════ */
+.pc-peair {
+  background:
+    linear-gradient(155deg, #ffe12a 0%, #ffe12a 22%, transparent 22%),
+    linear-gradient(165deg, transparent 18%, #ffb800 18%, #ffb800 40%, transparent 40%),
+    linear-gradient(150deg, transparent 38%, #fe9402 38%, #fe9402 58%, transparent 58%),
+    linear-gradient(160deg, transparent 55%, #d6740a 55%);
+  background-color: #ffcc00;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 24px;
+}
+
+/* Swirl orb — only transform:rotate animates, cheaper than filter */
+.pc-pvz-swirl {
+  position: absolute;
+  top: 50%; left: 60%;
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    #4a9e22, #3a8818, #55b22a, #2f7012,
+    #4a9e22, #3a8818, #4a9e22
+  );
+  opacity: 0.5;
+  will-change: transform;
+  animation: pvzSwirlSpin 10s linear infinite;
+  pointer-events: none;
+}
+@keyframes pvzSwirlSpin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Parchment badge */
+.pc-pvz-badge {
+  position: absolute;
+  top: 20px; right: 20px;
+  width: 44px; height: 44px;
+  background: #f0d99a;
+  clip-path: polygon(5% 0%, 95% 5%, 100% 95%, 5% 100%, 0% 90%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 3px 4px 0 rgba(0,0,0,0.2);
+  will-change: transform;
+  animation: pvzBadgeBob 3.5s ease-in-out infinite;
+  z-index: 3;
+}
+@keyframes pvzBadgeBob {
+  0%, 100% { transform: rotate(-3deg) translateY(0); }
+  50%       { transform: rotate(2deg) translateY(-4px); }
+}
+.pc-pvz-badge-text {
+  font-family: 'Luckiest Guy', 'Surgena', cursive;
+  font-size: 0.65rem;
+  color: #3e2206;
+  letter-spacing: 1px;
+}
+
+.pc-pvz-title-wrap {
+  position: relative;
+  z-index: 4;
+}
+.pc-pvz-title {
+  font-family: 'Luckiest Guy', 'Surgena', cursive;
+  font-size: clamp(2.5rem, 7vw, 3.5rem);
+  color: #1a6b28;
+  display: block;
+  line-height: 0.9;
+  text-shadow:
+    -3px -3px 0 rgba(255,255,255,0.45),
+     2px  3px 0 rgba(0,0,0,0.2);
+}
+.pc-pvz-subtitle {
+  font-family: 'Luckiest Guy', 'Surgena', cursive;
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  color: rgba(62,34,6,0.65);
+  display: block;
+  margin-top: 4px;
+}
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .pc-luminy *, .pc-milo *, .pc-peair * {
+    animation: none !important;
+  }
+}

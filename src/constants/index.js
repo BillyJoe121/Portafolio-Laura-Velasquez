@@ -1,4 +1,5 @@
 import { getCldImageUrl, getCldThumbnailUrl } from '../lib/cloudinary';
+import { LuminyCard, MiloCard, PeairCard } from '../components/ProjectCards';
 
 // ═══════════════════════════════════════════
 // CONSTANTES CENTRALIZADAS
@@ -60,6 +61,7 @@ export const PROJECTS = [
     userImage: getCldImageUrl('assets/proyectos/Luminy/luminy-usuaria'),
     splineUrl: 'https://prod.spline.design/wdxBjBSaDRG5wWLo/scene.splinecode',
     thumbnail: getCldThumbnailUrl('assets/proyectos/Luminy/luminy'),
+    cardComponent: LuminyCard,
     titleImage: getCldImageUrl('assets/proyectos/Luminy/titulo'),
     images: [],
     tags: ['Producto', 'UX'],
@@ -73,6 +75,7 @@ export const PROJECTS = [
     description:
       'Descripción del proyecto. Reemplazar con datos reales cuando estén disponibles.',
     thumbnail: getCldThumbnailUrl('assets/proyectos/Milo/milo'),
+    cardComponent: MiloCard,
     titleImage: getCldImageUrl('assets/proyectos/Milo/titulo'),
     splineUrl: 'https://prod.spline.design/DvX3ktNrsZZ7rbu7/scene.splinecode',
     images: [],
@@ -86,6 +89,7 @@ export const PROJECTS = [
     subtitle: 'Diseño Sostenible',
     description: 'Ventilador compacto inspirado en Plants vs Zombies.',
     thumbnail: getCldThumbnailUrl('assets/proyectos/peair/peair'),
+    cardComponent: PeairCard,
     titleImage: getCldImageUrl('assets/proyectos/peair/titulo'),
     splineUrl: 'https://prod.spline.design/xQ4CEqEepGQNe7x8/scene.splinecode',
     images: [],

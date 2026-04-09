@@ -21,6 +21,9 @@
   overflow-x: hidden;
   font-family: var(--font-main);
   color: var(--milo-text);
+  /* Fix 1: compositor-thread scroll for touchpad */
+  touch-action: pan-y;
+  overscroll-behavior: contain;
 }
 
 /* ══════════════════════════════════════════
@@ -154,6 +157,9 @@
   padding: 120px 8vw;
   position: relative;
   overflow: hidden;
+  contain: layout style;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 700px;
 }
 
 /* Giant ghost text behind */
@@ -268,6 +274,9 @@
   clip-path: polygon(0 5vw, 100% 0, 100% 100%, 0 calc(100% - 5vw));
   margin-top: -5vw;
   z-index: 5;
+  contain: layout style;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
 }
 
 /* Blueprint grid */
@@ -386,6 +395,9 @@
 .milo-render-band {
   background: var(--milo-black);
   padding: 120px 8vw;
+  contain: layout style;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 700px;
 }
 .milo-render-band-inner {
   max-width: 1200px;
