@@ -11,25 +11,16 @@ import './HeroSection.css';
  */
 export function HeroSection({ currentSection, heroTextOpacity }) {
   const canvasRef = useRef(null);
-  const videoPurpleRef = useRef(null);
-  const videoWhiteRef = useRef(null);
+  const videoRef = useRef(null);
   const rafRef = useRef(null);
-  const offCanvasRef = useRef(null);
 
   useEffect(() => {
-    const videoP = videoPurpleRef.current;
-    const videoW = videoWhiteRef.current;
+    const video = videoRef.current;
     const canvas = canvasRef.current;
-    if (!videoP || !videoW || !canvas) return;
+    if (!video || !canvas) return;
 
     const ctx = canvas.getContext('2d');
     
-    if (!offCanvasRef.current) {
-      offCanvasRef.current = document.createElement('canvas');
-    }
-    const offCanvas = offCanvasRef.current;
-    const offCtx = offCanvas.getContext('2d');
-
     const draw = () => {
       const rect = canvas.parentElement.getBoundingClientRect();
       if (rect.width === 0 || rect.height === 0) {
@@ -46,8 +37,6 @@ export function HeroSection({ currentSection, heroTextOpacity }) {
       if (canvas.width !== targetW || canvas.height !== targetH) {
         canvas.width = targetW;
         canvas.height = targetH;
-        offCanvas.width = targetW;
-        offCanvas.height = targetH;
       }
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -55,80 +44,39 @@ export function HeroSection({ currentSection, heroTextOpacity }) {
       ctx.scale(dpr, dpr);
 
       // Measure fonts and text
-      // clamp(80px, 12vw, 180px)
       const fontSize = Math.max(80, Math.min(cw * 0.12, 180));
       const fontStr = `700 ${fontSize}px Surgena, sans-serif`;
-
-      const textLeft = "Laura Vela";
-      const textMid = "s";
-      const textRight = "quez";
+      const fullName = "Laura Velasquez";
 
       ctx.font = fontStr;
-      const mLeft = ctx.measureText(textLeft).width;
-      const mMid = ctx.measureText(textMid).width;
-      const mRight = ctx.measureText(textRight).width;
-
-      const totalWidth = mLeft + mMid + mRight;
-      const startX = (cw - totalWidth) / 2;
-      const startY = ch / 2;
-
-      // 1. Draw "Laura Vela" and "quez" with White Video
       ctx.textBaseline = 'middle';
-      ctx.textAlign = 'left';
-      ctx.fillStyle = '#28282B';
-      ctx.fillText(textLeft, startX, startY);
-      ctx.fillText(textRight, startX + mLeft + mMid, startY);
+      ctx.textAlign = 'center';
 
+      const x = cw / 2;
+      const y = ch / 2;
+
+      // 1. Draw Text for Masking
+      ctx.fillStyle = '#000'; // Color doesn't matter for source-in
+      ctx.fillText(fullName, x, y);
+
+      // 2. Apply Video Mask
       ctx.globalCompositeOperation = 'source-in';
-      if (videoW.readyState >= 2) {
-        const vw = videoW.videoWidth || cw;
-        const vh = videoW.videoHeight || ch;
+      if (video.readyState >= 2) {
+        const vw = video.videoWidth || cw;
+        const vh = video.videoHeight || ch;
         const scale = Math.max(cw / vw, ch / vh);
         const sw = vw * scale;
         const sh = vh * scale;
         const sx = (cw - sw) / 2;
         const sy = (ch - sh) / 2;
-        ctx.drawImage(videoW, sx, sy, sw, sh);
+        ctx.drawImage(video, sx, sy, sw, sh);
       }
 
+      // 3. Draw Outline
       ctx.globalCompositeOperation = 'source-over';
-
-      // 2. Draw "s" in offscreen canvas with Purple Video
-      offCtx.clearRect(0, 0, offCanvas.width, offCanvas.height);
-      offCtx.save();
-      offCtx.scale(dpr, dpr);
-
-      offCtx.font = fontStr;
-      offCtx.textBaseline = 'middle';
-      offCtx.textAlign = 'left';
-      offCtx.fillStyle = '#28282B';
-      offCtx.fillText(textMid, startX + mLeft, startY);
-
-      offCtx.globalCompositeOperation = 'source-in';
-      if (videoP.readyState >= 2) {
-        const vw = videoP.videoWidth || cw;
-        const vh = videoP.videoHeight || ch;
-        const scale = Math.max(cw / vw, ch / vh);
-        const sw = vw * scale;
-        const sh = vh * scale;
-        const sx = (cw - sw) / 2;
-        const sy = (ch - sh) / 2;
-        offCtx.drawImage(videoP, sx, sy, sw, sh);
-      }
-
-      offCtx.restore();
-
-      // Draw offCanvas onto main
-      ctx.drawImage(offCanvas, 0, 0, offCanvas.width, offCanvas.height, 0, 0, cw, ch);
-
-      // 3. Draw Outline sutil solicitado
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.shadowBlur = 0; // Desactivar sombra para el delineado nítido
       ctx.strokeStyle = '#28282B';
       ctx.lineWidth = 0.5 * dpr;
-      ctx.strokeText(textLeft, startX, startY);
-      ctx.strokeText(textMid, startX + mLeft, startY);
-      ctx.strokeText(textRight, startX + mLeft + mMid, startY);
+      ctx.strokeText(fullName, x, y);
 
       ctx.restore();
       rafRef.current = requestAnimationFrame(draw);
@@ -139,13 +87,11 @@ export function HeroSection({ currentSection, heroTextOpacity }) {
       draw();
     };
 
-    videoP.addEventListener('playing', startDrawing);
-    videoW.addEventListener('playing', startDrawing);
-    if (!videoP.paused && !videoP.ended) startDrawing();
+    video.addEventListener('playing', startDrawing);
+    if (!video.paused && !video.ended) startDrawing();
 
     return () => {
-      videoP.removeEventListener('playing', startDrawing);
-      videoW.removeEventListener('playing', startDrawing);
+      video.removeEventListener('playing', startDrawing);
       cancelAnimationFrame(rafRef.current);
     };
   }, []);
@@ -157,18 +103,8 @@ export function HeroSection({ currentSection, heroTextOpacity }) {
       style={{ height: '100vh', position: 'relative', pointerEvents: 'none', backgroundColor: 'transparent' }}
     >
       <video
-        ref={videoPurpleRef}
+        ref={videoRef}
         src={getCldVideoUrl('assets/fondos/liquid-gold-purple-slow')}
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        style={{ position: 'absolute', width: 0, height: 0, opacity: 0, pointerEvents: 'none' }}
-      />
-      <video
-        ref={videoWhiteRef}
-        src={getCldVideoUrl('assets/fondos/fondo-golden-white-slow')}
         autoPlay
         loop
         muted
@@ -183,8 +119,7 @@ export function HeroSection({ currentSection, heroTextOpacity }) {
           width: '100%',
           height: '100%',
           opacity: heroTextOpacity,
-          // Filtro oscuro localizado detrás de las letras ("los círculos")
-          background: 'radial-gradient(circle at center, rgba(0, 0, 0, 0.25) 0%, transparent 70%)',
+          background: 'transparent',
         }}
       >
         <motion.div

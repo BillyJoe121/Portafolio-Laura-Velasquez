@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { AnimatedTestimonials } from "../../components/ui/animated-testimonials";
 import { IconBrandBehance } from '@tabler/icons-react';
+import Spline from '@splinetool/react-spline';
 
 import imgPlano1 from '../../assets/proyectos/Milo/plano1.jpeg';
 import imgPlano2 from '../../assets/proyectos/Milo/plano2.jpeg';
@@ -183,20 +184,25 @@ export function MiloDetail({ project, onBack }) {
             className="milo-render-split"
             variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
           >
-            <motion.div className="milo-render-placeholder" variants={fadeLeft} style={{ minHeight: '450px' }}>
-              <span className="ph-label">Render 02</span>
-              <p className="ph-desc">Vista lateral o frontal de Milo en escena</p>
+            <motion.div className="milo-render-placeholder" variants={fadeLeft} style={{ minHeight: '450px', padding: 0, overflow: 'hidden' }}>
+              <div className="spline-nologo-wrapper" style={{ width: '100%', height: '100%' }}>
+                <Spline scene="https://prod.spline.design/zoynXt5ZqJhOh84Y/scene.splinecode" />
+              </div>
             </motion.div>
             <motion.div variants={stagger} style={{ display: 'flex', flexDirection: 'column', gap: '25px' }}>
-              <motion.div className="milo-render-placeholder" variants={itemFade} style={{ flex: 1 }}>
-                <div className="ph-icon" />
-                <span className="ph-label">Render 03</span>
-                <p className="ph-desc">Detalle LEDs encendidos o modo activo</p>
+              <motion.div className="milo-render-placeholder" variants={itemFade} style={{ flex: 1, padding: 0, overflow: 'hidden' }}>
+                <img 
+                  src="https://res.cloudinary.com/dacmlsbqc/image/upload/v1775767446/WhatsApp_Image_2026-04-02_at_6.11.05_PM_s4ko8k.jpg" 
+                  alt="Milo Detalle Render" 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                />
               </motion.div>
-              <motion.div className="milo-render-placeholder" variants={itemFade} style={{ flex: 1 }}>
-                <div className="ph-icon" />
-                <span className="ph-label">Render 04</span>
-                <p className="ph-desc">Milo en contexto — niño interactuando</p>
+              <motion.div className="milo-render-placeholder" variants={itemFade} style={{ flex: 1, padding: 0, overflow: 'hidden' }}>
+                <img 
+                  src="https://res.cloudinary.com/dacmlsbqc/image/upload/v1775767843/WhatsApp_Image_2026-04-02_at_6.11.05_PM_1_x7tjxc.jpg" 
+                  alt="Milo en contexto" 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                />
               </motion.div>
             </motion.div>
           </motion.div>

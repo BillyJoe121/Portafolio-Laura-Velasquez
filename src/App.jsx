@@ -19,6 +19,7 @@ import { LuminyDetail } from './pages/ProjectDetail/LuminyDetail';
 import { MiloDetail } from './pages/ProjectDetail/MiloDetail';
 import { BlulelulaDetail } from './pages/ProjectDetail/BlulelulaDetail';
 import { PeairDetail } from './pages/ProjectDetail/PeairDetail';
+import { LomiDetail } from './pages/ProjectDetail/LomiDetail';
 // Assets
 
 
@@ -86,7 +87,7 @@ function App() {
       {showHeroBg && (
         <div 
           className="bg-base-layer" 
-          style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: '#28282B', zIndex: -1 }}
+          style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: '#ffffff', zIndex: -1 }}
         />
       )}
 
@@ -198,7 +199,13 @@ function App() {
                 onBack={() => navigateTo('proyectos')}
               />
             )}
-            {activeProject.id !== 'luminy' && activeProject.id !== 'milo' && activeProject.id !== 'blulelula' && activeProject.id !== 'peair' && (
+            {activeProject.id === 'lomi' && (
+              <LomiDetail
+                project={activeProject}
+                onBack={() => navigateTo('proyectos')}
+              />
+            )}
+            {activeProject.id !== 'luminy' && activeProject.id !== 'milo' && activeProject.id !== 'blulelula' && activeProject.id !== 'peair' && activeProject.id !== 'lomi' && (
               <ProjectDetail
                 project={activeProject}
                 onBack={() => navigateTo('proyectos')}

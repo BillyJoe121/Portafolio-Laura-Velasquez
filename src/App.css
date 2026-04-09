@@ -88,7 +88,7 @@
   position: fixed;
   inset: 0;
   z-index: 10;
-  background: #28282B;
+  background: #ffffff;
   opacity: 0;
   pointer-events: none;
 }

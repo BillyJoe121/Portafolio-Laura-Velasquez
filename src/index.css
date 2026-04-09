@@ -43,8 +43,8 @@
 }
 
 :root {
-  --bg-color: #28282B;
-  --text-main: #ffffff;
+  --bg-color: #ffffff;
+  --text-main: #28282B;
   --accent-color: #9013fe;
   --font-main: 'Poppins', sans-serif;
   --font-heading: 'Plus Jakarta Sans', sans-serif;

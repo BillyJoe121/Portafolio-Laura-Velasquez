@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { AnimatedTestimonials } from "../../components/ui/animated-testimonials";
 import { IconBrandBehance } from '@tabler/icons-react';
+import Spline from '@splinetool/react-spline';
 import { CldImage } from '../../components/CldImage';
 import { getCldImageUrl } from '../../lib/cloudinary';
 import './ProjectDetail.css';
@@ -111,10 +112,10 @@ export function LuminyDetail({ project, onBack }) {
               whileInView="visible"
               viewport={vp}
             >
-              <div className="luminy-render-placeholder">
-                <div className="ph-icon">🌱</div>
-                <span className="ph-label">Render 01</span>
-                <p className="ph-desc">Espacio para el render del producto en contexto</p>
+              <div className="luminy-render-placeholder" style={{ minHeight: '600px', width: '90%', margin: '0 auto', padding: 0, overflow: 'hidden' }}>
+                <div className="spline-nologo-wrapper" style={{ width: '100%', height: '100%' }}>
+                  <Spline scene={project.splineUrl} />
+                </div>
               </div>
             </motion.div>
           </div>
@@ -131,10 +132,21 @@ export function LuminyDetail({ project, onBack }) {
           <div className="luminy-band-inner">
             <span className="luminy-band-label">02 · Producto</span>
             <h2 className="luminy-band-heading">El sistema que cuida</h2>
-            <div className="luminy-render-placeholder luminy-render-placeholder-wide">
-              <div className="ph-icon">🔬</div>
-              <span className="ph-label">Render 02</span>
-              <p className="ph-desc">Vista amplia del sistema Luminy — Despiece o render estructural</p>
+            <div className="luminy-double-render-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px' }}>
+              <div className="luminy-render-frame" style={{ height: '500px' }}>
+                <img 
+                  src="https://res.cloudinary.com/dacmlsbqc/image/upload/v1775771032/WhatsApp_Image_2026-04-02_at_6.10.40_PM_xg3ns0.jpg" 
+                  alt="Render visualización de Luminy 1" 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              </div>
+              <div className="luminy-render-frame" style={{ height: '500px' }}>
+                <img 
+                  src="https://res.cloudinary.com/dacmlsbqc/image/upload/v1775771031/WhatsApp_Image_2026-04-02_at_6.10.41_PM_rp3rga.jpg" 
+                  alt="Render visualización de Luminy 2" 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              </div>
             </div>
           </div>
         </motion.section>
