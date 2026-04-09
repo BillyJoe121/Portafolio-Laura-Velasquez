@@ -19,7 +19,6 @@ import { LuminyDetail } from './pages/ProjectDetail/LuminyDetail';
 import { MiloDetail } from './pages/ProjectDetail/MiloDetail';
 import { BlulelulaDetail } from './pages/ProjectDetail/BlulelulaDetail';
 import { PeairDetail } from './pages/ProjectDetail/PeairDetail';
-
 // Assets
 
 
@@ -130,7 +129,7 @@ function App() {
       <div
         ref={heroContainerRef}
         className={`section-full hero-persistent ${isHeroGroup ? 'section-visible' : 'section-hidden'}`}
-        style={{ overflowY: 'hidden', overflowX: 'hidden', pointerEvents: 'auto' }}
+        style={{ overflowY: 'auto', overflowX: 'hidden', pointerEvents: 'auto' }}
       >
         <HeroSection
           currentSection={currentSection}
@@ -172,7 +171,9 @@ function App() {
         {activeProject && (
           <motion.div key={activeProject.id} className="section-full"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}>
+            transition={{ duration: 0.8 }}
+            style={{ overflowY: 'auto' }}
+          >
             {activeProject.id === 'luminy' && (
               <LuminyDetail
                 project={activeProject}

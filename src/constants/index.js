@@ -84,15 +84,14 @@ export const PROJECTS = [
     id: 'peair',
     title: 'Peair',
     subtitle: 'Diseño Sostenible',
-    description:
-      'Descripción del proyecto. Reemplazar con datos reales cuando estén disponibles.',
+    description: 'Ventilador compacto inspirado en Plants vs Zombies.',
     thumbnail: getCldThumbnailUrl('assets/proyectos/peair/peair'),
     titleImage: getCldImageUrl('assets/proyectos/peair/titulo'),
     splineUrl: 'https://prod.spline.design/xQ4CEqEepGQNe7x8/scene.splinecode',
     images: [],
-    tags: ['Sostenibilidad', 'Diseño Industrial'],
+    tags: ['Diseño Industrial', 'Producto'],
     year: '2024',
-    color: '#ffffff',
+    color: '#fe9402',
   },
 ];
 

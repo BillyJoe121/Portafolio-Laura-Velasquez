@@ -1,0 +1,724 @@
+/* =========================================
+   PEAIR DETAIL — PVZ PREMIUM ELEVATED
+   Bold · Organic · Collector's Edition
+========================================= */
+
+.peair-detail-container {
+  --pvz-orange: #fe9402;
+  --pvz-orange-deep: #d6740a;
+  --pvz-orange-light: #ffb83a;
+  --pvz-green: #4a9e22;
+  --pvz-green-light: #62b12f;
+  --pvz-dark-green: #1a6b28;
+  --pvz-deeper-green: #0f3d16;
+  --pvz-yellow: #fab80e;
+  --pvz-cream: #fdf6e3;
+  --pvz-parchment: #f0d99a;
+  --pvz-parchment-mid: #e0c47a;
+  --pvz-brown: #3e2206;
+  --pvz-brown-light: #6b3a10;
+
+  background-color: var(--pvz-deeper-green);
+  min-height: 100vh;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-family: var(--font-main);
+  color: var(--pvz-brown);
+}
+
+/* ══════════════════════════════════════════
+   1. HERO
+══════════════════════════════════════════ */
+.peair-hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(175deg, #ffe14a 0%, #ffaa00 45%, var(--pvz-orange-deep) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 140px 5vw 120px;
+}
+
+/* Slow sunray rotation — will-change keeps it on GPU */
+.peair-hero::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: repeating-conic-gradient(rgba(255, 255, 255, 0.055) 0deg, rgba(255, 255, 255, 0) 2.5deg 10deg);
+  animation: raysRotate 45s linear infinite;
+  pointer-events: none;
+  will-change: transform;
+}
+
+@keyframes raysRotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Central light crown — static, no repaint */
+.peair-hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  height: 70%;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.32) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.peair-hero-eyebrow {
+  font-family: var(--font-pvz);
+  font-size: 0.8rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--pvz-brown);
+  margin-bottom: 40px;
+  padding: 9px 24px;
+  background: rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 3px;
+  z-index: 2;
+  position: relative;
+}
+
+/* MAIN TITLE — massive, layered shadow = "game font" depth */
+.peair-hero-title {
+  font-family: var(--font-pvz);
+  font-size: clamp(7rem, 21vw, 17rem);
+  color: var(--pvz-dark-green);
+  letter-spacing: -6px;
+  line-height: 0.82;
+  text-align: center;
+  z-index: 2;
+  position: relative;
+  text-shadow:
+    0 -4px 0 rgba(255, 255, 255, 0.5),
+    /* top highlight */
+    0 6px 0 rgba(0, 0, 0, 0.25),
+    /* bottom depth */
+    0 12px 0 rgba(0, 0, 0, 0.12),
+    /* deeper shadow */
+    0 0 60px rgba(30, 120, 50, 0.5);
+  /* ambient glow */
+  will-change: transform;
+}
+
+/* Reflection */
+.peair-hero-title-reflection {
+  font-family: var(--font-pvz);
+  font-size: clamp(7rem, 21vw, 17rem);
+  letter-spacing: -6px;
+  line-height: 0.82;
+  display: block;
+  text-align: center;
+  background: linear-gradient(to bottom, rgba(26, 107, 40, 0.28) 0%, transparent 65%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: blur(2px);
+  transform: scaleY(-1);
+  margin-top: 4px;
+  z-index: 2;
+  position: relative;
+  will-change: transform;
+  animation: waveBob 5s ease-in-out infinite;
+}
+
+@keyframes waveBob {
+
+  0%,
+  100% {
+    transform: scaleY(-1) translateY(0);
+  }
+
+  50% {
+    transform: scaleY(-1) translateY(10px);
+  }
+}
+
+/* Scroller hint */
+.peair-scroll-cue {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 3;
+}
+
+.peair-scroll-cue span {
+  font-family: var(--font-pvz);
+  font-size: 0.65rem;
+  letter-spacing: 5px;
+  color: rgba(62, 34, 6, 0.55);
+}
+
+.peair-scroll-line {
+  width: 1px;
+  height: 55px;
+  background: linear-gradient(to bottom, var(--pvz-dark-green), transparent);
+  will-change: transform;
+  animation: scrollLine 2.4s ease-in-out infinite;
+}
+
+@keyframes scrollLine {
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  50% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+/* ══════════════════════════════════════════
+   2. CONTEXT SECTION — GRASS STAGE
+══════════════════════════════════════════ */
+.peair-wave-top {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  background: var(--pvz-orange-deep);
+}
+
+.peair-wave-top svg {
+  display: block;
+  width: 100%;
+  height: 90px;
+  fill: var(--pvz-green);
+}
+
+.peair-context-section {
+  position: relative;
+  background: var(--pvz-green);
+  padding: 0 0 120px;
+  overflow: hidden;
+}
+
+/* Subtle depth without heavy filter */
+.peair-context-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 15% 50%, rgba(255, 255, 255, 0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 70% at 85% 50%, rgba(0, 60, 0, 0.25) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.peair-context-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 90px 8vw 0;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 80px;
+  align-items: start;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Render Slot (Green) ── */
+.peair-render-slot {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  min-height: 520px;
+  background: rgba(0, 60, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 50px 35px;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  will-change: transform;
+}
+
+.peair-render-slot:hover {
+  border-color: rgba(255, 255, 255, 0.65);
+  transform: translateY(-8px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+.slot-label {
+  font-family: var(--font-pvz);
+  font-size: 0.72rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 12px;
+  display: block;
+}
+
+.slot-desc {
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.45);
+  max-width: 240px;
+  line-height: 1.5;
+}
+
+/* ── PARCHMENT CARD ── */
+.peair-parchment-card {
+  background: var(--pvz-parchment);
+  position: relative;
+  padding: 55px 52px 65px;
+  /* Hand-cut paper edges */
+  clip-path: polygon(2% 1.5%, 97% 1%, 99.5% 3.5%,
+      100% 97%, 98% 99.5%, 2.5% 99%,
+      0.5% 96.5%, 0% 5%);
+  box-shadow:
+    inset 0 0 0 3px rgba(150, 105, 45, 0.2),
+    10px 14px 0 rgba(0, 0, 0, 0.12),
+    18px 24px 50px rgba(0, 0, 0, 0.18);
+  transform: rotate(-0.5deg);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.peair-parchment-card:hover {
+  transform: rotate(0deg) translateY(-4px);
+  box-shadow:
+    inset 0 0 0 3px rgba(150, 105, 45, 0.2),
+    6px 10px 0 rgba(0, 0, 0, 0.1),
+    12px 18px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Ruling lines on parchment */
+.peair-parchment-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(180deg,
+      transparent, transparent 30px,
+      rgba(140, 100, 40, 0.07) 31px);
+  pointer-events: none;
+}
+
+/* Torn corner accent */
+.peair-parchment-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(225deg, var(--pvz-parchment-mid) 45%, transparent 45%);
+  pointer-events: none;
+}
+
+.peair-parchment-card p {
+  font-family: var(--font-pvz);
+  font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+  line-height: 1.65;
+  color: var(--pvz-brown);
+  margin-bottom: 22px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Evolution list — styled as game "stages" */
+.peair-evolution-list {
+  list-style: none;
+  padding: 0;
+  margin: 30px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.peair-evolution-list li {
+  font-family: var(--font-pvz);
+  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+  color: var(--pvz-brown);
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  line-height: 1.4;
+  position: relative;
+}
+
+/* Vertical connector line between items */
+.peair-evolution-list li::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 20px;
+  bottom: -18px;
+  width: 2px;
+  background: rgba(32, 133, 54, 0.25);
+}
+
+.peair-evolution-list li:last-child::before {
+  display: none;
+}
+
+.pvz-bullet {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--pvz-dark-green);
+  border: 3px solid var(--pvz-brown-light);
+  margin-top: 3px;
+  margin-right: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.peair-evolution-list li strong {
+  color: var(--pvz-dark-green);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.peair-evo-item {
+  padding-bottom: 18px;
+  flex: 1;
+}
+
+/* ══════════════════════════════════════════
+   3. PRODUCT — ORANGE BAND
+══════════════════════════════════════════ */
+.peair-wave-bottom {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.peair-wave-bottom svg {
+  display: block;
+  width: 100%;
+  height: 90px;
+}
+
+.peair-product-section {
+  background: linear-gradient(160deg, #ffe55a 0%, var(--pvz-orange) 60%, var(--pvz-orange-deep) 100%);
+  padding: 90px 8vw 110px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle sun rays, no repaint on scroll */
+.peair-product-section::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.08) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+/* Section header */
+.peair-product-header {
+  max-width: 1300px;
+  margin: 0 auto 70px;
+}
+
+.peair-product-header h2 {
+  font-family: var(--font-pvz);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  color: var(--pvz-dark-green);
+  line-height: 1;
+  text-shadow:
+    -3px -3px 0 rgba(255, 255, 255, 0.45),
+    2px 3px 0 rgba(0, 0, 0, 0.18);
+}
+
+.peair-product-header p {
+  font-family: var(--font-pvz);
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--pvz-brown-light);
+  margin-bottom: 16px;
+  display: block;
+}
+
+.peair-product-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.peair-product-inner+.peair-product-inner {
+  margin-top: 80px;
+}
+
+.peair-product-inner.reverse .peair-render-slot-orange {
+  order: 2;
+}
+
+.peair-product-inner.reverse .peair-product-text {
+  order: 1;
+}
+
+/* Orange-section placeholders */
+.peair-render-slot-orange {
+  border-radius: 20px;
+  min-height: 420px;
+  background: rgba(0, 0, 0, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 50px 35px;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  will-change: transform;
+}
+
+.peair-render-slot-orange:hover {
+  background: rgba(0, 0, 0, 0.14);
+  border-color: rgba(255, 255, 255, 0.8);
+  transform: translateY(-8px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
+}
+
+/* Product text styling */
+.peair-product-label {
+  font-family: var(--font-pvz);
+  font-size: 0.7rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--pvz-brown-light);
+  display: block;
+  margin-bottom: 16px;
+}
+
+.peair-product-text h3 {
+  font-family: var(--font-pvz);
+  font-size: clamp(2.2rem, 3.5vw, 3.5rem);
+  color: var(--pvz-dark-green);
+  text-shadow:
+    -2px -2px 0 rgba(255, 255, 255, 0.45),
+    2px 2px 0 rgba(0, 0, 0, 0.18);
+  margin-bottom: 20px;
+  line-height: 1.1;
+}
+
+.peair-product-text p {
+  font-family: var(--font-pvz);
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
+  color: var(--pvz-brown);
+  line-height: 1.75;
+  border-left: 4px solid rgba(26, 107, 40, 0.35);
+  padding-left: 18px;
+}
+
+/* ══════════════════════════════════════════
+   4. PACKAGING — DARK GREEN STAGE
+══════════════════════════════════════════ */
+.peair-packaging-section {
+  position: relative;
+  background: var(--pvz-deeper-green);
+  padding: 0 8vw 130px;
+  overflow: hidden;
+}
+
+.peair-packaging-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 40% at 50% 0%, rgba(74, 158, 34, 0.4) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.peair-packaging-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding-top: 90px;
+  position: relative;
+  z-index: 2;
+}
+
+.peair-packaging-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 60px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(250, 184, 14, 0.2);
+}
+
+.peair-section-label {
+  font-family: var(--font-pvz);
+  font-size: 0.72rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--pvz-yellow);
+  margin-bottom: 14px;
+  display: block;
+}
+
+.peair-section-heading {
+  font-family: var(--font-pvz);
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  color: var(--pvz-orange);
+  line-height: 0.95;
+  text-shadow:
+    -3px -3px 0 rgba(255, 255, 255, 0.1),
+    3px 3px 0 rgba(0, 0, 0, 0.35);
+}
+
+.peair-packaging-desc {
+  font-family: var(--font-pvz);
+  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  color: rgba(255, 255, 255, 0.55);
+  max-width: 420px;
+  line-height: 1.65;
+  align-self: flex-end;
+}
+
+/* Dark placeholder — full width, tall */
+.peair-render-slot-dark {
+  width: 100%;
+  min-height: 520px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 2px solid rgba(250, 184, 14, 0.3);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 70px;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  will-change: transform;
+}
+
+.peair-render-slot-dark:hover {
+  background: rgba(0, 0, 0, 0.32);
+  border-color: rgba(250, 184, 14, 0.75);
+  transform: translateY(-8px);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(250, 184, 14, 0.25);
+}
+
+.slot-label-dark {
+  font-family: var(--font-pvz);
+  font-size: 0.72rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--pvz-yellow);
+  margin-bottom: 14px;
+  display: block;
+}
+
+.slot-desc-dark {
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.4);
+  max-width: 340px;
+  line-height: 1.55;
+}
+
+/* ══════════════════════════════════════════
+   5. FOOTER
+══════════════════════════════════════════ */
+.peair-footer {
+  background: var(--pvz-deeper-green);
+  padding: 20px 8vw 100px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.peair-footer-divider {
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--pvz-yellow), transparent);
+  border-radius: 2px;
+}
+
+.peair-credits {
+  font-family: var(--font-pvz);
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 3px;
+}
+
+.peair-behance-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--pvz-orange);
+  color: var(--pvz-brown);
+  padding: 18px 40px;
+  border-radius: 4px;
+  font-family: var(--font-pvz);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  /* Raised button effect */
+  box-shadow: 0 7px 0 var(--pvz-orange-deep), 0 12px 25px rgba(0, 0, 0, 0.35);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  will-change: transform;
+}
+
+.peair-behance-btn:hover {
+  transform: translateY(5px);
+  box-shadow: 0 2px 0 var(--pvz-orange-deep), 0 4px 12px rgba(0, 0, 0, 0.3);
+  color: var(--pvz-brown);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+
+  .peair-context-inner,
+  .peair-product-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .peair-product-inner.reverse .peair-render-slot-orange,
+  .peair-product-inner.reverse .peair-product-text {
+    order: unset;
+  }
+
+  .peair-packaging-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .peair-context-inner {
+    grid-template-columns: 1fr;
+  }
+}

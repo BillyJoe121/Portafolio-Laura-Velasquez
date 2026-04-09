@@ -1,444 +1,252 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { motion } from 'motion/react';
-import Spline from '@splinetool/react-spline';
-import { AnimatedTestimonials } from "../../components/ui/animated-testimonials";
 import { IconBrandBehance } from '@tabler/icons-react';
 import './ProjectDetail.css';
+import './PeairDetail.css';
 
-/**
- * ProjectDetail — Template de página individual de proyecto.
- * - Botón volver: símbolo "‹" ovalado pequeño, negro → blanco al hover
- * - Título: imagen titulo.png del proyecto (en vez de texto)
- * - Sin subtítulo de diseño
- */
+/* ── Variants ── */
+const fadeUp   = { hidden: { opacity:0, y:60 },  visible: { opacity:1, y:0,  transition:{ duration:0.9, ease:[0.16,1,0.3,1] } } };
+const fadeLeft = { hidden: { opacity:0, x:-60 }, visible: { opacity:1, x:0,  transition:{ duration:0.9, ease:[0.16,1,0.3,1] } } };
+const fadeRight= { hidden: { opacity:0, x:60 },  visible: { opacity:1, x:0,  transition:{ duration:0.9, ease:[0.16,1,0.3,1] } } };
+const stagger  = { hidden: {}, visible: { transition:{ staggerChildren:0.12 } } };
+const itemFade = { hidden: { opacity:0, y:20 },  visible: { opacity:1, y:0,  transition:{ duration:0.6, ease:[0.16,1,0.3,1] } } };
+const vp = { once:true, margin:'-60px' };
+
 export function PeairDetail({ project, onBack }) {
   if (!project) return null;
 
   return (
-    <div className={`project-detail ${project.splineUrl ? 'has-spline' : ''}`}>
+    <div className="project-detail peair-detail-container">
+      <div className="project-top-fade" style={{ background:'linear-gradient(to bottom, #ffe14a 0%, rgba(255,225,74,0.7) 60px, transparent 100%)' }} />
 
-      {/* 
-        Cortina de difuminado (fade) superior. 
-        Simula que el texto pierde opacidad bajo el docker.
-        Si hay un Spline, el CSS limitará su ancho para no taparlo.
-      */}
-      <div className="project-top-fade" />
-
-      {/* Botón volver — ovalado pequeño con flecha */}
       <motion.button
         className="project-back-btn"
         onClick={onBack}
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        initial={{ opacity:0, x:-20 }}
+        animate={{ opacity:1, x:0 }}
+        transition={{ duration:0.4 }}
         aria-label="Volver a proyectos"
+        style={{ background:'rgba(26,107,40,0.18)', borderColor:'rgba(26,107,40,0.45)', color:'#1a6b28' }}
       >
         ‹
       </motion.button>
 
-      {/* Contenido scrollable (mitad izquierda si hay spline, o completo) */}
-      <div className="project-detail-scroll">
-
-        {/* Imagen de título del proyecto */}
-        <motion.div
-          className="project-title-img-wrapper"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      {/* ══ 1. HERO ══════════════════════════════ */}
+      <section className="peair-hero">
+        <motion.span
+          className="peair-hero-eyebrow"
+          initial={{ opacity:0, y:-20 }}
+          animate={{ opacity:1, y:0 }}
+          transition={{ duration:0.6, delay:0.2 }}
         >
-          <img
-            src={project.titleImage}
-            alt={project.title}
-            className="project-title-img"
-          />
-        </motion.div>
-
-        {/* Concepto Section — Se muestra si existe en el objeto project */}
-        {project.concept && (
-          <motion.div
-            className="project-concept-section"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <h3
-              className="project-concept-title"
-              style={project.conceptImage ? {
-                backgroundImage: `url(${project.conceptImage})`,
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                color: 'transparent',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              } : {}}
-            >
-              Concepto:
-            </h3>
-            {Array.isArray(project.concept) ? (
-              project.concept.map((p, i) => (
-                <p key={i} className="project-concept-text">{p}</p>
-              ))
-            ) : (
-              <p className="project-concept-text">{project.concept}</p>
-            )}
-          </motion.div>
-        )}
-
-        {/* Team Section — Se muestra si existe en el objeto project */}
-        {project.teamMember && (
-          <motion.div
-            className="project-team-section"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <h2
-              className="project-team-name"
-              style={project.conceptImage ? {
-                backgroundImage: `url(${project.conceptImage})`,
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                color: 'transparent',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              } : {}}
-            >
-              {project.teamMember}
-            </h2>
-          </motion.div>
-        )}
-
-        {/* User Image Section — Se muestra si existe en el objeto project */}
-        {project.userImage && (
-          <motion.div
-            className="project-user-img-wrapper"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <img
-              src={project.userImage}
-              alt="Luminy usuaria"
-              className="project-user-img"
-            />
-
-            {/* Overlay texts on top of user image */}
-            <div className="project-user-overlays">
-              <div className="project-user-overlay-item age-text">
-                <span className="age-number">32</span>
-                <span className="age-label">años</span>
-              </div>
-
-              <div className="project-user-glass-card">
-                <p><strong>Ocupación:</strong> Docente de economía</p>
-                <p><strong>Ubicación:</strong> Vive en un apartamento moderno en una zona céntrica y densamente poblada.</p>
-              </div>
-
-              <div className="project-user-motivations">
-                <h4 className="motivations-title">Motivaciones:</h4>
-                <div className="motivations-row">
-                  <div className="motivation-glass-item">Tranquilidad</div>
-                  <div className="motivation-glass-item">Armonía</div>
-                  <div className="motivation-glass-item">Control</div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        )}
-
-
-
-        {/* Blue System Banner — Nuevo componente visual */}
-        <motion.div
-          className="project-blue-banner"
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="banner-content">
-            <div className="banner-label label-dashboard" style={{ zIndex: 1 }}>Dashboard</div>
-            <h2 className="banner-title">Luminy</h2>
-            <div className="banner-label label-sensores" style={{ zIndex: 3 }}>Sensores</div>
-            <div className="banner-label label-actuadores" style={{ zIndex: 1 }}>Actuadores</div>
-          </div>
-          <div className="banner-text-content">
-            <p>
-              El dashboard de Luminy permite al usuario monitorear el mini invernadero en tiempo real. Presenta
-              de forma clara variables esenciales como la temperatura, la humedad del aire y la humedad del
-              suelo, además de ofrecer alertas cuando alguna condición se sale de los rangos ideales.
-            </p>
-            <p>
-              Para reforzar el vínculo emocional con el usuario, el sistema incorpora un lenguaje visual basado
-              en luces LED: un tono rojo indica que la planta necesita agua y requiere atención, mientras que un
-            </p>
-          </div>
-        </motion.div>
+          Diseño Industrial · Colección · 2024
+        </motion.span>
 
         <motion.div
-          className="project-typography-banner"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity:0, scale:0.88 }}
+          animate={{ opacity:1, scale:1 }}
+          transition={{ duration:1.1, ease:[0.16,1,0.3,1], delay:0.3 }}
         >
-          <div className="style-guide-rows">
-            {/* Row 1: Título + Fuente principal */}
-            <div className="style-row-item">
-              <span className="style-label">Tipografía</span>
-              <h3 className="style-main-font">SF Pro</h3>
-            </div>
-
-            {/* Row 2: Variantes + Pills */}
-            <div className="style-row-item">
-              <span className="style-label">Variantes</span>
-              <div className="style-pills-row">
-                <div className="variant-box-pill">Thin</div>
-                <div className="variant-box-pill">Regular</div>
-                <div className="variant-box-pill semibold">Semibold</div>
-              </div>
-            </div>
-          </div>
+          <span className="peair-hero-title">PEAIR</span>
+          <span className="peair-hero-title-reflection" aria-hidden="true">PEAIR</span>
         </motion.div>
 
-        {/* New Colors Image Section */}
-        <motion.div
-          className="project-colors-independent"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <img
-            src="/src/assets/proyectos/Luminy/colores.jpeg"
-            alt="Colores"
-            className="project-standalone-colors-img"
-          />
-        </motion.div>
+        <div className="peair-scroll-cue">
+          <span>scroll</span>
+          <div className="peair-scroll-line" />
+        </div>
+      </section>
 
-        {/* New PC Image Section — Independiente */}
-        <motion.div
-          className="project-pc-independent"
-          initial={{ opacity: 0, scale: 0.98 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <img
-            src="/src/assets/proyectos/Luminy/pc.jpeg"
-            alt="PC View"
-            className="project-standalone-pc-img"
-          />
-        </motion.div>
-
-        {/* Manual de Uso Title — Reemplaza imagen con título estilo Concepto */}
-        <motion.div
-          className="project-concept-section"
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          style={{ marginBottom: '20px' }}
-        >
-          <h3
-            className="project-concept-title"
-            style={project.conceptImage ? {
-              backgroundImage: `url(${project.conceptImage})`,
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              color: 'transparent',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            } : {}}
-          >
-            Manual de Uso:
-          </h3>
-        </motion.div>
-
-        {/* Partes Section — Independiente */}
-        <motion.div
-          className="project-partes-independent"
-          initial={{ opacity: 0, scale: 0.98 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <img
-            src="/src/assets/proyectos/Luminy/partes.jpeg"
-            alt="Componentes del Sistema"
-            className="project-standalone-partes-img"
-          />
-        </motion.div>
-
-        {/* Features Summary Section — Recuadro azul claro con mascota */}
-        <motion.div
-          className="project-features-summary"
-          initial={{ opacity: 0, scale: 0.98 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <div className="features-summary-container">
-            <h3 className="features-title">
-              Tu ventana a su mundo. Desde tu celular o computador puedes:
-            </h3>
-            <ul className="features-list">
-              <li>Ver la temperatura</li>
-              <li>Revisar la humedad del aire</li>
-              <li>Revisar la humedad de la tierra</li>
-              <li>Recibir alertas cuando algo esté fuera de los rangos ideales</li>
-              <li>Ver el estado emocional de tu planta a través de los códigos de color</li>
-            </ul>
-
-            <img
-              src="/src/assets/proyectos/Luminy/mascota luminy.jpeg"
-              alt="Mascota Luminy"
-              className="features-mascot-img"
-            />
-          </div>
-        </motion.div>
-
-        {/* Secuencia de Uso Section */}
-        <motion.div
-          className="project-usage-sequence"
-          initial={{ opacity: 0, scale: 0.98 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <div className="usage-sequence-container">
-            <h2 className="usage-title">Secuencia de uso</h2>
-
-            <div className="usage-steps-grid">
-              {[
-                { n: 1, t: "Abre el contenedor de agua (Contenedor 1)", d: "Retira la tapa inferior para tener acceso al depósito." },
-                { n: 2, t: "Vierte la cantidad de agua que desees utilizar para el sistema de riego y la mini fuente.", d: "" },
-                { n: 3, t: "Conecta la manguera a la bomba,", d: "Asegúrate de que esté bien sujeta." },
-                { n: 4, t: "Ensambla el cuerpo de Luminy", d: "Coloca el cuerpo sobre el contenedor 2." },
-                { n: 5, t: "Planta tu planta principal en la cabeza de Luminy.", d: "" },
-                { n: 6, t: "Encaja la cabeza sobre el cuerpo. Verás que todo queda alineado y estético.", d: "" },
-                { n: 7, t: "Inserta el sensor de humedad en la tierra.", d: "" },
-                { n: 8, t: "Conecta luminy a la corriente.", d: "" }
-              ].map((step, idx) => (
-                <div key={idx} className="usage-step-item">
-                  <div className="step-number-outer">
-                    <div className="step-number-inner">
-                      <span>{step.n}</span>
-                    </div>
-                  </div>
-                  <div className="step-instruction-card">
-                    <p className="step-title">{step.t}</p>
-                    {step.d && <p className="step-desc">{step.d}</p>}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Proceso de Diseño Title — Estilo Concepto */}
-        <motion.div
-          className="project-concept-section"
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          style={{ marginBottom: '20px' }}
-        >
-          <h3
-            className="project-concept-title"
-            style={project.conceptImage ? {
-              backgroundImage: `url(${project.conceptImage})`,
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              color: 'transparent',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            } : {}}
-          >
-            Proceso de Diseño:
-          </h3>
-        </motion.div>
-
-        {/* Animated Stack Section (Aceternity) */}
-        <motion.div
-          className="project-animated-stack"
-          initial={{ opacity: 0, scale: 0.98 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <AnimatedTestimonials
-            testimonials={[
-              { src: "/src/assets/proyectos/Luminy/plano1.jpeg" },
-              { src: "/src/assets/proyectos/Luminy/plano2.jpeg" },
-              { src: "/src/assets/proyectos/Luminy/plano3.jpeg" },
-              { src: "/src/assets/proyectos/Luminy/plano4.jpeg" },
-              { src: "/src/assets/proyectos/Luminy/plano5.jpeg" },
-            ]}
-            autoplay={true}
-          />
-        </motion.div>
-
-        {/* Project Closing Section */}
-        <motion.div
-          className="project-closure-section"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="closure-circle-frame">
-            <img
-              src="/src/assets/proyectos/Luminy/cierre.jpeg"
-              alt="Cierre del proyecto"
-              className="closure-img"
-            />
-          </div>
-          <h2 className="closure-brand-text">Luminy</h2>
-        </motion.div>
-
-        {/* Credits Section */}
-        <motion.div
-          className="project-credits-section"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.5 }}
-        >
-          <p className="credits-text">
-            Créditos: Isabella Salazár y Laura Velasquez
-          </p>
-        </motion.div>
-
-        {/* Behance Link Section */}
-        <motion.div
-          className="project-behance-link-section"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.7 }}
-        >
-          <a
-            href="https://www.behance.net/gallery/245863281/Maceta-inteligente-Luminy"
-            target="_blank"
-            rel="noreferrer"
-            className="behance-cta-btn"
-          >
-            <IconBrandBehance size={22} stroke={1.5} />
-            <span>Descubre más detalles aquí</span>
-          </a>
-        </motion.div>
+      {/* ══ WAVE ═══════════════════════════════ */}
+      <div className="peair-wave-top">
+        <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+          <path d="M0,45 C200,90 400,0 600,45 C800,90 1050,10 1200,50 C1300,75 1380,30 1440,45 L1440,90 L0,90 Z"/>
+        </svg>
       </div>
 
-      {/* 3D Spline fijo a la mitad derecha de la pantalla */}
-      {project.splineUrl && (
-        <div className="project-detail-spline">
-          <Suspense fallback={null}>
-            <Spline scene={project.splineUrl} />
-          </Suspense>
+      {/* ══ 2. CONTEXT ══════════════════════════ */}
+      <section className="peair-context-section">
+        <motion.div
+          className="peair-context-inner"
+          initial="hidden"
+          whileInView="visible"
+          viewport={vp}
+          variants={stagger}
+        >
+          {/* Render placeholder */}
+          <motion.div variants={fadeLeft}>
+            <div className="peair-render-slot">
+              <span className="slot-label">Render 01</span>
+              <p className="slot-desc">Producto en su contexto — escritorio o escena de uso</p>
+            </div>
+          </motion.div>
+
+          {/* Parchment card */}
+          <motion.div variants={fadeRight}>
+            <div className="peair-parchment-card">
+              <p>
+                El fenómeno de Plants vs. Zombies dejó una huella profunda. Muchos fans, hoy adultos,
+                buscan integrar esos recuerdos en sus espacios modernos. Peair es la respuesta.
+              </p>
+              <p>
+                Más que una figura, es un aliado cotidiano. Diseñado para acompañar al fan en cada
+                etapa de su vida, Peair evoluciona:
+              </p>
+              <ul className="peair-evolution-list">
+                {[
+                  { stage:'Infancia',  desc:'El recuerdo de la pantalla.' },
+                  { stage:'Juventud',  desc:'La figura de colección.' },
+                  { stage:'Madurez',   desc:'El dispositivo tecnológico que refresca tu mesa de trabajo.' },
+                ].map(({ stage, desc }) => (
+                  <li key={stage}>
+                    <div className="pvz-bullet" />
+                    <div className="peair-evo-item">
+                      <strong>{stage}:</strong> {desc}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* ══ WAVE orange ════════════════════════ */}
+      <div className="peair-wave-bottom" style={{ background:'var(--pvz-green)' }}>
+        <svg viewBox="0 0 1440 90" preserveAspectRatio="none" style={{ fill:'var(--pvz-orange)' }}>
+          <path d="M0,0 C300,90 600,0 900,60 C1050,90 1250,20 1440,50 L1440,90 L0,90 Z"/>
+        </svg>
+      </div>
+
+      {/* ══ 3. PRODUCT ══════════════════════════ */}
+      <section className="peair-product-section">
+        <motion.div
+          className="peair-product-header"
+          initial="hidden"
+          whileInView="visible"
+          viewport={vp}
+          variants={stagger}
+        >
+          <motion.p variants={itemFade}>02 · El Producto</motion.p>
+          <motion.h2 variants={fadeUp}>Un ventilador<br/>con personalidad</motion.h2>
+        </motion.div>
+
+        {/* Split 1 — Render left, text right */}
+        <motion.div
+          className="peair-product-inner"
+          initial="hidden"
+          whileInView="visible"
+          viewport={vp}
+          variants={stagger}
+        >
+          <motion.div variants={fadeLeft}>
+            <div className="peair-render-slot-orange">
+              <span className="slot-label" style={{ color:'rgba(62,34,6,0.6)' }}>Render 02</span>
+              <p className="slot-desc" style={{ color:'rgba(62,34,6,0.5)' }}>Vista detalle del ventilador</p>
+            </div>
+          </motion.div>
+          <motion.div className="peair-product-text" variants={fadeRight}>
+            <span className="peair-product-label">Diseño Compacto</span>
+            <h3>Refrescante y<br/>reconocible</h3>
+            <p>
+              Con diseño inspirado en videojuegos, pensado para refrescar y darle personalidad a tu espacio.
+              Cada curva de Peair existe por dos razones: funcionar y sorprender.
+            </p>
+          </motion.div>
+        </motion.div>
+
+        {/* Split 2 — text left, Render right */}
+        <motion.div
+          className="peair-product-inner reverse"
+          initial="hidden"
+          whileInView="visible"
+          viewport={vp}
+          variants={stagger}
+        >
+          <motion.div className="peair-product-text" variants={fadeLeft}>
+            <span className="peair-product-label">Experiencia Visual</span>
+            <h3>Aire con<br/>identidad</h3>
+            <p>
+              Su diseño único transforma el aire en una experiencia visual llamativa, ideal para
+              escritorios, habitaciones y espacios creativos.
+            </p>
+          </motion.div>
+          <motion.div variants={fadeRight}>
+            <div className="peair-render-slot-orange">
+              <span className="slot-label" style={{ color:'rgba(62,34,6,0.6)' }}>Render 03</span>
+              <p className="slot-desc" style={{ color:'rgba(62,34,6,0.5)' }}>Perspectiva alternativa o detalle formal</p>
+            </div>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* ══ WAVE dark ══════════════════════════ */}
+      <div className="peair-wave-bottom" style={{ background:'var(--pvz-orange-deep)' }}>
+        <svg viewBox="0 0 1440 90" preserveAspectRatio="none" style={{ fill:'var(--pvz-deeper-green)' }}>
+          <path d="M0,20 C400,90 800,0 1100,55 C1250,85 1360,20 1440,40 L1440,90 L0,90 Z"/>
+        </svg>
+      </div>
+
+      {/* ══ 4. PACKAGING ════════════════════════ */}
+      <section className="peair-packaging-section">
+        <div className="peair-packaging-inner">
+          <motion.div
+            className="peair-packaging-header"
+            initial="hidden"
+            whileInView="visible"
+            viewport={vp}
+            variants={stagger}
+          >
+            <div>
+              <motion.span className="peair-section-label" variants={itemFade}>04 · Empaque</motion.span>
+              <motion.h2 className="peair-section-heading" variants={fadeUp}>La Caja<br/>de Peair</motion.h2>
+            </div>
+            <motion.p className="peair-packaging-desc" variants={fadeRight}>
+              El empaque prolonga la experiencia del coleccionista. Cada elemento gráfico
+              refuerza el universo Plants vs. Zombies y posiciona Peair como pieza de edición especial.
+            </motion.p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={vp}
+            variants={fadeUp}
+          >
+            <div className="peair-render-slot-dark">
+              <span className="slot-label-dark">Render 04 — Empaque</span>
+              <p className="slot-desc-dark">Producto con fondo naranja y empaque con branding Plants vs. Zombies</p>
+            </div>
+          </motion.div>
         </div>
-      )}
+      </section>
+
+      {/* ══ 5. FOOTER ════════════════════════════ */}
+      <motion.div
+        className="peair-footer"
+        initial="hidden"
+        whileInView="visible"
+        viewport={vp}
+        variants={stagger}
+      >
+        <motion.div className="peair-footer-divider" variants={itemFade} />
+        <motion.p className="peair-credits" variants={itemFade}>
+          Créditos: Laura Velasquez
+        </motion.p>
+        <motion.a
+          href="https://www.behance.net/gallery/246212159/Peair-Ventilador-decorativo"
+          target="_blank"
+          rel="noreferrer"
+          className="peair-behance-btn"
+          variants={itemFade}
+          whileHover={{ scale:1.03 }}
+          whileTap={{ scale:0.97 }}
+        >
+          <IconBrandBehance size={22} stroke={2} />
+          Descubre más en Behance
+        </motion.a>
+      </motion.div>
+
     </div>
   );
 }

@@ -1,4 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Luckiest+Guy&display=swap');
 
 @font-face {
   font-family: 'Surgena';
@@ -49,6 +49,7 @@
   --font-main: 'Poppins', sans-serif;
   --font-heading: 'Plus Jakarta Sans', sans-serif;
   --font-brand: 'Surgena', sans-serif;
+  --font-pvz: 'Luckiest Guy', cursive;
 }
 
 * {

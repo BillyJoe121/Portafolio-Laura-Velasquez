@@ -141,14 +141,33 @@ function ProductCard({ product, translate, onSelect }) {
         onClick={handleClick}
         className="hp-card-link"
       >
-        <img
-          src={product.thumbnail}
-          width="600"
-          height="600"
-          className="hp-card-img"
-          alt={product.title}
-          loading="lazy"
-        />
+        {product.thumbnail ? (
+          <img
+            src={product.thumbnail}
+            width="600"
+            height="600"
+            className="hp-card-img"
+            alt={product.title}
+            loading="lazy"
+          />
+        ) : (
+          <div 
+            className="hp-card-img" 
+            style={{ 
+              backgroundColor: '#000', 
+              color: '#fff', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              fontFamily: 'Surgena, sans-serif',
+              fontSize: '3rem',
+              width: '100%',
+              height: '100%'
+            }}
+          >
+            {product.title}
+          </div>
+        )}
       </a>
       <div className="hp-card-overlay" />
       <h2 className="hp-card-title">{product.title}</h2>

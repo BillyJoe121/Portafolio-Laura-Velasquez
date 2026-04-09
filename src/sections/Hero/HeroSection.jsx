@@ -23,7 +23,7 @@ export function HeroSection({ currentSection, heroTextOpacity }) {
     if (!videoP || !videoW || !canvas) return;
 
     const ctx = canvas.getContext('2d');
-    
+
     if (!offCanvasRef.current) {
       offCanvasRef.current = document.createElement('canvas');
     }
@@ -192,20 +192,20 @@ export function HeroSection({ currentSection, heroTextOpacity }) {
           initial={{ x: '-100%', opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-          style={{ 
-            width: '100%', 
+          style={{
+            width: '100%',
             height: '100%',
-            filter: 'drop-shadow(0px 15px 40px rgba(0, 0, 0, 0.18))' 
+            filter: 'drop-shadow(0px 15px 40px rgba(0, 0, 0, 0.18))'
           }}
         >
-          <canvas 
-            ref={canvasRef} 
-            style={{ 
-              width: '100%', 
-              height: '100%', 
+          <canvas
+            ref={canvasRef}
+            style={{
+              width: '100%',
+              height: '100%',
               display: 'block',
               willChange: 'filter'
-            }} 
+            }}
           />
         </motion.div>
       </motion.div>

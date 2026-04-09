@@ -1,0 +1,623 @@
+/* =========================================
+   MILO DETAIL — NEO-BRUTALISM PREMIUM
+   Industrial · Bold · Electric Yellow
+========================================= */
+
+.milo-detail-container {
+  --milo-yellow: #f9fc3d;
+  --milo-yellow-dim: rgba(249, 252, 61, 0.08);
+  --milo-yellow-glow: rgba(249, 252, 61, 0.4);
+  --milo-black: #0a0a0a;
+  --milo-surface: #111111;
+  --milo-surface-2: #161616;
+  --milo-border: rgba(249, 252, 61, 0.15);
+  --milo-text: rgba(255, 255, 255, 0.88);
+  --milo-muted: rgba(255, 255, 255, 0.45);
+
+  background-color: var(--milo-black);
+  min-height: 100vh;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-family: var(--font-main);
+  color: var(--milo-text);
+}
+
+/* ══════════════════════════════════════════
+   1. HERO SECTION
+══════════════════════════════════════════ */
+.milo-hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 140px 5vw 80px;
+  background: var(--milo-black);
+}
+
+/* Scan-line texture REMOVED — repeating-linear-gradient on a fixed element
+   forces a full repaint on every scroll tick */
+
+/* Yellow ambient glow behind title */
+.milo-hero-glow {
+  position: absolute;
+  width: 600px; height: 250px;
+  background: radial-gradient(ellipse, var(--milo-yellow-glow) 0%, transparent 70%);
+  /* Smaller blur, promoted to GPU layer */
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+  will-change: opacity;
+  animation: glowPulse 5s ease-in-out infinite alternate;
+}
+@keyframes glowPulse {
+  from { opacity: 0.5; transform: scale(1); }
+  to   { opacity: 0.9; transform: scale(1.1); }
+}
+
+/* ── HERO TITLE ── */
+.milo-hero-title-wrapper {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  line-height: 1;
+  user-select: none;
+}
+
+.milo-hero-title {
+  font-family: var(--font-brand);
+  font-size: clamp(8rem, 22vw, 18rem);
+  font-weight: 900;
+  color: var(--milo-yellow);
+  letter-spacing: -4px;
+  display: block;
+  text-shadow:
+    0 0 40px rgba(249, 252, 61, 0.6),
+    0 0 80px rgba(249, 252, 61, 0.3);
+  line-height: 0.85;
+}
+
+/* Reflection effect */
+.milo-hero-title-reflection {
+  font-family: var(--font-brand);
+  font-size: clamp(8rem, 22vw, 18rem);
+  font-weight: 900;
+  letter-spacing: -4px;
+  display: block;
+  line-height: 0.85;
+  /* Mirror + fade */
+  transform: scaleY(-1);
+  background: linear-gradient(to bottom, rgba(249,252,61,0.35) 0%, rgba(249,252,61,0) 70%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: blur(1.5px);
+  margin-top: 8px;
+}
+
+/* Eyebrow above title */
+.milo-hero-eyebrow {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--milo-yellow);
+  margin-bottom: 30px;
+  padding: 8px 20px;
+  border: 1px solid var(--milo-border);
+  border-radius: 4px;
+  background: var(--milo-yellow-dim);
+  z-index: 2;
+  position: relative;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Scroll cue */
+.milo-hero-scroll-cue {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+}
+.milo-hero-scroll-cue span {
+  font-size: 0.7rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--milo-muted);
+}
+.milo-scroll-line {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--milo-yellow), transparent);
+  animation: scrollLine 2.2s ease-in-out infinite;
+}
+@keyframes scrollLine {
+  0%, 100% { opacity: 0; transform: scaleY(0); transform-origin: top; }
+  50%       { opacity: 1; transform: scaleY(1); }
+}
+
+/* ══════════════════════════════════════════
+   2. RETO SECTION
+══════════════════════════════════════════ */
+.milo-reto-section {
+  background: var(--milo-surface);
+  padding: 120px 8vw;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Giant ghost text behind */
+.milo-reto-bg-text {
+  position: absolute;
+  top: -30px; right: -20px;
+  font-family: var(--font-brand);
+  font-size: clamp(8rem, 20vw, 16rem);
+  color: rgba(249,252,61,0.02);
+  pointer-events: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  line-height: 1;
+  user-select: none;
+}
+
+.milo-reto-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.milo-reto-number {
+  font-family: var(--font-brand);
+  font-size: clamp(6rem, 10vw, 9rem);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--milo-border);
+  opacity: 0.5;
+}
+
+.milo-reto-content span {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--milo-yellow);
+  display: block;
+  margin-bottom: 20px;
+}
+
+.milo-reto-content h2 {
+  font-family: var(--font-brand);
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  color: var(--milo-yellow);
+  text-transform: uppercase;
+  line-height: 0.95;
+  margin-bottom: 30px;
+  text-shadow: 0 0 40px var(--milo-yellow-glow);
+}
+
+.milo-reto-content p {
+  font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+  line-height: 1.8;
+  color: var(--milo-muted);
+  max-width: 700px;
+  border-left: 3px solid var(--milo-border);
+  padding-left: 25px;
+}
+
+/* Render placeholder side */
+.milo-render-placeholder {
+  border: 1px solid var(--milo-border);
+  border-radius: 12px;
+  background: var(--milo-surface-2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 50px 30px;
+  min-height: 320px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
+}
+.milo-render-placeholder::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(249,252,61,0.06) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.milo-render-placeholder:hover {
+  border-color: var(--milo-yellow);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(249,252,61,0.1);
+}
+.milo-render-placeholder:hover::before { opacity: 1; }
+.ph-icon { font-size: 2.5rem; opacity: 0.2; margin-bottom: 16px; }
+.ph-label {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--milo-yellow); margin-bottom: 8px;
+}
+.ph-desc { font-size: 0.9rem; color: var(--milo-muted); max-width: 260px; }
+
+/* ══════════════════════════════════════════
+   3. CONCEPTO SECTION
+══════════════════════════════════════════ */
+.milo-concepto-section {
+  background: var(--milo-yellow);
+  padding: 120px 8vw;
+  position: relative;
+  overflow: hidden;
+  clip-path: polygon(0 5vw, 100% 0, 100% 100%, 0 calc(100% - 5vw));
+  margin-top: -5vw;
+  z-index: 5;
+}
+
+/* Blueprint grid */
+.milo-concepto-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.05) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(0,0,0,0.05) 2px, transparent 2px);
+  background-size: 50px 50px;
+  pointer-events: none;
+}
+
+.milo-concepto-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative; z-index: 2;
+}
+
+.milo-concepto-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+}
+
+.milo-concepto-header h2 {
+  font-family: var(--font-brand);
+  font-size: clamp(3.5rem, 7vw, 6rem);
+  color: var(--milo-black);
+  text-transform: uppercase;
+  line-height: 0.9;
+  position: relative;
+}
+
+/* Skewed yellow-on-black highlight */
+.milo-concepto-header h2 span.skew-highlight {
+  display: inline-block;
+  background: var(--milo-black);
+  color: var(--milo-yellow);
+  padding: 0 20px;
+  transform: skewX(-8deg);
+}
+
+.milo-intro-text {
+  flex: 1; min-width: 300px;
+  font-size: clamp(1.1rem, 1.4vw, 1.25rem);
+  line-height: 1.7;
+  color: var(--milo-black);
+  font-weight: 600;
+  max-width: 600px;
+}
+
+/* Feature Cards */
+.milo-features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 40px 0 50px;
+}
+
+.milo-feature-card {
+  background: var(--milo-black);
+  color: var(--milo-yellow);
+  padding: 35px 25px;
+  font-family: var(--font-main);
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 1px;
+  box-shadow: 8px 8px 0 rgba(0,0,0,0.3);
+  border: 2px solid var(--milo-black);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  min-height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.milo-feature-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0; width: 100%; height: 3px;
+  background: var(--milo-yellow);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.milo-feature-card:hover {
+  transform: translate(8px, 8px);
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+  background: var(--milo-yellow);
+  color: var(--milo-black);
+}
+.milo-feature-card:hover::after { transform: scaleX(1); }
+
+.milo-outro-text {
+  font-size: clamp(1.1rem, 1.4vw, 1.25rem);
+  line-height: 1.7;
+  color: var(--milo-black);
+  font-weight: 600;
+  max-width: 900px;
+  border-left: 5px solid var(--milo-black);
+  padding-left: 25px;
+}
+
+/* ══════════════════════════════════════════
+   4. RENDER BAND (double render placeholder)
+══════════════════════════════════════════ */
+.milo-render-band {
+  background: var(--milo-black);
+  padding: 120px 8vw;
+}
+.milo-render-band-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.milo-band-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--milo-yellow);
+  margin-bottom: 15px;
+  display: block;
+}
+.milo-band-heading {
+  font-family: var(--font-brand);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  text-transform: uppercase;
+  color: var(--milo-text);
+  margin-bottom: 50px;
+}
+
+.milo-render-split {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 25px;
+  align-items: stretch;
+}
+.milo-render-split .milo-render-placeholder {
+  min-height: 450px;
+}
+
+/* ══════════════════════════════════════════
+   5. PLANOS SECTION
+══════════════════════════════════════════ */
+.milo-planos-section {
+  background: var(--milo-surface);
+  padding: 0 8vw 120px;
+}
+.milo-planos-inner { max-width: 1200px; margin: 0 auto; }
+
+.milo-planos-header {
+  padding: 80px 0 50px;
+  border-bottom: 1px solid var(--milo-border);
+  display: flex;
+  align-items: flex-end;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+}
+.milo-planos-header h2 {
+  font-family: var(--font-brand);
+  font-size: clamp(3rem, 6vw, 5rem);
+  text-transform: uppercase;
+  color: var(--milo-yellow);
+  line-height: 0.9;
+  margin: 0;
+  text-shadow: 0 0 40px var(--milo-yellow-glow);
+}
+.milo-planos-tag {
+  background: var(--milo-yellow-dim);
+  border: 1px solid var(--milo-border);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--milo-yellow);
+  padding: 8px 20px;
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+
+/* ══════════════════════════════════════════
+   6. COMPONENTES (DARK HARDWARE)
+══════════════════════════════════════════ */
+.milo-componentes-section {
+  background: var(--milo-black);
+  padding: 120px 8vw;
+  clip-path: polygon(0 0, 100% 5vw, 100% 100%, 0 100%);
+  margin-top: -4vw;
+}
+
+.milo-comp-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.milo-comp-heading {
+  font-family: var(--font-brand);
+  font-size: clamp(3rem, 6vw, 5rem);
+  text-transform: uppercase;
+  color: var(--milo-text);
+  margin-bottom: 15px;
+}
+.milo-comp-heading em {
+  color: var(--milo-yellow);
+  font-style: normal;
+}
+
+.milo-comp-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, var(--milo-yellow), transparent);
+  margin-bottom: 70px;
+}
+
+.milo-comp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.milo-hardware-card {
+  background: var(--milo-surface);
+  border: 1px solid #222;
+  border-top: 3px solid var(--milo-yellow);
+  border-radius: 4px;
+  padding: 50px 40px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.milo-hardware-card:hover {
+  border-color: var(--milo-yellow);
+  box-shadow: 0 0 0 1px var(--milo-border), 0 30px 60px rgba(0,0,0,0.5);
+}
+/* Corner glow on card */
+.milo-hardware-card::after {
+  content: "";
+  position: absolute;
+  top: 0; right: 0;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle at top right, rgba(249,252,61,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.milo-hardware-card h3 {
+  font-family: var(--font-main);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--milo-yellow);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.hw-count {
+  font-family: var(--font-brand);
+  font-size: 2.5rem;
+  color: var(--milo-border);
+  line-height: 1;
+}
+
+.milo-hardware-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.milo-hardware-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  color: var(--milo-muted);
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  line-height: 1.6;
+  transition: color 0.3s ease;
+}
+.milo-hardware-list li:hover { color: var(--milo-text); }
+.milo-hardware-list li strong {
+  color: var(--milo-text);
+  font-weight: 700;
+}
+.hw-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--milo-yellow);
+  box-shadow: 0 0 12px var(--milo-yellow-glow);
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+/* ══════════════════════════════════════════
+   7. FOOTER
+══════════════════════════════════════════ */
+.milo-footer {
+  background: var(--milo-black);
+  padding: 0 8vw 100px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+.milo-credits {
+  font-size: 0.9rem;
+  color: var(--milo-muted);
+  letter-spacing: 1px;
+}
+.milo-behance-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--milo-yellow);
+  color: var(--milo-black);
+  padding: 16px 36px;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 6px 6px 0 rgba(249,252,61,0.2);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.milo-behance-btn:hover {
+  transform: translate(6px, 6px);
+  box-shadow: 0 0 0;
+  background: var(--milo-text);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .milo-reto-inner { grid-template-columns: 1fr; }
+  .milo-reto-number { display: none; }
+  .milo-features-grid { grid-template-columns: 1fr; }
+  .milo-render-split { grid-template-columns: 1fr; }
+  .milo-comp-grid { grid-template-columns: 1fr; }
+  .milo-hero-title { font-size: clamp(5rem, 18vw, 8rem); letter-spacing: -2px; }
+  .milo-hero-title-reflection { font-size: clamp(5rem, 18vw, 8rem); letter-spacing: -2px; }
+  .milo-concepto-section { clip-path: none; margin-top: 0; padding: 80px 5vw; }
+  .milo-componentes-section { clip-path: none; margin-top: 0; }
+}
