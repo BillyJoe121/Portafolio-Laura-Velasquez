@@ -17,9 +17,7 @@ import { IconArrowDown, IconArrowUp } from '@tabler/icons-react';
 import { ProjectDetail } from './pages/ProjectDetail/ProjectDetail';
 import { LuminyDetail } from './pages/ProjectDetail/LuminyDetail';
 import { MiloDetail } from './pages/ProjectDetail/MiloDetail';
-import { BlulelulaDetail } from './pages/ProjectDetail/BlulelulaDetail';
 import { PeairDetail } from './pages/ProjectDetail/PeairDetail';
-import { LomiDetail } from './pages/ProjectDetail/LomiDetail';
 // Assets
 
 
@@ -119,9 +117,9 @@ function App() {
           }}
         >
           {isScrolledDown ? (
-            <IconArrowUp size={24} className="scroll-arrow" stroke={4} />
+            <IconArrowUp size={36} className="scroll-arrow" stroke={1.5} />
           ) : (
-            <IconArrowDown size={24} className="scroll-arrow" stroke={4} />
+            <IconArrowDown size={36} className="scroll-arrow" stroke={1.5} />
           )}
         </motion.button>
       )}
@@ -135,6 +133,7 @@ function App() {
         <HeroSection
           currentSection={currentSection}
           heroTextOpacity={heroTextOpacity}
+          onNavigate={navigateTo}
         />
         <div id="section-home" style={{ position: 'relative', width: '100%' }}>
           {isHeroGroup ? <HomeSection onNavigate={navigateTo} /> : null}
@@ -155,7 +154,8 @@ function App() {
         {currentSection === 'sobre-mi' && (
           <motion.div key="sobre-mi" className="section-full section-sobremi"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}>
+            transition={{ duration: 1 }}
+            style={{ overflowY: 'auto', overflowX: 'hidden' }}>
             <SobreMiSection />
           </motion.div>
         )}
@@ -187,25 +187,13 @@ function App() {
                 onBack={() => navigateTo('proyectos')}
               />
             )}
-            {activeProject.id === 'blulelula' && (
-              <BlulelulaDetail
-                project={activeProject}
-                onBack={() => navigateTo('proyectos')}
-              />
-            )}
             {activeProject.id === 'peair' && (
               <PeairDetail
                 project={activeProject}
                 onBack={() => navigateTo('proyectos')}
               />
             )}
-            {activeProject.id === 'lomi' && (
-              <LomiDetail
-                project={activeProject}
-                onBack={() => navigateTo('proyectos')}
-              />
-            )}
-            {activeProject.id !== 'luminy' && activeProject.id !== 'milo' && activeProject.id !== 'blulelula' && activeProject.id !== 'peair' && activeProject.id !== 'lomi' && (
+            {activeProject.id !== 'luminy' && activeProject.id !== 'milo' && activeProject.id !== 'peair' && (
               <ProjectDetail
                 project={activeProject}
                 onBack={() => navigateTo('proyectos')}

@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { AnimatedTestimonials } from "../../components/ui/animated-testimonials";
 import { IconBrandBehance } from '@tabler/icons-react';
 import Spline from '@splinetool/react-spline';
+import { useInView } from 'motion/react';
 
 import imgPlano1 from '../../assets/proyectos/Milo/plano1.jpeg';
 import imgPlano2 from '../../assets/proyectos/Milo/plano2.jpeg';
@@ -36,6 +37,9 @@ const itemFade = {
 const vp = { once: true, margin: '-80px' };
 
 export function MiloDetail({ project, onBack }) {
+  const splineRef = React.useRef(null);
+  const isSplineInView = useInView(splineRef, { margin: "200px" });
+
   if (!project) return null;
 
   return (
@@ -117,9 +121,17 @@ export function MiloDetail({ project, onBack }) {
           viewport={vp}
           style={{ maxWidth: '1200px', margin: '60px auto 0' }}
         >
-          <div className="milo-render-placeholder" style={{ minHeight: '420px' }}>
-            <span className="ph-label">Render Principal</span>
-            <p className="ph-desc">Espacio para el render del robot Milo — vista hero del producto</p>
+          <div className="milo-render-placeholder" style={{ minHeight: '420px', padding: 0, overflow: 'hidden' }}>
+            <video 
+              autoPlay 
+              loop 
+              muted 
+              playsInline 
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            >
+              <source src="https://res.cloudinary.com/dacmlsbqc/video/upload/v1776031468/milo-despiece_optimized_v2_g6bk6x.mp4" type="video/mp4" />
+              Tu navegador no soporta el video.
+            </video>
           </div>
         </motion.div>
       </motion.section>
@@ -184,9 +196,18 @@ export function MiloDetail({ project, onBack }) {
             className="milo-render-split"
             variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
           >
-            <motion.div className="milo-render-placeholder" variants={fadeLeft} style={{ minHeight: '450px', padding: 0, overflow: 'hidden' }}>
-              <div className="spline-nologo-wrapper" style={{ width: '100%', height: '100%' }}>
-                <Spline scene="https://prod.spline.design/zoynXt5ZqJhOh84Y/scene.splinecode" />
+            <motion.div 
+              className="milo-render-placeholder" 
+              variants={fadeLeft} 
+              ref={splineRef}
+              style={{ minHeight: '450px', padding: 0, overflow: 'hidden' }}
+            >
+              <div className="spline-nologo-wrapper" style={{ width: '100%', height: '100%', position: 'relative' }}>
+                {isSplineInView ? (
+                  <Spline scene="https://prod.spline.design/zoynXt5ZqJhOh84Y/scene.splinecode" />
+                ) : (
+                  <div style={{ background: 'var(--milo-surface-2)', width: '100%', height: '100%' }} />
+                )}
               </div>
             </motion.div>
             <motion.div variants={stagger} style={{ display: 'flex', flexDirection: 'column', gap: '25px' }}>

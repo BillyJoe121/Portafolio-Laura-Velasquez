@@ -638,6 +638,24 @@
   box-shadow: 0 20px 40px var(--lum-glow);
 }
 
+/* ── HORIZONTAL VIDEO SECTION ── */
+.luminy-wide-video-wrapper {
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  border-radius: 20px;
+  overflow: hidden;
+  background: transparent;
+  margin: 40px 0;
+  position: relative;
+}
+.luminy-wide-video-wrapper video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  mix-blend-mode: screen; /* Hace que el fondo negro sea invisible */
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .luminy-concept-inner,

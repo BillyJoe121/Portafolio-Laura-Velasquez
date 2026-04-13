@@ -7,9 +7,9 @@ import { CldImage } from "../CldImage";
 export const AnimatedTestimonials = ({
   testimonials,
   autoplay = false,
-  arrowColor = '#5c8df6',
-  arrowBorder = 'rgba(92, 141, 246, 0.3)',
-  arrowHoverBg = 'rgba(92, 141, 246, 0.1)'
+  arrowColor = '#9013fe',
+  arrowBorder = 'rgba(144, 19, 254, 0.3)',
+  arrowHoverBg = 'rgba(144, 19, 254, 0.1)'
 }) => {
   const [active, setActive] = useState(0);
 

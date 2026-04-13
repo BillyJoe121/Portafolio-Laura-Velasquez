@@ -632,19 +632,32 @@
   align-self: flex-end;
 }
 
+.peair-final-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .peair-final-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Dark placeholder — full width, tall */
 .peair-render-slot-dark {
   width: 100%;
-  min-height: 520px;
-  background: rgba(0, 0, 0, 0.25);
-  border: 2px solid rgba(250, 184, 14, 0.3);
+  min-height: 480px;
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 70px;
+  padding: 40px;
   cursor: pointer;
   transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
   will-change: transform;
@@ -655,6 +668,24 @@
   border-color: rgba(250, 184, 14, 0.75);
   transform: translateY(-8px);
   box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(250, 184, 14, 0.25);
+}
+
+.peair-render-slot-dark > div {
+  width: 100%;
+  height: 100%;
+}
+
+.spline-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.peair-render-slot-dark canvas {
+  outline: none;
 }
 
 .slot-label-dark {

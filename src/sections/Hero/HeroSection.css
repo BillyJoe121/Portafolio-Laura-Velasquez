@@ -1,9 +1,198 @@
 /* ═══════════════════════════════════════════
-   HERO SECTION
+   HERO SECTION — White purple design
 ═══════════════════════════════════════════ */
+
 .hero-content {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   padding: 0;
   position: relative;
+  overflow: hidden;
+}
+
+/* ── Background SVG ── */
+.hero-bg-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Main inner layout ── */
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5%;
+  /* Pushed more towards center overall */
+}
+
+/* ── LEFT: Text block ── */
+.hero-left-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100%;
+  flex: 1;
+}
+
+.hero-left-canvas-container {
+  /* Removed heavy shadow to improve video FPS */
+}
+
+/* ── Divider line ── */
+.hero-divider {
+  width: 100%;
+  max-width: 500px;
+  height: 3px;
+  background: linear-gradient(90deg, #7c3aed 0%, #a855f7 50%, transparent 100%);
+  transform-origin: left center;
+  margin-bottom: 22px;
+  border-radius: 99px;
+}
+
+/* ── Tagline ── */
+.hero-tagline {
+  font-family: var(--font-main), sans-serif;
+  font-size: clamp(16px, 1.4vw, 22px);
+  font-weight: 600;
+  color: #5a5a75;
+  letter-spacing: 0.05em;
+  line-height: 1.5;
+  margin: 0 0 40px 0;
+  text-align: left;
+}
+
+/* ── CTA Button ── */
+.hero-cta-btn {
+  display: inline-block;
+  background-color: #9013fe;
+  color: #ffffff;
+  font-family: var(--font-main), sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  padding: 14px 36px;
+  border-radius: 99px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 24px rgba(144, 19, 254, 0.28);
+}
+
+.hero-cta-btn:hover {
+  background-color: #b44fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(180, 79, 255, 0.35);
+}
+
+/* ── RIGHT: Photo ── */
+.hero-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 42%;
+  max-width: 480px;
+}
+
+/* ── Photo wrapper ── */
+.hero-photo-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 1 / 1.18;
+  /* Taller than a circle so the head can pop out */
+  display: flex;
+  align-items: flex-end;
+  /* Align contents to the bottom */
+  justify-content: center;
+}
+
+/* ── Background Circle ── */
+.hero-photo-bg-circle {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  z-index: 1;
+  overflow: hidden; /* Ensure video stays circular */
+  box-shadow: 0 20px 60px rgba(109, 40, 217, 0.25);
+}
+
+.hero-photo-bg-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── Crop container that cuts only the bottom ── */
+.hero-photo-crop {
+  position: absolute;
+  inset: 0;
+  border-radius: 0 0 9999px 9999px;
+  /* Clamps to width/2, making a perfect semicircle at the bottom */
+  overflow: hidden;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/* ── The larger photo inside ── */
+.hero-photo-img-large {
+  width: 82%;
+  /* Made smaller so arms fit perfectly */
+  height: auto;
+  position: relative;
+  bottom: -3%;
+  /* Slightly adjusted to align with circle */
+  display: block;
+  transform-origin: bottom center;
+  transform: scale(1);
+  /* Removed extra scale */
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .hero-inner {
+    padding: 0 5%;
+  }
+
+  .hero-right {
+    width: 45%;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-inner {
+    flex-direction: column;
+    justify-content: center;
+    gap: 40px;
+    padding: 80px 6% 40px;
+  }
+
+  .hero-left-static-content {
+    padding-left: 0 !important;
+    align-items: center !important;
+  }
+
+  .hero-tagline {
+    text-align: center;
+  }
+
+  .hero-divider {
+    align-self: center;
+  }
+
+  .hero-right {
+    width: 70%;
+    max-width: 320px;
+  }
 }

@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { AnimatedTestimonials } from "../../components/ui/animated-testimonials";
 import { IconBrandBehance } from '@tabler/icons-react';
 import Spline from '@splinetool/react-spline';
+import { useInView } from 'motion/react';
 import { CldImage } from '../../components/CldImage';
 import { getCldImageUrl } from '../../lib/cloudinary';
 import './ProjectDetail.css';
@@ -37,6 +38,9 @@ const itemFade = {
 const vp = { once: true, margin: '-80px' };
 
 export function LuminyDetail({ project, onBack }) {
+  const splineRef = React.useRef(null);
+  const isSplineInView = useInView(splineRef, { margin: "200px" });
+
   if (!project) return null;
 
   return (
@@ -112,9 +116,13 @@ export function LuminyDetail({ project, onBack }) {
               whileInView="visible"
               viewport={vp}
             >
-              <div className="luminy-render-placeholder" style={{ minHeight: '600px', width: '90%', margin: '0 auto', padding: 0, overflow: 'hidden' }}>
+              <div className="luminy-render-placeholder" ref={splineRef} style={{ minHeight: '600px', width: '90%', margin: '0 auto', padding: 0, overflow: 'hidden' }}>
                 <div className="spline-nologo-wrapper" style={{ width: '100%', height: '100%' }}>
-                  <Spline scene={project.splineUrl} />
+                  {isSplineInView ? (
+                    <Spline scene={project.splineUrl} />
+                  ) : (
+                    <div className="spline-placeholder-optimized" style={{ background: 'var(--milo-surface-2)', width: '100%', height: '100%' }} />
+                  )}
                 </div>
               </div>
             </motion.div>

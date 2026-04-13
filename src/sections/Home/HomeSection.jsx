@@ -226,7 +226,7 @@ export function HomeSection({ onNavigate }) {
       {/* Video Background Bottom Right - Optimized via Cloudinary with Lazy Load */}
       {isVisible && (
         <CldVideo
-          publicId="fondo_hero_final_optimized_jndhj5"
+          publicId="hero_bg_optimized_xw8nrh"
           autoPlay
           loop
           muted

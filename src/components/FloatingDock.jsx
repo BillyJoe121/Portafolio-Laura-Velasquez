@@ -42,17 +42,17 @@ const FloatingDockMobile = ({ items, className }) => {
                     width: "auto", 
                     padding: "0 16px", 
                     borderRadius: "20px",
-                    backgroundColor: item.highlighted ? '#fff' : '#28282B',
-                    color: item.highlighted ? '#28282B' : '#fff',
-                    fontWeight: item.highlighted ? '600' : 'normal',
-                    border: '1px solid #28282B'
+                    backgroundColor: item.highlighted ? 'transparent' : '#ffffff',
+                    color: '#6d28d9',
+                    fontWeight: item.highlighted ? '600' : '400',
+                    border: item.highlighted ? '1.5px solid #7c3aed' : '1px solid transparent'
                   }}
                 >
                   <span style={{ 
                     fontFamily: 'var(--font-main)',
                     fontSize: "14px", 
                     marginRight: item.icon ? "8px" : "0", 
-                    color: item.highlighted ? '#28282B' : item.style?.color 
+                    color: '#6d28d9'
                   }}>{item.title}</span>
                   {item.icon && <div style={{ height: "16px", width: "16px" }}>{item.icon}</div>}
                 </a>
@@ -123,9 +123,9 @@ function IconContainer({ mouseX, title, icon, href, onClick, style: itemStyle, h
           fontSize,
           paddingLeft: paddingHorizontal,
           paddingRight: paddingHorizontal,
-          backgroundColor: highlighted ? '#fff' : '#28282B',
-          color: highlighted ? '#28282B' : '#fff',
-          border: '1px solid #28282B'
+          backgroundColor: highlighted ? 'transparent' : '#ffffff',
+          color: '#6d28d9',
+          border: highlighted ? '1.5px solid #7c3aed' : '1.5px solid transparent'
         }}
         className="fd-icon-container"
       >
@@ -134,7 +134,8 @@ function IconContainer({ mouseX, title, icon, href, onClick, style: itemStyle, h
           style={{ 
             ...itemStyle, 
             fontFamily: 'var(--font-main)',
-            color: highlighted ? '#28282B' : itemStyle?.color 
+            color: '#6d28d9',
+            fontWeight: highlighted ? '600' : '400'
           }}
         >
           {title}

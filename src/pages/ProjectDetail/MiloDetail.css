@@ -621,6 +621,41 @@
   background: var(--milo-text);
 }
 
+/* ── 3D INTERACTIVITY HINT ── */
+.milo-3d-hint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90px;
+  height: 90px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  pointer-events: none;
+  color: #fff;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 30px rgba(0,0,0,0.3);
+  transition: opacity 0.4s ease;
+}
+
+.milo-hint-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  animation: hintPulse 2s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+}
+
+@keyframes hintPulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .milo-reto-inner { grid-template-columns: 1fr; }

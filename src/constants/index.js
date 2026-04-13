@@ -32,20 +32,7 @@ export const SPLINE_SCENES = {
  * También se registra su color en SECTION_COLORS.
  */
 export const PROJECTS = [
-  {
-    id: 'blulelula',
-    title: 'Blulelula',
-    subtitle: 'Diseño Industrial',
-    description:
-      'Descripción del proyecto. Reemplazar con datos reales cuando estén disponibles.',
-    thumbnail: getCldThumbnailUrl('assets/proyectos/Blulelula/blulelula'),
-    titleImage: getCldImageUrl('assets/proyectos/Blulelula/titulo'),
-    splineUrl: 'https://prod.spline.design/6sqf1Ff1MJ0Y8QfK/scene.splinecode',
-    images: [],
-    tags: ['Diseño', 'Prototipado'],
-    year: '2025',
-    color: '#ffffff',
-  },
+
   {
     id: 'luminy',
     title: 'Luminy',
