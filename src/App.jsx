@@ -77,6 +77,11 @@ function App() {
     { title: 'Contacto', href: '#contacto', onClick: () => navigateTo('contacto'), highlighted: currentSection === 'contacto' },
   ];
 
+  // purple = home/sobre-mi, white = proyectos/contacto
+  const navTheme = (currentSection === 'proyectos' || !!activeProject || currentSection === 'contacto')
+    ? 'white'
+    : 'purple';
+
   // ── Render ──────────────────────────────────────────────
   return (
     <div className="app-container">
@@ -94,9 +99,12 @@ function App() {
 
 
 
+      {/* Top fade global: disuelve el contenido que sube hacia el navbar */}
+      <div className="global-top-fade" />
+
       {/* Capa 100: navbar */}
       <div className="navbar">
-        <FloatingDock items={dockItems} />
+        <FloatingDock items={dockItems} navTheme={navTheme} />
       </div>
 
       {/* Botón Flotante Oculto en Secciones Externas */}
@@ -156,7 +164,7 @@ function App() {
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
             style={{ overflowY: 'auto', overflowX: 'hidden' }}>
-            <SobreMiSection />
+            <SobreMiSection onNavigate={navigateTo} />
           </motion.div>
         )}
 

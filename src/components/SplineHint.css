@@ -1,0 +1,91 @@
+/* ═══════════════════════════════════════════
+   SPLINE HINT — 3D drag indicator overlay
+═══════════════════════════════════════════ */
+
+.spline-hint-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Transparent click-capture layer — sits above Spline iframe,
+   absorbs the first pointerdown, then is removed by React */
+.spline-hint-capture {
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+  cursor: grab;
+  background: transparent;
+}
+
+/* Centered overlay — pointer-events: none so clicks fall through
+   to the .spline-hint-capture layer underneath */
+.spline-hint-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  pointer-events: none;
+  z-index: 11;
+  animation: splineHintFadeIn 0.6s ease both;
+}
+
+@keyframes splineHintFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Outer pulsing ring */
+.spline-hint-icon-ring {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 0 0 0 rgba(255, 255, 255, 0.35),
+    0 8px 24px rgba(0, 0, 0, 0.18);
+  animation: splineHintPulse 2s ease-in-out infinite;
+}
+
+@keyframes splineHintPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow:
+      0 0 0 0 rgba(255, 255, 255, 0.35),
+      0 8px 24px rgba(0, 0, 0, 0.18);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow:
+      0 0 0 14px rgba(255, 255, 255, 0),
+      0 8px 24px rgba(0, 0, 0, 0.18);
+  }
+}
+
+/* Icon image */
+.spline-hint-icon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
+}
+
+/* Label beneath the icon */
+.spline-hint-label {
+  font-family: var(--font-main);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}

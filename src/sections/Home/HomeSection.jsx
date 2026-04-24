@@ -11,23 +11,54 @@ export function HomeSection({ onNavigate }) {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
 
-  // Lazy loading logic: only load video when section is near viewport
+  // Observer que resetea la animación cuando sales de la sección
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
+        // Toggle isVisible based on intersection
+        setIsVisible(entry.isIntersecting);
       },
-      { threshold: 0.1, rootMargin: '300px' } // Start loading 300px before it enters
+      { threshold: 0.15 } // Se activa cuando un 15% del Home está en pantalla
     );
 
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
-  const shouldAnimate = true;
+  const titleWords = ["Donde", "la", "estrategia", "cobra", "forma."];
+  const ease = [0.16, 1, 0.3, 1];
+
+  const titleVariants = {
+    hidden: { opacity: 0, y: 40, scale: 0.95, filter: "blur(12px)" },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      filter: "blur(0px)",
+      transition: { duration: 1.6, ease: [0.16, 1, 0.3, 1], delay: 0.5 },
+    },
+  };
+
+  const paraDelay = 0.5 + 0.6; // delay inicial + tiempo para que el título avance
+
+  const paraVariants = {
+    hidden: { opacity: 0, y: 20, filter: "blur(6px)" },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: { duration: 1.4, ease, delay: paraDelay },
+    },
+  };
+
+  const ctaVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1.2, ease, delay: paraDelay + 0.4 },
+    },
+  };
 
   return (
     <div
@@ -59,33 +90,16 @@ export function HomeSection({ onNavigate }) {
           maxWidth: '650px',
           color: '#28282B',
           zIndex: 10,
-          pointerEvents: shouldAnimate ? 'auto' : 'none',
+          pointerEvents: 'auto',
         }}
       >
         <motion.div
           initial="hidden"
-          animate={shouldAnimate ? 'visible' : 'hidden'}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: { staggerChildren: 0.2, delayChildren: 0.3 },
-            },
-          }}
+          animate={isVisible ? 'visible' : 'hidden'}
         >
           {/* Nivel 1: Titular */}
           <motion.h1
-            variants={{
-              hidden: { opacity: 0, y: 30 },
-              visible: {
-                opacity: 1,
-                y: 0,
-                transition: {
-                  duration: 1,
-                  ease: [0.16, 1, 0.3, 1],
-                },
-              },
-            }}
+            variants={titleVariants}
             style={{
               fontFamily: 'Surgena, sans-serif',
               fontSize: 'clamp(2.5rem, 4.5vw, 4.5rem)',
@@ -93,25 +107,15 @@ export function HomeSection({ onNavigate }) {
               lineHeight: 1.1,
               marginBottom: '24px',
               color: '#28282B',
+              transformOrigin: 'left center'
             }}
           >
-            Donde la <span style={{ color: '#9013fe' }}>estética</span> impulsa
-            el negocio.
+            Donde la <span style={{ color: '#9013fe' }}>estrategia</span> cobra forma.
           </motion.h1>
 
-          {/* Nivel 2: Subtítulo con FlipWords */}
+          {/* Nivel 2: Subtítulo */}
           <motion.p
-            variants={{
-              hidden: { opacity: 0, y: 30 },
-              visible: {
-                opacity: 1,
-                y: 0,
-                transition: {
-                  duration: 1,
-                  ease: [0.16, 1, 0.3, 1],
-                },
-              },
-            }}
+            variants={paraVariants}
             style={{
               fontFamily: 'var(--font-main)',
               fontSize: 'clamp(1.125rem, 1.5vw, 1.25rem)',
@@ -122,47 +126,14 @@ export function HomeSection({ onNavigate }) {
               marginBottom: '36px',
             }}
           >
-            Desarrollo productos físicos y estrategias de diseño que son{' '}
-            <span
-              style={{
-                display: 'inline-block',
-                position: 'relative',
-                color: '#9013fe',
-                fontWeight: 700,
-                fontSize: '1.1em',
-                fontFamily: 'Surgena, sans-serif',
-              }}
-            >
-              {/* Texto fantasma invisible para asegurar el tamaño y línea base estricta */}
-              <span style={{ visibility: 'hidden' }}>deseables.</span>
-
-              {/* Contenedor animado flotante */}
-              <span style={{ position: 'absolute', top: 0, left: 0, width: '100%' }}>
-                {shouldAnimate && (
-                  <FlipWords
-                    words={['creativas.', 'viables.', 'deseables.']}
-                  />
-                )}
-              </span>
-            </span>
-            <br />
-            Una convergencia exacta entre funcionalidad técnica, experiencia de
-            usuario y viabilidad comercial.
+            Soy Laura Velásquez, diseñadora industrial enfocada en transformar ideas
+            complejas en soluciones tangibles. Mezclo el rigor del análisis con la
+            pasión por el prototipado. Explora cómo convierto la fricción en funcionalidad.
           </motion.p>
 
           {/* Nivel 3: Llamados a la Acción (CTA) */}
           <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 30 },
-              visible: {
-                opacity: 1,
-                y: 0,
-                transition: {
-                  duration: 1,
-                  ease: [0.16, 1, 0.3, 1],
-                },
-              },
-            }}
+            variants={ctaVariants}
             style={{
               display: 'flex',
               gap: '20px',

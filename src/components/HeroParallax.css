@@ -26,30 +26,77 @@
   max-width: 80rem;
   position: relative;
   margin: 0 auto;
-  padding: 80px 16px 160px;
+  padding: 10px 16px 160px;
   width: 100%;
-  left: 0;
-  top: 0;
+  text-align: center;
+  /* Subtle radial overlay for legibility against tilted cards */
+  isolation: isolate;
+}
+.hp-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 65% at 50% 40%, rgba(248,248,252,0.88) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* ── Title ── */
 .hp-header-title {
   font-family: 'Surgena', sans-serif;
-  font-size: clamp(3rem, 7vw, 6rem);
-  font-weight: 700;
-  color: #28282B;
-  line-height: 1;
-  margin: 0;
+  font-size: clamp(2.4rem, 4.2vw, 4rem);
+  font-weight: 900;
+  color: #1a1a1d;
+  line-height: 1.1;
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+.hp-header-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
 }
 
 .hp-header-subtitle {
-  max-width: 42rem;
+  max-width: 660px;
   font-family: var(--font-main);
-  font-size: clamp(1rem, 1.3vw, 1.25rem);
-  font-weight: 400;
+  font-size: clamp(0.95rem, 1.15vw, 1.1rem);
+  font-weight: 300;
   color: #555;
-  line-height: 1.6;
-  margin-top: 32px;
+  line-height: 1.75;
+  margin: 0 auto;
+}
+
+/* ── Scroll cue ── */
+.hp-scroll-cue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 48px;
+}
+
+.hp-scroll-cue span {
+  font-size: 0.8rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #28282B;
+  font-family: var(--font-main);
+  font-weight: 700;
+}
+
+.hp-scroll-line {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, #28282B, transparent);
+  animation: hpScrollLine 2.2s ease-in-out infinite;
+}
+
+@keyframes hpScrollLine {
+  0%, 100% { opacity: 0; transform: scaleY(0); transform-origin: top; }
+  50%       { opacity: 1; transform: scaleY(1); }
 }
 
 /* ── Card rows ── */

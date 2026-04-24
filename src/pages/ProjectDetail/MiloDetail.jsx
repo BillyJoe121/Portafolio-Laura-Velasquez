@@ -11,6 +11,7 @@ import imgPlano3 from '../../assets/proyectos/Milo/plano3.jpeg';
 
 import './ProjectDetail.css';
 import './MiloDetail.css';
+import { SplineHint } from '../../components/SplineHint';
 
 /* ── Animation variants ── */
 const fadeUp = {
@@ -44,7 +45,7 @@ export function MiloDetail({ project, onBack }) {
 
   return (
     <div className="project-detail milo-detail-container">
-      <div className="project-top-fade" style={{ background: 'linear-gradient(to bottom, #0a0a0a 0%, rgba(10,10,10,0.8) 80px, transparent 100%)' }} />
+      <div className="project-top-fade" />
 
       <motion.button
         className="project-back-btn"
@@ -204,7 +205,9 @@ export function MiloDetail({ project, onBack }) {
             >
               <div className="spline-nologo-wrapper" style={{ width: '100%', height: '100%', position: 'relative' }}>
                 {isSplineInView ? (
-                  <Spline scene="https://prod.spline.design/zoynXt5ZqJhOh84Y/scene.splinecode" />
+                  <SplineHint>
+                    <Spline scene="https://prod.spline.design/zoynXt5ZqJhOh84Y/scene.splinecode" />
+                  </SplineHint>
                 ) : (
                   <div style={{ background: 'var(--milo-surface-2)', width: '100%', height: '100%' }} />
                 )}

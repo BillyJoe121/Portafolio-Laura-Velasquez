@@ -12,15 +12,18 @@ export function VideoText({
   fontSize = '6rem',
   fontWeight = 700,
   className = '',
+  style = {},
 }) {
   const canvasRef = useRef(null);
   const videoRef = useRef(null);
+  const textMeasureRef = useRef(null);
   const rafRef = useRef(null);
 
   useEffect(() => {
     const video = videoRef.current;
     const canvas = canvasRef.current;
-    if (!video || !canvas) return;
+    const textMeasure = textMeasureRef.current;
+    if (!video || !canvas || !textMeasure) return;
 
     const ctx = canvas.getContext('2d');
 
@@ -47,8 +50,11 @@ export function VideoText({
       ctx.save();
       ctx.scale(dpr, dpr);
 
+      // Resolve dynamic font size (clamp, vw, etc)
+      const resolvedFontSize = window.getComputedStyle(textMeasure).fontSize;
+
       // 1. Draw text in solid color (this creates the mask shape)
-      ctx.font = `${fontWeight} ${fontSize} ${fontFamily}`;
+      ctx.font = `${fontWeight} ${resolvedFontSize} ${fontFamily}`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillStyle = '#000';
@@ -93,7 +99,22 @@ export function VideoText({
   }, [text, fontFamily, fontSize, fontWeight]);
 
   return (
-    <div className={`video-text-wrapper ${className}`}>
+    <div className={`video-text-wrapper ${className}`} style={style}>
+      {/* Hidden element to resolve dynamic font size (clamp, vw, etc) */}
+      <div 
+        ref={textMeasureRef} 
+        style={{ 
+          position: 'absolute', 
+          visibility: 'hidden', 
+          fontSize: fontSize,
+          fontFamily: fontFamily,
+          fontWeight: fontWeight,
+          pointerEvents: 'none'
+        }}
+      >
+        {text}
+      </div>
+
       <video
         ref={videoRef}
         src={videoSrc}

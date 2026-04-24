@@ -1,80 +1,49 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { PinContainer } from "../../components/ui/3d-pin";
 import { TestimonialTooltip } from "../../components/ui/testimonial-tooltip";
 import { AnimatedTestimonials } from "../../components/ui/animated-testimonials";
 import { VideoText } from "../../components/VideoText";
 import { getCldVideoUrl } from "../../lib/cloudinary";
 import { CldImage } from "../../components/CldImage";
+import { ExpandableCards } from "../../components/ExpandableCards";
 import "./SobreMiSection.css";
 
 /* ── Data ─────────────────────────────────────────────────── */
-const idiomas = [
-  {
-    id: 1,
-    name: "    Inglés    ",
-    designation: "    Nivel B2    ",
-    image:
-      "https://res.cloudinary.com/dacmlsbqc/image/upload/v1776046788/united-states-flat-rounded-flag-icon-with-transparent-background-free-png_opdmn1.png",
-  },
-  {
-    id: 2,
-    name: "    Italiano    ",
-    designation: "    Nivel B1    ",
-    image:
-      "https://res.cloudinary.com/dacmlsbqc/image/upload/v1776046815/flag-round-250_mzcptl.png",
-  },
-];
 
 const testimonialsData = [
   {
     quote:
-      "La dedicación al detalle diferencial de Laura hizo que nuestro proyecto no solo cumpliera los objetivos, sino que destacara en el HUB.",
-    name: "Compañero de Proyecto",
-    designation: "Cinco minutos más",
-    src: "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?q=80&w=3387&auto=format&fit=crop",
+      "Tuve la oportunidad de acompañar el proceso académico de Laura Sofía Velásquez en cursos como Diseño Asistido por Computador, Diseño para la Manufactura, Espíritu Empresarial y Plan de Negocio, y puedo dar cuenta de su alto nivel de compromiso y consistencia. Se caracteriza por ser una estudiante ejecutora, laboriosa y con una sólida capacidad de trabajo, siempre orientada al logro y al cumplimiento riguroso de sus objetivos. A lo largo de su formación, demostró ser una persona íntegra, capaz y con una clara habilidad para abordar los proyectos desde un pensamiento sistémico, comprendiendo las relaciones entre contexto, usuario y solución. Además, su actitud receptiva frente a la retroalimentación le ha permitido evolucionar de manera constante. De cara a su proyección laboral, cuenta con el potencial para desempeñarse como un profesional que genera valor desde la innovación, con bases sólidas en el diseño de productos, servicios y experiencias.",
+    name: "Andrés Julián Hurtado R.",
+    designation: "Cofundador y CEO – Gesta Diseño / 3IN Empresarial | Profesor HC",
+    src: "https://res.cloudinary.com/dacmlsbqc/image/upload/v1777048180/PAJH_hq_qlqfx9.jpg",
   },
   {
     quote:
-      "Gran capacidad para comunicar ideas de manera visual y liderar el aspecto creativo de la campaña.",
-    name: "Director de Marketing",
-    designation: "Concurso Bon Bon Bum",
-    src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=3540&auto=format&fit=crop",
+      "Laura es una estudiante que se destaca por su disciplina, compromiso y enfoque en cada proyecto que asume. He observado en su trabajo una evolución constante, acompañada de una actitud abierta al aprendizaje y a la mejora continua. Es juiciosa, organizada y altamente responsable con sus procesos, lo que se refleja en propuestas coherentes, una sólida capacidad de trabajo y una motivación genuina por hacer las cosas bien. Sin duda, proyecta un perfil profesional sólido y con gran potencial.",
+    name: "Felipe Duque",
+    designation: "Director de programa Diseño Industrial | Profesor HC – Departamento de Diseño e Innovación, Universidad Icesi",
+    src: "https://res.cloudinary.com/dacmlsbqc/image/upload/v1777048180/PFD_hq_ko0tj6.jpg",
   },
 ];
 
-const softSkills = [
-  "Liderazgo",
-  "Pensamiento analítico",
-  "Resiliencia",
-  "Comunicación asertiva",
-  "Gestión de equipos",
-];
 
-const marqueeItems = [
-  { text: "Diseño de Producto", accent: false },
-  { text: "Prototipado Estratégico", accent: true },
-  { text: "Innovación", accent: false },
-  { text: "Modelos de Negocio", accent: false },
-  { text: "Dirección Creativa", accent: false },
-  { text: "UX / UI", accent: true },
-  { text: "Investigación", accent: false },
-];
 
 const formationCards = [
   {
     tag: "Universidad Icesi",
     name: "Diseño Industrial",
-    role: "Pregrado universitario (Nov 2027)",
-    image: "https://res.cloudinary.com/dacmlsbqc/image/upload/v1776049887/icesi-cover_pdflpx.jpg",
-    placeholder: "CUADRO VACÍO – ICESI",
+    role: "Pregrado universitario — Graduación esperada Nov 2027",
+    image:
+      "https://res.cloudinary.com/dacmlsbqc/image/upload/v1776049887/icesi-cover_pdflpx.jpg",
+    flagship: true,
   },
   {
     tag: "Ganadores HUB",
     name: "Cinco minutos más",
     role: "Líder de estrategia (2025)",
-    image: "https://res.cloudinary.com/dacmlsbqc/image/upload/v1776051013/Mesa_de_trabajo_2_ps8geu.png",
-    placeholder: "CUADRO VACÍO – PROYECTO 1",
+    image:
+      "https://res.cloudinary.com/dacmlsbqc/image/upload/v1776051013/Mesa_de_trabajo_2_ps8geu.png",
     bgColor: "#000000",
     imgScale: 1.8,
   },
@@ -82,8 +51,8 @@ const formationCards = [
     tag: "Concurso Nacional",
     name: "Bon Bon Bum",
     role: "Líder creativa (2026)",
-    image: "https://res.cloudinary.com/dacmlsbqc/image/upload/v1776051398/66572b1da4d79_yk8p9a.png",
-    placeholder: "CUADRO VACÍO – PROYECTO 2",
+    image:
+      "https://res.cloudinary.com/dacmlsbqc/image/upload/v1776051398/66572b1da4d79_yk8p9a.png",
     bgColor: "#FFFFFF",
   },
 ];
@@ -103,38 +72,64 @@ const timelineItems = [
 
 /* ── Animation Variants ──────────────────────────────────── */
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 40, filter: "blur(8px)" },
   visible: (delay = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
+    filter: "blur(0px)",
+    transition: { duration: 1.2, delay, ease: [0.16, 1, 0.3, 1] },
+  }),
+};
+
+const revealScale = {
+  hidden: { opacity: 0, scale: 0.95, y: 50, filter: "blur(12px)" },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 1.4, delay, ease: [0.22, 1, 0.36, 1] },
   }),
 };
 
 const fadeRight = {
-  hidden: { opacity: 0, x: -40 },
+  hidden: { opacity: 0, x: -40, filter: "blur(8px)" },
   visible: (delay = 0) => ({
     opacity: 1,
     x: 0,
-    transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
+    filter: "blur(0px)",
+    transition: { duration: 1.2, delay, ease: [0.16, 1, 0.3, 1] },
   }),
 };
 
 const fadeLeft = {
-  hidden: { opacity: 0, x: 40 },
+  hidden: { opacity: 0, x: 40, filter: "blur(8px)" },
   visible: (delay = 0) => ({
     opacity: 1,
     x: 0,
-    transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
+    filter: "blur(0px)",
+    transition: { duration: 1.2, delay, ease: [0.16, 1, 0.3, 1] },
   }),
 };
 
 const scaleIn = {
-  hidden: { opacity: 0, scale: 0.9 },
+  hidden: { opacity: 0, scale: 0.9, filter: "blur(8px)" },
   visible: (delay = 0) => ({
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] },
+    filter: "blur(0px)",
+    transition: { duration: 1.2, delay, ease: [0.16, 1, 0.3, 1] },
+  }),
+};
+
+const bgImageVariant = {
+  hidden: { opacity: 0, scale: 1.1, rotate: -2, filter: "blur(12px)" },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    scale: 1,
+    rotate: 0,
+    filter: "blur(0px)",
+    transition: { duration: 1.6, delay, ease: [0.16, 1, 0.3, 1] },
   }),
 };
 
@@ -142,15 +137,12 @@ const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.1,
-    },
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 },
   },
 };
 
 const staggerItem = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
@@ -160,19 +152,21 @@ const staggerItem = {
 
 const viewportConfig = { once: true, margin: "-60px" };
 
-/* ── Placeholder SVG ─────────────────────────────────────── */
-const PlaceholderIcon = () => (
+const videoSrc = getCldVideoUrl("assets/fondos/liquid-gold-purple-slow");
+
+/* ── Arrow Icon ──────────────────────────────────────────── */
+const ArrowIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
+    strokeWidth={2}
     stroke="currentColor"
   >
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
-      strokeWidth={1}
-      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+      d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
     />
   </svg>
 );
@@ -180,35 +174,66 @@ const PlaceholderIcon = () => (
 /* ══════════════════════════════════════════════════════════════
    COMPONENT
    ══════════════════════════════════════════════════════════════ */
-export function SobreMiSection() {
+export function SobreMiSection({ onNavigate }) {
+  const flagship = formationCards.find((c) => c.flagship);
+  const sideCards = formationCards.filter((c) => !c.flagship);
+
   return (
     <div id="section-sobremi" className="sobremi-container">
-      {/* ─────────────────────────────────────────────────────
-          TOP FADE OVERLAY
-         ───────────────────────────────────────────────────── */}
+      {/* Top Fade */}
       <div className="sobremi-top-fade" />
 
-      {/* ─────────────────────────────────────────────────────
+      {/* ───────────────────────────────────────────────────────
           1. HERO — Acerca de mí
-         ───────────────────────────────────────────────────── */}
+         ─────────────────────────────────────────────────────── */}
       <section className="sobremi-hero">
         <motion.div
           className="sobremi-hero__text"
+          style={{ position: 'relative' }}
           variants={fadeRight}
           initial="hidden"
           whileInView="visible"
           viewport={viewportConfig}
           custom={0}
         >
+          {/* Imagen de fondo difuminada */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
+            custom={0.4}
+            style={{
+              position: 'absolute',
+              bottom: '-100px',
+              left: '-380px',
+              zIndex: 0,
+              opacity: 0.8,
+              pointerEvents: 'none',
+            }}
+          >
+            <img
+              src="https://res.cloudinary.com/dacmlsbqc/image/upload/v1776999122/310508308_b00c14c7-b3a2-4ffd-b53b-67dbb7384c2f_wunjz2.svg"
+              alt="Decorative Element"
+              style={{
+                width: '480px',
+                height: 'auto',
+                maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 70%)',
+                WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 70%)',
+              }}
+            />
+          </motion.div>
+
           <motion.div
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={viewportConfig}
             custom={0}
+            style={{ position: 'relative', zIndex: 1 }}
           >
             <VideoText
-              videoSrc={getCldVideoUrl('assets/fondos/liquid-gold-purple-slow')}
+              videoSrc={videoSrc}
               text="Acerca de mí"
               fontFamily="Surgena, sans-serif"
               fontSize="clamp(3rem, 6vw, 5.5rem)"
@@ -224,6 +249,7 @@ export function SobreMiSection() {
             whileInView="visible"
             viewport={viewportConfig}
             custom={0.15}
+            style={{ position: 'relative', zIndex: 1 }}
           />
 
           <motion.p
@@ -233,108 +259,84 @@ export function SobreMiSection() {
             whileInView="visible"
             viewport={viewportConfig}
             custom={0.2}
+            style={{ position: 'relative', zIndex: 1 }}
           >
-            Soy estudiante de{" "}
-            <strong>Diseño Industrial</strong> en la Universidad Icesi
-            con un enfoque estratégico en la resolución de problemas y
-            la creación de modelos de negocio.
-          </motion.p>
-
-          <motion.p
-            className="sobremi-hero__subdesc"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportConfig}
-            custom={0.35}
-          >
-            [ TEXTO DESCRIPTIVO — Aquí irá más texto sobre tu
-            resiliencia, comunicación y pasión por la dirección de
-            proyectos. ]
+            Me defino como una diseñadora hacedora. Mi proceso comienza con el análisis riguroso y termina con las manos en el material. En la Universidad Icesi aprendí que la creatividad necesita estructura para ser solución, y mi experiencia en prototipado me permite validar cada idea antes de que llegue al mundo real. Soy quien conecta el "qué pasaría si..." con el "así es como funciona".
           </motion.p>
         </motion.div>
 
         <motion.div
           className="sobremi-hero__portrait"
-          variants={fadeLeft}
           initial="hidden"
           whileInView="visible"
           viewport={viewportConfig}
-          custom={0.2}
+          style={{ position: 'relative' }}
         >
-          <div className="sobremi-hero__portrait-frame">
-            <CldImage 
-              publicId="https://res.cloudinary.com/dacmlsbqc/image/upload/v1776050039/freepik_br_0eee4a49-2084-4fb7-b60e-51d1ef8493af_v8siqp.png" 
-              alt="Laura Velásquez" 
+          {/* Imagen decorativa detrás del marco entero */}
+          <motion.div
+            variants={bgImageVariant}
+            custom={0.5}
+            style={{
+              position: 'absolute',
+              top: '-25%',
+              left: '-25%',
+              width: '150%',
+              height: '150%',
+              zIndex: 0,
+              pointerEvents: 'none'
+            }}
+          >
+            <img
+              src="https://res.cloudinary.com/dacmlsbqc/image/upload/v1777001662/WhatsApp_Image_2026-04-23_at_10.16.44_PM_diyqhj.png"
+              alt="Decorative Background"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                mixBlendMode: 'multiply'
+              }}
             />
-          </div>
+          </motion.div>
+
+          <motion.div
+            className="sobremi-hero__portrait-frame"
+            variants={fadeLeft}
+            custom={0.7}
+            style={{ position: 'relative', zIndex: 1 }}
+          >
+            <CldImage
+              publicId="https://res.cloudinary.com/dacmlsbqc/image/upload/v1776050039/freepik_br_0eee4a49-2084-4fb7-b60e-51d1ef8493af_v8siqp.png"
+              alt="Laura Velásquez"
+            />
+          </motion.div>
 
           <motion.div
             className="sobremi-hero__badge"
-            animate={{ y: [0, -8, 0] }}
-            transition={{
-              repeat: Infinity,
-              duration: 3.5,
-              ease: "easeInOut",
-            }}
+            variants={fadeUp}
+            custom={1}
+            style={{ zIndex: 2 }}
           >
-            <span className="sobremi-hero__badge-number">2+</span>
-            <span className="sobremi-hero__badge-label">Años de exp.</span>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <span className="sobremi-hero__badge-number">2+</span>
+              <span className="sobremi-hero__badge-label">Años de exp.</span>
+            </div>
           </motion.div>
         </motion.div>
       </section>
 
-      {/* ─────────────────────────────────────────────────────
-          2. INFINITE MARQUEE
-         ───────────────────────────────────────────────────── */}
-      <div className="sobremi-marquee">
-        <div className="sobremi-marquee__track">
-          <motion.div
-            className="sobremi-marquee__content"
-            animate={{ x: [0, -1400] }}
-            transition={{
-              repeat: Infinity,
-              ease: "linear",
-              duration: 22,
-            }}
-          >
-            {[...Array(2)].map((_, loopIdx) => (
-              <React.Fragment key={loopIdx}>
-                {marqueeItems.map((item, idx) => {
-                  const videoUrl = "https://res.cloudinary.com/dacmlsbqc/video/upload/v1776024961/hero_mask_optimized_cmkpry.mp4";
 
-                  return (
-                    <React.Fragment key={`${loopIdx}-${idx}`}>
-                      <span className="sobremi-marquee__pill">
-                        <video
-                          src={videoUrl}
-                          autoPlay
-                          loop
-                          muted
-                          playsInline
-                          className="sobremi-marquee__pill-video"
-                        />
-                        <span className="sobremi-marquee__pill-text">
-                          {item.text}
-                        </span>
-                      </span>
-                      <span className="sobremi-marquee__dot" />
-                    </React.Fragment>
-                  );
-                })}
-              </React.Fragment>
-            ))}
-          </motion.div>
-        </div>
-      </div>
-
-      {/* ─────────────────────────────────────────────────────
-          3-5. DYNAMIC AREA WITH AURORA BACKGROUND
-         ───────────────────────────────────────────────────── */}
+      {/* ───────────────────────────────────────────────────────
+          3–5. DYNAMIC AREA WITH WAVE BACKGROUND
+         ─────────────────────────────────────────────────────── */}
       <div className="sobremi-dynamic-bg-wrapper">
-        {/* Waves Background (Same as Hero) */}
+        {/* Waves Background */}
         <div className="sobremi-waves-container">
-          <svg className="sobremi-waves-svg" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <svg
+            className="sobremi-waves-svg"
+            viewBox="0 0 1200 1200"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
+          >
             <g opacity="0.25">
               <path d="M-100,1200 C150,900 350,1100 500,900 C600,800 650,600 600,300 L-100,-100 Z" fill="#f0eefa" opacity="0.4" />
               <path d="M-100,1200 C100,850 250,950 400,750 C500,650 550,550 500,250 L-100,-100 Z" fill="#e2dfee" opacity="0.6" />
@@ -350,167 +352,10 @@ export function SobreMiSection() {
           </svg>
         </div>
 
-        {/* 3. Mis Capacidades */}
-        <section className="sobremi-skills">
-          <motion.div
-            className="sobremi-skills__header"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportConfig}
-            custom={0}
-          >
-            <VideoText
-              videoSrc={getCldVideoUrl('assets/fondos/liquid-gold-purple-slow')}
-              text="Mis Capacidades"
-              fontFamily="Surgena, sans-serif"
-              fontSize="clamp(2rem, 4vw, 3rem)"
-              fontWeight={700}
-              className="sobremi-skills__title"
-            />
-            <p className="sobremi-skills__subtitle">
-              Un mix entre habilidades técnicas de software 3D y
-              habilidades blandas para liderar proyectos con éxito.
-            </p>
-          </motion.div>
 
-          <motion.div
-            className="sobremi-skills__grid"
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportConfig}
-          >
-            {/* Column 1: Software & 3D */}
-            <motion.div
-              className="sobremi-skills__card sobremi-skills__card--software"
-              variants={staggerItem}
-              whileHover={{ y: -6 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div>
-                <VideoText
-                  videoSrc={getCldVideoUrl('assets/fondos/liquid-gold-purple-slow')}
-                  text="Software & 3D"
-                  fontFamily="Surgena, sans-serif"
-                  fontSize="clamp(1.5rem, 2.5vw, 2.3rem)"
-                  fontWeight={700}
-                  className="sobremi-skills__card-title"
-                />
-              </div>
-              <div className="sobremi-software-grid">
-                <div className="sobremi-software-icon">
-                  <img src="https://res.cloudinary.com/dacmlsbqc/image/upload/v1776049774/Genially_new_j6gvhv.svg" alt="Genially" />
-                </div>
-                <div className="sobremi-software-icon">
-                  <img src="https://res.cloudinary.com/dacmlsbqc/image/upload/v1776049523/56199179b42fddf9cef31d4efeb6e76c_ekvvwt.jpg" alt="Canva" />
-                </div>
-                <div className="sobremi-software-icon">
-                  <img src="https://res.cloudinary.com/dacmlsbqc/image/upload/v1776049549/121135_zcixaj.png" alt="Illustrator" />
-                </div>
-                <div className="sobremi-software-icon">
-                  <img src="https://res.cloudinary.com/dacmlsbqc/image/upload/v1776049635/logo-solidworkst-500x500-jpg_pukoq9.jpg" alt="SolidWorks" />
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Column 2: Photo placeholder with floating pills */}
-            <motion.div
-              className="sobremi-skills__card sobremi-skills__card--photo"
-              variants={staggerItem}
-              whileHover={{ y: -6 }}
-              transition={{ duration: 0.3 }}
-            >
-              <img 
-                src="https://res.cloudinary.com/dacmlsbqc/image/upload/v1776051671/hardworking-carpenter-woman-using-tools-smiling-confidently-young-female-joiner-in-apron-standing-near-workbench-working-in-the-craft-workshop-photo_wgflmq.jpg" 
-                alt="Proceso Creativo" 
-                className="sobremi-skills__photo-img"
-              />
-              <div className="sobremi-skills__photo-pills">
-                <motion.span 
-                  className="sobremi-skills__photo-pill"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.5 }}
-                >
-                  Metalurgia
-                </motion.span>
-                <motion.span 
-                  className="sobremi-skills__photo-pill"
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.7 }}
-                >
-                  Carpintería
-                </motion.span>
-                <motion.span 
-                  className="sobremi-skills__photo-pill"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.9 }}
-                >
-                  Soldadura
-                </motion.span>
-              </div>
-            </motion.div>
-
-            {/* Column 3: Soft Skills + Idiomas */}
-            <motion.div
-              className="sobremi-skills__col-right"
-              variants={staggerItem}
-            >
-              <motion.div
-                className="sobremi-skills__softskills"
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.3 }}
-              >
-                <VideoText
-                  videoSrc={getCldVideoUrl('assets/fondos/liquid-gold-purple-slow')}
-                  text="Soft Skills"
-                  fontFamily="Surgena, sans-serif"
-                  fontSize="clamp(1.5rem, 2.5vw, 2rem)"
-                  fontWeight={700}
-                  className="sobremi-skills__softskills-title"
-                />
-                <motion.div
-                  className="sobremi-skills__pills"
-                  variants={staggerContainer}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={viewportConfig}
-                >
-                  {softSkills.map((skill) => (
-                    <motion.span
-                      key={skill}
-                      className="sobremi-skills__pill"
-                      variants={staggerItem}
-                    >
-                      {skill}
-                    </motion.span>
-                  ))}
-                </motion.div>
-              </motion.div>
-
-              <motion.div
-                className="sobremi-skills__idiomas"
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.3 }}
-              >
-                <VideoText
-                  videoSrc={getCldVideoUrl('assets/fondos/liquid-gold-purple-slow')}
-                  text="Idiomas"
-                  fontFamily="Surgena, sans-serif"
-                  fontSize="clamp(1.5rem, 2.5vw, 2rem)"
-                  fontWeight={700}
-                  className="sobremi-skills__idiomas-title"
-                />
-                <TestimonialTooltip items={idiomas} />
-              </motion.div>
-            </motion.div>
-          </motion.div>
-        </section>
-
-        {/* 4. Formación & Logros */}
+        {/* ─────────────────────────────────────────────────────
+            4. FORMACIÓN & LOGROS — Premium Showcase
+           ───────────────────────────────────────────────────── */}
         <section className="sobremi-formation">
           <div className="sobremi-formation__inner">
             <motion.div
@@ -519,106 +364,75 @@ export function SobreMiSection() {
               initial="hidden"
               whileInView="visible"
               viewport={viewportConfig}
+              custom={0.1}
             >
               <VideoText
-                videoSrc={getCldVideoUrl('assets/fondos/liquid-gold-purple-slow')}
-                text="Formación & Logros"
+                videoSrc={videoSrc}
+                text="Logros y Premios"
                 fontFamily="Surgena, sans-serif"
                 fontSize="clamp(2rem, 4.5vw, 3.5rem)"
                 fontWeight={700}
                 className="sobremi-formation__title"
               />
+              <p className="sobremi-formation__subtitle" style={{ maxWidth: '800px', margin: '0 auto', paddingBottom: '32px' }}>
+                Reconocimientos y hitos que avalan mi capacidad para liderar proyectos innovadores y modelos de negocio ganadores en entornos competitivos.
+              </p>
             </motion.div>
 
-            <div className="sobremi-formation__grid">
-              {formationCards.map((card, idx) => (
-                <motion.div
-                  key={idx}
-                  className="sobremi-formation__pin-wrapper"
-                  variants={staggerItem}
-                >
-                  <PinContainer title={card.tag} href="#">
-                    <div className="sobremi-formation__pin-content">
-                      <div 
-                        className="sobremi-formation__card-image"
-                        style={card.bgColor ? { background: card.bgColor } : {}}
-                      >
-                        {card.image ? (
-                          <img 
-                            src={card.image} 
-                            alt={card.name} 
-                            className="sobremi-formation__img" 
-                            style={card.imgScale ? { transform: `scale(${card.imgScale})` } : {}}
-                          />
-                        ) : (
-                          <span>{card.placeholder}</span>
-                        )}
-                      </div>
-                      <div className="sobremi-formation__card-info">
-                        <h3 className="sobremi-formation__card-name">{card.name}</h3>
-                        <p className="sobremi-formation__card-role">{card.role}</p>
-                      </div>
-                    </div>
-                  </PinContainer>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 5. Experiencia & Testimonios */}
-        <section className="sobremi-experience">
-          <div>
-            <VideoText
-              videoSrc={getCldVideoUrl('assets/fondos/liquid-gold-purple-slow')}
-              text="Trayectoria Laboral"
-              fontFamily="Surgena, sans-serif"
-              fontSize="clamp(1.8rem, 3.5vw, 2.8rem)"
-              fontWeight={700}
-              className="sobremi-timeline__title"
-            />
-
             <motion.div
-              className="sobremi-timeline__items"
-              variants={staggerContainer}
+              className="sobremi-formation__showcase"
+              style={{ display: 'block' }}
+              variants={revealScale}
               initial="hidden"
               whileInView="visible"
               viewport={viewportConfig}
+              custom={0.3}
             >
-              {timelineItems.map((item, idx) => (
-                <motion.div
-                  key={idx}
-                  className="sobremi-timeline__item"
-                  variants={fadeRight}
-                  custom={0.1 * idx}
-                >
-                  <span className="sobremi-timeline__dot" />
-                  <span className="sobremi-timeline__date">{item.date}</span>
-                  <h4 className="sobremi-timeline__role">{item.role}</h4>
-                  <p className="sobremi-timeline__desc">{item.desc}</p>
-                </motion.div>
-              ))}
+              <ExpandableCards />
             </motion.div>
           </div>
+        </section>
 
-          <motion.div
+        {/* ─────────────────────────────────────────────────────
+            5. EXPERIENCIA & TESTIMONIOS
+           ───────────────────────────────────────────────────── */}
+        <section className="sobremi-experience">
+          <div
             className="sobremi-testimonials"
-            variants={fadeLeft}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportConfig}
-            custom={0.15}
+            style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
           >
-            <h2 className="sobremi-testimonials__title">
-              Lo que dicen de mi trabajo
-            </h2>
-            <div className="sobremi-testimonials__wrapper">
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+              custom={0.1}
+              style={{ width: '100%' }}
+            >
+              <VideoText
+                videoSrc={videoSrc}
+                text="Lo que dicen sobre mí"
+                fontFamily="Surgena, sans-serif"
+                fontSize="clamp(1.8rem, 4.5vw, 3.5rem)"
+                fontWeight={700}
+                className="sobremi-timeline__title"
+              />
+            </motion.div>
+            <motion.div 
+              className="sobremi-testimonials__wrapper" 
+              style={{ maxWidth: '1200px', width: '100%' }}
+              variants={revealScale}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportConfig}
+              custom={0.3}
+            >
               <AnimatedTestimonials
                 testimonials={testimonialsData}
                 autoplay={true}
               />
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </section>
       </div>
 
@@ -628,14 +442,38 @@ export function SobreMiSection() {
         initial="hidden"
         whileInView="visible"
         viewport={viewportConfig}
-        custom={0}
+        custom={0.2}
       >
         <p className="sobremi-cta__text">
           ¿Quieres saber más sobre <strong>mi perfil</strong>?
         </p>
-        <p className="sobremi-cta__sub">
-          No dudes en contactarme para conversar.
-        </p>
+        <button 
+          className="sobremi-cta__button"
+          onClick={() => onNavigate && onNavigate('contacto')}
+          style={{
+            marginTop: '24px',
+            padding: '16px 36px',
+            background: 'linear-gradient(135deg, #9013fe, #b456ff)',
+            color: '#ffffff',
+            borderRadius: '100px',
+            fontWeight: 700,
+            fontSize: '1.05rem',
+            border: 'none',
+            cursor: 'pointer',
+            boxShadow: '0 12px 24px rgba(144, 19, 254, 0.25)',
+            transition: 'all 0.3s cubic-bezier(0.22, 1, 0.36, 1)'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'translateY(-4px)';
+            e.currentTarget.style.boxShadow = '0 20px 40px rgba(144, 19, 254, 0.35)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 12px 24px rgba(144, 19, 254, 0.25)';
+          }}
+        >
+          No dudes en contactarme para conversar
+        </button>
       </motion.div>
     </div>
   );

@@ -8,9 +8,28 @@ import './HeroSection.css';
  * Two-line text with video mask, geometric shapes, and photo circle.
  */
 export function HeroSection({ currentSection, heroTextOpacity, onNavigate }) {
+  const [isVisible, setIsVisible] = React.useState(false);
   const canvasRef = useRef(null);
   const videoRef = useRef(null);
   const rafRef = useRef(null);
+  const sectionRef = useRef(null);
+
+  // Observer to restart animations when Hero comes into view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+        if (entry.isIntersecting) {
+          // Reset the canvas animation timer when returning to the Hero
+          window.__heroStartTime = performance.now();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -18,6 +37,11 @@ export function HeroSection({ currentSection, heroTextOpacity, onNavigate }) {
     if (!video || !canvas) return;
 
     video.playbackRate = 4.0;
+    
+    // Initial setup if not caught by observer yet
+    if (!window.__heroStartTime) {
+      window.__heroStartTime = performance.now();
+    }
 
     const ctx = canvas.getContext('2d');
 
@@ -58,10 +82,41 @@ export function HeroSection({ currentSection, heroTextOpacity, onNavigate }) {
       const centerY = ch * 0.40;
       const lineHeight = fontSize * 0.88;
 
+      // Animación letra por letra
+      // startTime se resetea por el IntersectionObserver
+      const elapsed = (performance.now() - window.__heroStartTime) / 1000;
+      
+      const drawAnimatedLine = (text, startX, baseY, startIndex) => {
+        let currentX = startX;
+        for (let i = 0; i < text.length; i++) {
+          const letter = text[i];
+          // 500ms delay inicial, 80ms de separación entre cada letra
+          const letterDelay = 0.5 + (startIndex + i) * 0.08;
+          
+          let progress = (elapsed - letterDelay) / 0.8; // 0.8s duración de cada letra
+          progress = Math.max(0, Math.min(1, progress));
+          
+          // Easing Expo Out
+          const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+          
+          const yOffset = (1 - ease) * (lineHeight * 0.6); // Sube desde abajo
+          const alpha = ease; // Fade in
+          
+          if (alpha > 0) {
+            ctx.save();
+            ctx.globalAlpha = alpha;
+            ctx.fillStyle = '#000';
+            ctx.fillText(letter, currentX, baseY + yOffset);
+            ctx.restore();
+          }
+          
+          currentX += ctx.measureText(letter).width;
+        }
+      };
+
       // 1. Draw Text for Masking
-      ctx.fillStyle = '#000';
-      ctx.fillText(line1, x, centerY - lineHeight / 2);
-      ctx.fillText(line2, x, centerY + lineHeight / 2);
+      drawAnimatedLine(line1, x, centerY - lineHeight / 2, 0);
+      drawAnimatedLine(line2, x, centerY + lineHeight / 2, line1.length);
 
       // 2. Apply Video Mask
       ctx.globalCompositeOperation = 'source-in';
@@ -97,6 +152,7 @@ export function HeroSection({ currentSection, heroTextOpacity, onNavigate }) {
   return (
     <main
       id="section-hero"
+      ref={sectionRef}
       className="hero-content"
       style={{ height: '100vh', position: 'relative', backgroundColor: '#f8f8fc', overflow: 'hidden' }}
     >
@@ -146,27 +202,27 @@ export function HeroSection({ currentSection, heroTextOpacity, onNavigate }) {
 
             <motion.div
               className="hero-divider"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              variants={{ hidden: { scaleX: 0 }, visible: { scaleX: 1, transition: { duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] } } }}
+              initial="hidden"
+              animate={isVisible ? "visible" : "hidden"}
             />
 
             <motion.p
               className="hero-tagline"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.6 }}
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, delay: 0.6 } } }}
+              initial="hidden"
+              animate={isVisible ? "visible" : "hidden"}
             >
-              IMPULSANDO MARCAS A TRAVÉS DE DISEÑO<br />
-              ESTRATÉGICO Y COMUNICACIÓN EFECTIVA
+              Impulsando marcas a través de diseño<br />
+              estratégico y comunicación efectiva
             </motion.p>
 
             <motion.a
               href="#contacto"
               className="hero-cta-btn"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.85 }}
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, delay: 0.85 } } }}
+              initial="hidden"
+              animate={isVisible ? "visible" : "hidden"}
               whileHover={{ scale: 1.04, boxShadow: '0 8px 32px rgba(120,40,200,0.35)' }}
               whileTap={{ scale: 0.97 }}
               style={{ pointerEvents: 'auto' }}
@@ -183,9 +239,9 @@ export function HeroSection({ currentSection, heroTextOpacity, onNavigate }) {
         {/* RIGHT: Photo with geometric shapes */}
         <motion.div
           className="hero-right"
-          initial={{ opacity: 0, x: 60 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          variants={{ hidden: { opacity: 0, x: 60 }, visible: { opacity: 1, x: 0, transition: { duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] } } }}
+          initial="hidden"
+          animate={isVisible ? "visible" : "hidden"}
         >
           <div className="hero-photo-wrapper">
             {/* The background circle with video texture */}

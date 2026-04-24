@@ -16,14 +16,14 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 140px;
-  /* Ajusta la altura del degrado segÃºn lo que ocupe tu navbar/docker */
-  /* Degradado de blanco solido a blanco transparente */
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.9) 60px, rgba(255, 255, 255, 0) 100%);
+  height: 110px;
+  background: transparent;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 35%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 35%, transparent 100%);
   z-index: 40;
-  /* Por encima del texto, debajo de la flecha de volver (z:50) y del docker real */
   pointer-events: none;
-  /* Dejar pasar los clics */
 }
 
 /* Si hay spline, evitamos que el difuminado tape el modelo 3D de la derecha */

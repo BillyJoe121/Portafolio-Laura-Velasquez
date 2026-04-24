@@ -8,6 +8,7 @@ import { CldImage } from '../../components/CldImage';
 import { getCldImageUrl } from '../../lib/cloudinary';
 import './ProjectDetail.css';
 import './LuminyDetail.css';
+import { SplineHint } from '../../components/SplineHint';
 
 /* ── Reusable animation variants ── */
 const fadeUp = {
@@ -45,7 +46,7 @@ export function LuminyDetail({ project, onBack }) {
 
   return (
     <div className="project-detail luminy-detail-container">
-      <div className="project-top-fade" style={{ background: 'linear-gradient(to bottom, #06091f 0%, rgba(6,9,31,0.8) 80px, rgba(6,9,31,0) 100%)' }} />
+      <div className="project-top-fade" />
 
       {/* Back button */}
       <motion.button
@@ -119,7 +120,9 @@ export function LuminyDetail({ project, onBack }) {
               <div className="luminy-render-placeholder" ref={splineRef} style={{ minHeight: '600px', width: '90%', margin: '0 auto', padding: 0, overflow: 'hidden' }}>
                 <div className="spline-nologo-wrapper" style={{ width: '100%', height: '100%' }}>
                   {isSplineInView ? (
-                    <Spline scene={project.splineUrl} />
+                    <SplineHint>
+                      <Spline scene={project.splineUrl} />
+                    </SplineHint>
                   ) : (
                     <div className="spline-placeholder-optimized" style={{ background: 'var(--milo-surface-2)', width: '100%', height: '100%' }} />
                   )}

@@ -4,11 +4,11 @@ import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from
 import { useRef, useState } from "react";
 import "./FloatingDock.css";
 
-export const FloatingDock = ({ items, desktopClassName, mobileClassName }) => {
+export const FloatingDock = ({ items, desktopClassName, mobileClassName, navTheme = 'purple' }) => {
   return (
     <>
-      <FloatingDockDesktop items={items} className={desktopClassName} />
-      <FloatingDockMobile items={items} className={mobileClassName} />
+      <FloatingDockDesktop items={items} className={desktopClassName} navTheme={navTheme} />
+      <FloatingDockMobile items={items} className={mobileClassName} navTheme={navTheme} />
     </>
   );
 };
@@ -71,7 +71,7 @@ const FloatingDockMobile = ({ items, className }) => {
   );
 };
 
-const FloatingDockDesktop = ({ items, className }) => {
+const FloatingDockDesktop = ({ items, className, navTheme }) => {
   let mouseX = useMotionValue(Infinity);
   return (
     <motion.div
@@ -80,13 +80,13 @@ const FloatingDockDesktop = ({ items, className }) => {
       className={cn("floating-dock-desktop", className)}
     >
       {items.map((item) => (
-        <IconContainer mouseX={mouseX} key={item.title} {...item} />
+        <IconContainer mouseX={mouseX} key={item.title} {...item} navTheme={navTheme} />
       ))}
     </motion.div>
   );
 };
 
-function IconContainer({ mouseX, title, icon, href, onClick, style: itemStyle, highlighted }) {
+function IconContainer({ mouseX, title, icon, href, onClick, style: itemStyle, highlighted, navTheme = 'purple' }) {
   let ref = useRef(null);
 
   let distance = useTransform(mouseX, (val) => {
@@ -94,8 +94,6 @@ function IconContainer({ mouseX, title, icon, href, onClick, style: itemStyle, h
     return val - bounds.x - bounds.width / 2;
   });
 
-  // Instead of static widths, we dynamically adjust height, fontSize, and padding
-  // To keep it rectangular and hold text dynamically based on title length
   let heightTransform = useTransform(distance, [-150, 0, 150], [35, 55, 35]);
   let fontSizeTransform = useTransform(distance, [-150, 0, 150], [14, 20, 14]);
   let paddingHTransform = useTransform(distance, [-150, 0, 150], [16, 26, 16]);
@@ -114,8 +112,26 @@ function IconContainer({ mouseX, title, icon, href, onClick, style: itemStyle, h
     }
   };
 
+  // Color tokens per theme
+  const colors = navTheme === 'white'
+    ? {
+        activeBg:     '#28282B',
+        activeText:   '#ffffff',
+        inactiveBg:   'transparent',
+        inactiveText: '#28282B',
+      }
+    : {
+        activeBg:     '#9013fe',
+        activeText:   '#ffffff',
+        inactiveBg:   'transparent',
+        inactiveText: '#28282B',
+      };
+
+  const bgColor   = highlighted ? colors.activeBg   : colors.inactiveBg;
+  const textColor = highlighted ? colors.activeText : colors.inactiveText;
+
   return (
-    <a href={href} onClick={handleClick} className="fd-link">
+    <a href={href} onClick={handleClick} className={`fd-link fd-theme-${navTheme}`}>
       <motion.div
         ref={ref}
         style={{
@@ -123,9 +139,9 @@ function IconContainer({ mouseX, title, icon, href, onClick, style: itemStyle, h
           fontSize,
           paddingLeft: paddingHorizontal,
           paddingRight: paddingHorizontal,
-          backgroundColor: highlighted ? 'transparent' : '#ffffff',
-          color: '#6d28d9',
-          border: highlighted ? '1.5px solid #7c3aed' : '1.5px solid transparent'
+          backgroundColor: bgColor,
+          color: textColor,
+          border: 'none',
         }}
         className="fd-icon-container"
       >
@@ -134,7 +150,7 @@ function IconContainer({ mouseX, title, icon, href, onClick, style: itemStyle, h
           style={{ 
             ...itemStyle, 
             fontFamily: 'var(--font-main)',
-            color: '#6d28d9',
+            color: textColor,
             fontWeight: highlighted ? '600' : '400'
           }}
         >

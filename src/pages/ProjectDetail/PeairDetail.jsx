@@ -5,6 +5,7 @@ import Spline from '@splinetool/react-spline';
 import { IconBrandBehance } from '@tabler/icons-react';
 import './ProjectDetail.css';
 import './PeairDetail.css';
+import { SplineHint } from '../../components/SplineHint';
 
 /* ── Variants ── */
 const fadeUp = { hidden: { opacity: 0, y: 60 }, visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } } };
@@ -24,7 +25,7 @@ export function PeairDetail({ project, onBack }) {
 
   return (
     <div className="project-detail peair-detail-container">
-      <div className="project-top-fade" style={{ background: 'linear-gradient(to bottom, #ffe14a 0%, rgba(255,225,74,0.7) 60px, transparent 100%)' }} />
+      <div className="project-top-fade" />
 
       <motion.button
         className="project-back-btn"
@@ -261,7 +262,9 @@ export function PeairDetail({ project, onBack }) {
                 style={{ padding: 0, position: 'relative', overflow: 'hidden' }}
               >
                 {isSplineInView1 ? (
-                  <Spline scene="https://prod.spline.design/Cvvx3qTJricA9uWI/scene.splinecode" />
+                  <SplineHint>
+                    <Spline scene="https://prod.spline.design/Cvvx3qTJricA9uWI/scene.splinecode" />
+                  </SplineHint>
                 ) : (
                   <div className="spline-placeholder">
                     <span className="slot-label-dark">Cargando Escena 3D...</span>
@@ -274,7 +277,9 @@ export function PeairDetail({ project, onBack }) {
                 style={{ padding: 0, position: 'relative', overflow: 'hidden' }}
               >
                 {isSplineInView2 ? (
-                  <Spline scene="https://prod.spline.design/xQ4CEqEepGQNe7x8/scene.splinecode" />
+                  <SplineHint>
+                    <Spline scene="https://prod.spline.design/xQ4CEqEepGQNe7x8/scene.splinecode" />
+                  </SplineHint>
                 ) : (
                   <div className="spline-placeholder">
                     <span className="slot-label-dark">Cargando Escena 3D...</span>

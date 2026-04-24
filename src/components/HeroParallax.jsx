@@ -106,14 +106,103 @@ export function HeroParallax({ products, onSelect, containerRef }) {
  * Header — Title section that sits above the parallax cards.
  */
 function Header() {
+  const [isReady, setIsReady] = React.useState(false);
+
+  // Delay for animations
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsReady(true);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const titleWords = "Del concepto al detalle: un recorrido por mis creaciones.".split(" ");
+
+  const ease = [0.16, 1, 0.3, 1];
+
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.05,
+      },
+    },
+  };
+
+  const wordVariants = {
+    hidden: { y: "110%", opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 1.0, ease },
+    },
+  };
+
+  const paraDelay = titleWords.length * 0.08 + 0.15;
+
+  const paraVariants = {
+    hidden: { opacity: 0, y: 18, filter: "blur(6px)" },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: { duration: 1.2, ease, delay: paraDelay },
+    },
+  };
+
+  const scrollCueVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1.0, ease, delay: paraDelay + 0.2 },
+    },
+  };
+
   return (
     <div className="hp-header">
-      <h1 className="hp-header-title">Proyectos</h1>
-      <p className="hp-header-subtitle">
-        Diseño industrial donde la estética impulsa el negocio.
-        Explora una selección de proyectos que combinan funcionalidad
-        técnica, experiencia de usuario y viabilidad comercial.
-      </p>
+      <div className="hp-header-inner">
+        <motion.h1
+          className="hp-header-title"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isReady ? "visible" : "hidden"}
+        >
+          {titleWords.map((word, i) => (
+            <React.Fragment key={i}>
+              <span style={{ display: 'inline-block', overflow: 'hidden', verticalAlign: 'bottom' }}>
+                <motion.span style={{ display: 'inline-block' }} variants={wordVariants}>
+                  {word}
+                </motion.span>
+              </span>
+              {i < titleWords.length - 1 ? ' ' : ''}
+            </React.Fragment>
+          ))}
+        </motion.h1>
+
+        <motion.p
+          className="hp-header-subtitle"
+          variants={paraVariants}
+          initial="hidden"
+          animate={isReady ? "visible" : "hidden"}
+        >
+          Creo en el diseño que se valida con las manos. En esta sección he recopilado
+          proyectos que van desde modelos de negocio premiados hasta prototipado con
+          impresión 3D e innovación en materiales. Te invito a conocer cómo aplico la
+          iteración y la disciplina para dar vida a soluciones con impacto real. ¿Exploramos el proceso?
+        </motion.p>
+      </div>
+
+      <motion.div
+        className="hp-scroll-cue"
+        variants={scrollCueVariants}
+        initial="hidden"
+        animate={isReady ? "visible" : "hidden"}
+      >
+        <span>scroll</span>
+        <div className="hp-scroll-line" />
+      </motion.div>
     </div>
   );
 }

@@ -12,8 +12,8 @@ import { getCldImage } from '../lib/cloudinary';
 export const CldImage = ({ publicId, alt, className, style }) => {
   if (!publicId) return null;
   
-  // If it's already an absolute URL (http/https), just render a normal img
-  if (publicId.startsWith('http')) {
+  // If it's already an absolute URL (http/https), a local Vite path (/), or a data URI, just render a normal img
+  if (publicId.startsWith('http') || publicId.startsWith('/') || publicId.startsWith('data:')) {
     return <img src={publicId} alt={alt} className={className} style={style} />;
   }
 
