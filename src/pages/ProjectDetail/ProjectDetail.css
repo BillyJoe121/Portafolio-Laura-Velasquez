@@ -50,9 +50,7 @@
   font-size: 1.5rem;
   line-height: 1.1;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
-  padding: 0;
-  /* compensa el peso Ã³ptico del sÃ­mbolo â€¹ */
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   padding: 0;
   padding-bottom: 3px;
 }
@@ -60,6 +58,8 @@
 .project-back-btn:hover {
   background: #fff;
   color: #28282B;
+  transform: scale(1.15);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
 /* â”€â”€ Layout with Spline Split â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */

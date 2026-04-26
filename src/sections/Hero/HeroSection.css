@@ -36,7 +36,7 @@
 /* ── Main inner layout ── */
 .hero-inner {
   position: relative;
-  z-index: 1;
+  z-index: 10;
   width: 100%;
   height: 100%;
   display: flex;
@@ -96,6 +96,8 @@
   border-radius: 99px;
   transition: all 0.3s ease;
   box-shadow: 0 4px 24px rgba(144, 19, 254, 0.28);
+  position: relative;
+  z-index: 11;
 }
 
 .hero-cta-btn:hover {
@@ -135,7 +137,8 @@
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   z-index: 1;
-  overflow: hidden; /* Ensure video stays circular */
+  overflow: hidden;
+  /* Ensure video stays circular */
   box-shadow: 0 20px 60px rgba(109, 40, 217, 0.25);
 }
 

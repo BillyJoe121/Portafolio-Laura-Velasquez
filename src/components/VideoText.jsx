@@ -2,8 +2,7 @@ import React, { useRef, useEffect } from 'react';
 
 /**
  * VideoText — Renders text filled with a looping video using canvas masking.
- *
- * @param {{ videoSrc: string, text: string, fontFamily?: string, fontSize?: string, fontWeight?: number, className?: string }} props
+ * Falls back to a solid gradient while the video is loading.
  */
 export function VideoText({
   videoSrc,
@@ -13,11 +12,13 @@ export function VideoText({
   fontWeight = 700,
   className = '',
   style = {},
+  onVideoReady,
 }) {
   const canvasRef = useRef(null);
   const videoRef = useRef(null);
   const textMeasureRef = useRef(null);
   const rafRef = useRef(null);
+  const videoReadyRef = useRef(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -38,7 +39,6 @@ export function VideoText({
       const cw = rect.width;
       const ch = rect.height;
 
-      // Only resize if needed
       const targetW = Math.round(cw * dpr);
       const targetH = Math.round(ch * dpr);
       if (canvas.width !== targetW || canvas.height !== targetH) {
@@ -50,50 +50,60 @@ export function VideoText({
       ctx.save();
       ctx.scale(dpr, dpr);
 
-      // Resolve dynamic font size (clamp, vw, etc)
       const resolvedFontSize = window.getComputedStyle(textMeasure).fontSize;
-
-      // 1. Draw text in solid color (this creates the mask shape)
       ctx.font = `${fontWeight} ${resolvedFontSize} ${fontFamily}`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillStyle = '#000';
-      ctx.fillText(text, cw / 2, ch / 2);
 
-      // 2. Fill only the text pixels with the video frame
-      ctx.globalCompositeOperation = 'source-in';
-      
-      // Cover-fit the video into the canvas area
-      const vw = video.videoWidth || cw;
-      const vh = video.videoHeight || ch;
-      const scale = Math.max(cw / vw, ch / vh);
-      const sw = vw * scale;
-      const sh = vh * scale;
-      const sx = (cw - sw) / 2;
-      const sy = (ch - sh) / 2;
-      ctx.drawImage(video, sx, sy, sw, sh);
+      if (videoReadyRef.current && video.readyState >= 2) {
+        // Video is ready — draw text as mask and fill with video
+        ctx.fillStyle = '#000';
+        ctx.fillText(text, cw / 2, ch / 2);
+
+        ctx.globalCompositeOperation = 'source-in';
+        const vw = video.videoWidth || cw;
+        const vh = video.videoHeight || ch;
+        const scale = Math.max(cw / vw, ch / vh);
+        const sw = vw * scale;
+        const sh = vh * scale;
+        const sx = (cw - sw) / 2;
+        const sy = (ch - sh) / 2;
+        ctx.drawImage(video, sx, sy, sw, sh);
+      } else {
+        // Fallback — draw solid text with a gradient color (no video needed)
+        const gradient = ctx.createLinearGradient(0, 0, cw, 0);
+        gradient.addColorStop(0, '#9013fe');
+        gradient.addColorStop(1, '#b456ff');
+        ctx.fillStyle = gradient;
+        ctx.fillText(text, cw / 2, ch / 2);
+      }
 
       ctx.restore();
       rafRef.current = requestAnimationFrame(draw);
     };
 
-    // Start drawing once the video can play
-    const startDrawing = () => {
-      cancelAnimationFrame(rafRef.current);
-      draw();
+    // Start drawing immediately (fallback mode)
+    cancelAnimationFrame(rafRef.current);
+    draw();
+
+    const onPlaying = () => {
+      videoReadyRef.current = true;
+      if (onVideoReady) onVideoReady();
     };
 
-    video.addEventListener('playing', startDrawing);
-    video.addEventListener('seeked', startDrawing);
+    video.addEventListener('playing', onPlaying);
+    video.addEventListener('canplaythrough', () => {
+      videoReadyRef.current = true;
+      if (onVideoReady) onVideoReady();
+    });
 
     // If video is already playing
-    if (!video.paused && !video.ended) {
-      startDrawing();
+    if (!video.paused && !video.ended && video.readyState >= 2) {
+      videoReadyRef.current = true;
     }
 
     return () => {
-      video.removeEventListener('playing', startDrawing);
-      video.removeEventListener('seeked', startDrawing);
+      video.removeEventListener('playing', onPlaying);
       cancelAnimationFrame(rafRef.current);
     };
   }, [text, fontFamily, fontSize, fontWeight]);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import { FlipWords } from '../../components/FlipWords';
-import { CldVideo } from '../../components/CldVideo';
+import Spline from '@splinetool/react-spline';
 import './HomeSection.css';
 
 /**
@@ -194,26 +194,21 @@ export function HomeSection({ onNavigate }) {
         </motion.div>
       </div>
 
-      {/* Video Background Bottom Right - Optimized via Cloudinary with Lazy Load */}
+      {/* Spline Background Bottom Right - Replaces previous video */}
       {isVisible && (
-        <CldVideo
-          publicId="hero_bg_optimized_xw8nrh"
-          autoPlay
-          loop
-          muted
-          playsInline
-          style={{
-            position: 'absolute',
-            top: 0,
-            right: 0,
-            width: '100%',
-            height: '130vh',
-            zIndex: 0,
-            pointerEvents: 'none',
-            objectFit: 'contain',
-            objectPosition: 'bottom right',
-          }}
-        />
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          width: '100%',
+          height: '130vh',
+          zIndex: 0,
+          pointerEvents: 'none',
+        }}>
+          <Spline 
+            scene="https://prod.spline.design/yQZuolty99pNi1Td/scene.splinecode" 
+          />
+        </div>
       )}
     </div>
   );

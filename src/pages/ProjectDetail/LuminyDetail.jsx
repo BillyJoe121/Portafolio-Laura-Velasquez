@@ -54,7 +54,9 @@ export function LuminyDetail({ project, onBack }) {
         onClick={onBack}
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        whileHover={{ scale: 1.2 }}
+        whileTap={{ scale: 0.9 }}
+        transition={{ type: "spring", stiffness: 400, damping: 10 }}
         aria-label="Volver a proyectos"
         style={{ color: '#fff', borderColor: 'rgba(79,140,247,0.5)', background: 'rgba(79,140,247,0.1)' }}
       >
@@ -312,6 +314,11 @@ export function LuminyDetail({ project, onBack }) {
                 { src: getCldImageUrl('assets/proyectos/Luminy/plano5') },
               ]}
               autoplay={true}
+              variant="planos"
+              showText={false}
+              arrowColor="var(--lum-blue)"
+              arrowBorder="rgba(79, 140, 247, 0.3)"
+              arrowHoverBg="rgba(79, 140, 247, 0.1)"
             />
           </motion.div>
         </section>

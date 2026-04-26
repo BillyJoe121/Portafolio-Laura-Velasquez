@@ -13,8 +13,33 @@ export const FloatingDock = ({ items, desktopClassName, mobileClassName, navThem
   );
 };
 
-const FloatingDockMobile = ({ items, className }) => {
+const FloatingDockMobile = ({ items, className, navTheme = 'purple' }) => {
   const [open, setOpen] = useState(false);
+
+  // Theme-based colors for mobile
+  const getMobileColors = (highlighted) => {
+    if (navTheme === 'project-detail') {
+      return {
+        bg: highlighted ? '#28282B' : 'transparent',
+        text: '#ffffff',
+        border: 'none'
+      };
+    }
+    if (navTheme === 'white') {
+      return {
+        bg: highlighted ? '#28282B' : '#ffffff',
+        text: highlighted ? '#ffffff' : '#28282B',
+        border: highlighted ? 'none' : '1px solid #e5e7eb'
+      };
+    }
+    // Default purple
+    return {
+      bg: highlighted ? '#9013fe' : '#ffffff',
+      text: highlighted ? '#ffffff' : '#6d28d9',
+      border: highlighted ? 'none' : '1px solid transparent'
+    };
+  };
+
   return (
     <div className={cn("floating-dock-mobile", className)}>
       <AnimatePresence>
@@ -23,41 +48,48 @@ const FloatingDockMobile = ({ items, className }) => {
             layoutId="nav"
             className="fd-mobile-panel"
           >
-            {items.map((item, idx) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{
-                  opacity: 0,
-                  y: 10,
-                  transition: { delay: idx * 0.05 },
-                }}
-                transition={{ delay: (items.length - 1 - idx) * 0.05 }}
-              >
-                <a
-                  href={item.href}
-                  className="fd-mobile-item-btn"
-                  style={{ 
-                    width: "auto", 
-                    padding: "0 16px", 
-                    borderRadius: "20px",
-                    backgroundColor: item.highlighted ? 'transparent' : '#ffffff',
-                    color: '#6d28d9',
-                    fontWeight: item.highlighted ? '600' : '400',
-                    border: item.highlighted ? '1.5px solid #7c3aed' : '1px solid transparent'
+            {items.map((item, idx) => {
+              const colors = getMobileColors(item.highlighted);
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{
+                    opacity: 0,
+                    y: 10,
+                    transition: { delay: idx * 0.05 },
                   }}
+                  transition={{ delay: (items.length - 1 - idx) * 0.05 }}
                 >
-                  <span style={{ 
-                    fontFamily: 'var(--font-main)',
-                    fontSize: "14px", 
-                    marginRight: item.icon ? "8px" : "0", 
-                    color: '#6d28d9'
-                  }}>{item.title}</span>
-                  {item.icon && <div style={{ height: "16px", width: "16px" }}>{item.icon}</div>}
-                </a>
-              </motion.div>
-            ))}
+                  <a
+                    href={item.href}
+                    className="fd-mobile-item-btn"
+                    onClick={() => {
+                      if (item.onClick) item.onClick();
+                      setOpen(false);
+                    }}
+                    style={{ 
+                      width: "auto", 
+                      padding: "0 16px", 
+                      borderRadius: "20px",
+                      backgroundColor: colors.bg,
+                      color: colors.text,
+                      fontWeight: item.highlighted ? '600' : '400',
+                      border: colors.border
+                    }}
+                  >
+                    <span style={{ 
+                      fontFamily: 'var(--font-main)',
+                      fontSize: "14px", 
+                      marginRight: item.icon ? "8px" : "0", 
+                      color: 'inherit'
+                    }}>{item.title}</span>
+                    {item.icon && <div style={{ height: "16px", width: "16px" }}>{item.icon}</div>}
+                  </a>
+                </motion.div>
+              );
+            })}
           </motion.div>
         )}
       </AnimatePresence>
@@ -113,7 +145,14 @@ function IconContainer({ mouseX, title, icon, href, onClick, style: itemStyle, h
   };
 
   // Color tokens per theme
-  const colors = navTheme === 'white'
+  const colors = navTheme === 'project-detail'
+    ? {
+        activeBg:     '#28282B',
+        activeText:   '#ffffff',
+        inactiveBg:   'transparent',
+        inactiveText: '#ffffff',
+      }
+    : navTheme === 'white'
     ? {
         activeBg:     '#28282B',
         activeText:   '#ffffff',

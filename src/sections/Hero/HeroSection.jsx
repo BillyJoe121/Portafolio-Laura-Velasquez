@@ -9,19 +9,50 @@ import './HeroSection.css';
  */
 export function HeroSection({ currentSection, heroTextOpacity, onNavigate }) {
   const [isVisible, setIsVisible] = React.useState(false);
+  const [isReady, setIsReady] = React.useState(false);
+  const [assetsLoaded, setAssetsLoaded] = React.useState({
+    maskVideo: false,
+    circleVideo: false,
+    photoImg: false,
+  });
+
   const canvasRef = useRef(null);
   const videoRef = useRef(null);
   const rafRef = useRef(null);
   const sectionRef = useRef(null);
+
+  // Check if all assets are ready
+  useEffect(() => {
+    if (assetsLoaded.maskVideo && assetsLoaded.circleVideo && assetsLoaded.photoImg) {
+      // Small delay to ensure everything is rendered before showing
+      const timer = setTimeout(() => {
+        setIsReady(true);
+        window.__heroStartTime = performance.now();
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [assetsLoaded]);
+
+  const handleAssetLoad = (asset) => {
+    setAssetsLoaded(prev => ({ ...prev, [asset]: true }));
+  };
+
+  const lastResetRef = useRef(0);
+  const resetHeroAnimation = () => {
+    const now = performance.now();
+    if (now - lastResetRef.current > 1000) {
+      window.__heroStartTime = now;
+      lastResetRef.current = now;
+    }
+  };
 
   // Observer to restart animations when Hero comes into view
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsVisible(entry.isIntersecting);
-        if (entry.isIntersecting) {
-          // Reset the canvas animation timer when returning to the Hero
-          window.__heroStartTime = performance.now();
+        if (entry.isIntersecting && isReady) {
+          resetHeroAnimation();
         }
       },
       { threshold: 0.1 }
@@ -29,7 +60,14 @@ export function HeroSection({ currentSection, heroTextOpacity, onNavigate }) {
 
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
-  }, []);
+  }, [isReady]);
+
+  // Restart animations when navigating back to Hero via prop change
+  useEffect(() => {
+    if (currentSection === 'hero' && isReady) {
+      resetHeroAnimation();
+    }
+  }, [currentSection, isReady]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -141,10 +179,12 @@ export function HeroSection({ currentSection, heroTextOpacity, onNavigate }) {
     };
 
     video.addEventListener('playing', startDrawing);
+    video.addEventListener('canplaythrough', () => handleAssetLoad('maskVideo'));
     if (!video.paused && !video.ended) startDrawing();
 
     return () => {
       video.removeEventListener('playing', startDrawing);
+      video.removeEventListener('canplaythrough', () => handleAssetLoad('maskVideo'));
       cancelAnimationFrame(rafRef.current);
     };
   }, []);
@@ -164,6 +204,7 @@ export function HeroSection({ currentSection, heroTextOpacity, onNavigate }) {
         muted
         playsInline
         preload="auto"
+        onCanPlayThrough={() => handleAssetLoad('maskVideo')}
         style={{ position: 'absolute', width: 0, height: 0, opacity: 0, pointerEvents: 'none' }}
       />
 
@@ -188,6 +229,9 @@ export function HeroSection({ currentSection, heroTextOpacity, onNavigate }) {
 
       <motion.div
         className="hero-inner"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isReady ? 1 : 0 }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
         style={{ opacity: heroTextOpacity }}
       >
         {/* LEFT: Canvas-based name + static tagline + CTA */}
@@ -204,14 +248,14 @@ export function HeroSection({ currentSection, heroTextOpacity, onNavigate }) {
               className="hero-divider"
               variants={{ hidden: { scaleX: 0 }, visible: { scaleX: 1, transition: { duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] } } }}
               initial="hidden"
-              animate={isVisible ? "visible" : "hidden"}
+              animate={(isVisible && isReady && currentSection === 'hero') ? "visible" : "hidden"}
             />
 
             <motion.p
               className="hero-tagline"
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, delay: 0.6 } } }}
               initial="hidden"
-              animate={isVisible ? "visible" : "hidden"}
+              animate={(isVisible && isReady && currentSection === 'hero') ? "visible" : "hidden"}
             >
               Impulsando marcas a través de diseño<br />
               estratégico y comunicación efectiva
@@ -222,7 +266,7 @@ export function HeroSection({ currentSection, heroTextOpacity, onNavigate }) {
               className="hero-cta-btn"
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, delay: 0.85 } } }}
               initial="hidden"
-              animate={isVisible ? "visible" : "hidden"}
+              animate={(isVisible && isReady && currentSection === 'hero') ? "visible" : "hidden"}
               whileHover={{ scale: 1.04, boxShadow: '0 8px 32px rgba(120,40,200,0.35)' }}
               whileTap={{ scale: 0.97 }}
               style={{ pointerEvents: 'auto' }}
@@ -241,7 +285,7 @@ export function HeroSection({ currentSection, heroTextOpacity, onNavigate }) {
           className="hero-right"
           variants={{ hidden: { opacity: 0, x: 60 }, visible: { opacity: 1, x: 0, transition: { duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] } } }}
           initial="hidden"
-          animate={isVisible ? "visible" : "hidden"}
+          animate={(isVisible && isReady && currentSection === 'hero') ? "visible" : "hidden"}
         >
           <div className="hero-photo-wrapper">
             {/* The background circle with video texture */}
@@ -253,6 +297,7 @@ export function HeroSection({ currentSection, heroTextOpacity, onNavigate }) {
                 muted
                 playsInline
                 preload="auto"
+                onCanPlayThrough={() => handleAssetLoad('circleVideo')}
                 className="hero-photo-bg-video"
                 style={{ willChange: 'transform' }}
               />
@@ -260,8 +305,9 @@ export function HeroSection({ currentSection, heroTextOpacity, onNavigate }) {
             {/* Container that crops only the bottom to match the circle */}
             <div className="hero-photo-crop">
               <img
-                src="https://res.cloudinary.com/dacmlsbqc/image/upload/v1775433533/srszsg5zmoays0rybfsh.png"
+                src="https://res.cloudinary.com/dacmlsbqc/image/upload/f_auto,q_auto/v1775433533/srszsg5zmoays0rybfsh.png"
                 alt="Laura Velasquez"
+                onLoad={() => handleAssetLoad('photoImg')}
                 className="hero-photo-img-large"
               />
             </div>

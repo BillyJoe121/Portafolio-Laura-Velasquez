@@ -52,7 +52,9 @@ export function MiloDetail({ project, onBack }) {
         onClick={onBack}
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.4 }}
+        whileHover={{ scale: 1.2 }}
+        whileTap={{ scale: 0.9 }}
+        transition={{ type: "spring", stiffness: 400, damping: 10 }}
         aria-label="Volver a proyectos"
         style={{ background: 'rgba(249,252,61,0.1)', borderColor: 'rgba(249,252,61,0.3)', color: '#f9fc3d' }}
       >
@@ -241,7 +243,6 @@ export function MiloDetail({ project, onBack }) {
             variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
           >
             <motion.h2 variants={fadeLeft}>PLANOS</motion.h2>
-            <motion.span className="milo-planos-tag" variants={itemFade}>Tech Specs</motion.span>
           </motion.div>
 
           <motion.div
@@ -254,6 +255,8 @@ export function MiloDetail({ project, onBack }) {
                 { src: imgPlano3 },
               ]}
               autoplay={true}
+              variant="planos"
+              showText={false}
               arrowColor="#f9fc3d"
               arrowBorder="rgba(249,252,61,0.3)"
               arrowHoverBg="rgba(249,252,61,0.15)"

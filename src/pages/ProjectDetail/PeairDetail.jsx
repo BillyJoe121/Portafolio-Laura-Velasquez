@@ -32,7 +32,9 @@ export function PeairDetail({ project, onBack }) {
         onClick={onBack}
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.4 }}
+        whileHover={{ scale: 1.2 }}
+        whileTap={{ scale: 0.9 }}
+        transition={{ type: "spring", stiffness: 400, damping: 10 }}
         aria-label="Volver a proyectos"
         style={{ background: 'rgba(26,107,40,0.18)', borderColor: 'rgba(26,107,40,0.45)', color: '#1a6b28' }}
       >

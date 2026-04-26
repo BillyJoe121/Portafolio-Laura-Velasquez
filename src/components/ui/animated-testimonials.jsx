@@ -1,7 +1,8 @@
 "use client";
+import { cn } from "../../lib/utils";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { CldImage } from "../CldImage";
 
 export const AnimatedTestimonials = ({
@@ -9,7 +10,9 @@ export const AnimatedTestimonials = ({
   autoplay = false,
   arrowColor = '#9013fe',
   arrowBorder = 'rgba(144, 19, 254, 0.3)',
-  arrowHoverBg = 'rgba(144, 19, 254, 0.1)'
+  arrowHoverBg = 'rgba(144, 19, 254, 0.1)',
+  variant = 'default', // 'default' or 'planos'
+  showText = true,
 }) => {
   const [active, setActive] = useState(0);
 
@@ -27,14 +30,19 @@ export const AnimatedTestimonials = ({
 
   useEffect(() => {
     if (autoplay) {
-      const interval = setInterval(handleNext, 8000); // 8 seconds given the long text
+      const interval = setInterval(handleNext, 8000);
       return () => clearInterval(interval);
     }
   }, [autoplay, testimonials.length]);
 
-  const randomRotateY = () => {
-    return Math.floor(Math.random() * 21) - 10;
-  };
+  const isPlanos = variant === 'planos';
+
+  // Memoize random rotations to prevent re-render storms
+  const randomRotations = useMemo(() => {
+    const range = isPlanos ? 4 : 21;
+    const offset = isPlanos ? 2 : 10;
+    return testimonials.map(() => Math.floor(Math.random() * range) - offset);
+  }, [testimonials.length, isPlanos]);
 
   return (
     <>
@@ -49,10 +57,41 @@ export const AnimatedTestimonials = ({
           margin: 0 auto;
           padding: 20px;
         }
+        .at-container.variant-planos {
+          display: flex;
+          flex-direction: column;
+          grid-template-columns: none;
+          gap: 12px;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+        }
         .at-image-stack {
           position: relative;
           height: 400px;
           width: 100%;
+        }
+        .variant-planos .at-image-stack {
+          width: 730px;
+          height: auto;
+          aspect-ratio: 1.414 / 1;
+        }
+        .at-name {
+          font-size: 2rem;
+          font-weight: 800;
+          color: #0f172a;
+          margin-bottom: 8px;
+        }
+        .at-designation {
+          font-size: 1rem;
+          margin-bottom: 24px;
+          font-weight: 600;
+        }
+        .at-quote {
+          font-size: 1.05rem;
+          color: #475569;
+          line-height: 1.8;
+          font-style: italic;
         }
         @media (max-width: 900px) {
           .at-container {
@@ -64,11 +103,19 @@ export const AnimatedTestimonials = ({
             max-width: 400px;
             margin: 0 auto;
           }
+          .variant-planos .at-image-stack {
+            height: auto;
+            aspect-ratio: 1.414 / 1;
+            max-width: 100%;
+          }
+          .at-name {
+            font-size: 1.5rem;
+          }
         }
       `}</style>
 
-      <div className="at-container">
-        {/* Left Column: Image Stack */}
+      <div className={cn("at-container", isPlanos && "variant-planos")}>
+        {/* Image Stack */}
         <div className="at-image-stack">
           <AnimatePresence mode="popLayout">
             {testimonials.map((testimonial, index) => (
@@ -77,12 +124,12 @@ export const AnimatedTestimonials = ({
                 initial={{
                   opacity: 0,
                   scale: 0.9,
-                  rotate: randomRotateY(),
+                  rotate: randomRotations[index],
                 }}
                 animate={{
                   opacity: isActive(index) ? 1 : 0.7,
                   scale: isActive(index) ? 1 : 0.95,
-                  rotate: isActive(index) ? 0 : randomRotateY(),
+                  rotate: isActive(index) ? 0 : randomRotations[index],
                   zIndex: isActive(index)
                     ? 40
                     : testimonials.length + 2 - index,
@@ -91,7 +138,7 @@ export const AnimatedTestimonials = ({
                 exit={{
                   opacity: 0,
                   scale: 0.9,
-                  rotate: randomRotateY(),
+                  rotate: randomRotations[index],
                 }}
                 transition={{
                   duration: 0.4,
@@ -105,15 +152,15 @@ export const AnimatedTestimonials = ({
               >
                 <CldImage
                   publicId={testimonial.src}
-                  alt={testimonial.name}
+                  alt={testimonial.name || "Testimonial"}
                   style={{
                     height: '100%',
                     width: '100%',
-                    borderRadius: '24px',
+                    borderRadius: '12px',
                     objectFit: 'cover',
                     objectPosition: 'center',
                     boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
-                    border: '1px solid rgba(0,0,0,0.05)'
+                    border: '1px solid rgba(255,255,255,0.1)'
                   }}
                 />
               </motion.div>
@@ -121,30 +168,45 @@ export const AnimatedTestimonials = ({
           </AnimatePresence>
         </div>
 
-        {/* Right Column: Text & Arrows */}
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={active}
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -20, opacity: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-            >
-              <h3 style={{ fontSize: '2rem', fontWeight: 800, color: '#0f172a', marginBottom: '8px' }}>
-                {testimonials[active].name}
-              </h3>
-              <p style={{ fontSize: '1rem', color: '#7c3aed', marginBottom: '24px', fontWeight: 600 }}>
-                {testimonials[active].designation}
-              </p>
-              <motion.p style={{ fontSize: '1.05rem', color: '#475569', lineHeight: 1.8, fontStyle: 'italic', textAlign: 'justify' }}>
-                "{testimonials[active].quote}"
-              </motion.p>
-            </motion.div>
-          </AnimatePresence>
+        {/* Text & Arrows Column */}
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: isPlanos ? 'center' : 'flex-start',
+          width: '100%'
+        }}>
+          {showText && testimonials[active].quote && (
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active}
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -20, opacity: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+              >
+                {testimonials[active].name && (
+                  <h3 className="at-name">
+                    {testimonials[active].name}
+                  </h3>
+                )}
+                {testimonials[active].designation && (
+                  <p className="at-designation" style={{ color: arrowColor }}>
+                    {testimonials[active].designation}
+                  </p>
+                )}
+                <motion.p 
+                  className="at-quote" 
+                  style={{ textAlign: isPlanos ? 'center' : 'justify' }}
+                >
+                  {testimonials[active].quote}
+                </motion.p>
+              </motion.div>
+            </AnimatePresence>
+          )}
 
           {/* Navigation arrows */}
-          <div style={{ display: 'flex', gap: '16px', marginTop: '40px', zIndex: 100 }}>
+          <div style={{ display: 'flex', gap: '16px', marginTop: isPlanos ? '8px' : '40px', zIndex: 100 }}>
             <button
               onClick={(e) => { e.stopPropagation(); handlePrev(); }}
               style={{

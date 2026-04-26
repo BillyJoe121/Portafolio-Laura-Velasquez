@@ -437,37 +437,34 @@
   background: var(--milo-surface);
   padding: 0 8vw 120px;
 }
-.milo-planos-inner { max-width: 1200px; margin: 0 auto; }
+.milo-planos-inner { 
+  max-width: 1200px; 
+  margin: 0 auto; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 .milo-planos-header {
-  padding: 80px 0 50px;
-  border-bottom: 1px solid var(--milo-border);
+  padding: 120px 0 50px;
   display: flex;
-  align-items: flex-end;
-  gap: 25px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
   flex-wrap: wrap;
   margin-bottom: 50px;
+  text-align: center;
 }
 .milo-planos-header h2 {
   font-family: var(--font-brand);
-  font-size: clamp(3rem, 6vw, 5rem);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
   text-transform: uppercase;
   color: var(--milo-yellow);
   line-height: 0.9;
   margin: 0;
   text-shadow: 0 0 40px var(--milo-yellow-glow);
-}
-.milo-planos-tag {
-  background: var(--milo-yellow-dim);
-  border: 1px solid var(--milo-border);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--milo-yellow);
-  padding: 8px 20px;
-  border-radius: 4px;
-  margin-bottom: 5px;
 }
 
 /* ══════════════════════════════════════════

@@ -16,14 +16,14 @@ const testimonialsData = [
       "Tuve la oportunidad de acompañar el proceso académico de Laura Sofía Velásquez en cursos como Diseño Asistido por Computador, Diseño para la Manufactura, Espíritu Empresarial y Plan de Negocio, y puedo dar cuenta de su alto nivel de compromiso y consistencia. Se caracteriza por ser una estudiante ejecutora, laboriosa y con una sólida capacidad de trabajo, siempre orientada al logro y al cumplimiento riguroso de sus objetivos. A lo largo de su formación, demostró ser una persona íntegra, capaz y con una clara habilidad para abordar los proyectos desde un pensamiento sistémico, comprendiendo las relaciones entre contexto, usuario y solución. Además, su actitud receptiva frente a la retroalimentación le ha permitido evolucionar de manera constante. De cara a su proyección laboral, cuenta con el potencial para desempeñarse como un profesional que genera valor desde la innovación, con bases sólidas en el diseño de productos, servicios y experiencias.",
     name: "Andrés Julián Hurtado R.",
     designation: "Cofundador y CEO – Gesta Diseño / 3IN Empresarial | Profesor HC",
-    src: "https://res.cloudinary.com/dacmlsbqc/image/upload/v1777048180/PAJH_hq_qlqfx9.jpg",
+    src: "https://res.cloudinary.com/dacmlsbqc/image/upload/f_auto,q_auto,w_600/v1777048180/PAJH_hq_qlqfx9.jpg",
   },
   {
     quote:
       "Laura es una estudiante que se destaca por su disciplina, compromiso y enfoque en cada proyecto que asume. He observado en su trabajo una evolución constante, acompañada de una actitud abierta al aprendizaje y a la mejora continua. Es juiciosa, organizada y altamente responsable con sus procesos, lo que se refleja en propuestas coherentes, una sólida capacidad de trabajo y una motivación genuina por hacer las cosas bien. Sin duda, proyecta un perfil profesional sólido y con gran potencial.",
     name: "Felipe Duque",
     designation: "Director de programa Diseño Industrial | Profesor HC – Departamento de Diseño e Innovación, Universidad Icesi",
-    src: "https://res.cloudinary.com/dacmlsbqc/image/upload/v1777048180/PFD_hq_ko0tj6.jpg",
+    src: "https://res.cloudinary.com/dacmlsbqc/image/upload/f_auto,q_auto,w_600/v1777048180/PFD_hq_ko0tj6.jpg",
   },
 ];
 
@@ -174,12 +174,15 @@ const ArrowIcon = () => (
 /* ══════════════════════════════════════════════════════════════
    COMPONENT
    ══════════════════════════════════════════════════════════════ */
-export function SobreMiSection({ onNavigate }) {
-  const flagship = formationCards.find((c) => c.flagship);
-  const sideCards = formationCards.filter((c) => !c.flagship);
+export function SobreMiSection({ onNavigate, currentSection }) {
+  // Helper to determine if we should animate (no loading gate — show immediately)
+  const shouldAnimate = currentSection === 'sobre-mi';
 
   return (
-    <div id="section-sobremi" className="sobremi-container">
+    <div 
+      id="section-sobremi" 
+      className="sobremi-container"
+    >
       {/* Top Fade */}
       <div className="sobremi-top-fade" />
 
@@ -192,7 +195,7 @@ export function SobreMiSection({ onNavigate }) {
           style={{ position: 'relative' }}
           variants={fadeRight}
           initial="hidden"
-          whileInView="visible"
+          animate={shouldAnimate ? "visible" : "hidden"}
           viewport={viewportConfig}
           custom={0}
         >
@@ -200,7 +203,7 @@ export function SobreMiSection({ onNavigate }) {
           <motion.div
             variants={fadeUp}
             initial="hidden"
-            whileInView="visible"
+            animate={shouldAnimate ? "visible" : "hidden"}
             viewport={viewportConfig}
             custom={0.4}
             style={{
@@ -213,7 +216,7 @@ export function SobreMiSection({ onNavigate }) {
             }}
           >
             <img
-              src="https://res.cloudinary.com/dacmlsbqc/image/upload/v1776999122/310508308_b00c14c7-b3a2-4ffd-b53b-67dbb7384c2f_wunjz2.svg"
+              src="https://res.cloudinary.com/dacmlsbqc/image/upload/f_auto,q_auto/v1776999122/310508308_b00c14c7-b3a2-4ffd-b53b-67dbb7384c2f_wunjz2.svg"
               alt="Decorative Element"
               style={{
                 width: '480px',
@@ -227,7 +230,7 @@ export function SobreMiSection({ onNavigate }) {
           <motion.div
             variants={fadeUp}
             initial="hidden"
-            whileInView="visible"
+            animate={shouldAnimate ? "visible" : "hidden"}
             viewport={viewportConfig}
             custom={0}
             style={{ position: 'relative', zIndex: 1 }}
@@ -246,7 +249,7 @@ export function SobreMiSection({ onNavigate }) {
             className="sobremi-hero__divider"
             variants={scaleIn}
             initial="hidden"
-            whileInView="visible"
+            animate={shouldAnimate ? "visible" : "hidden"}
             viewport={viewportConfig}
             custom={0.15}
             style={{ position: 'relative', zIndex: 1 }}
@@ -256,7 +259,7 @@ export function SobreMiSection({ onNavigate }) {
             className="sobremi-hero__desc"
             variants={fadeUp}
             initial="hidden"
-            whileInView="visible"
+            animate={shouldAnimate ? "visible" : "hidden"}
             viewport={viewportConfig}
             custom={0.2}
             style={{ position: 'relative', zIndex: 1 }}
@@ -268,7 +271,7 @@ export function SobreMiSection({ onNavigate }) {
         <motion.div
           className="sobremi-hero__portrait"
           initial="hidden"
-          whileInView="visible"
+          animate={shouldAnimate ? "visible" : "hidden"}
           viewport={viewportConfig}
           style={{ position: 'relative' }}
         >
@@ -287,7 +290,7 @@ export function SobreMiSection({ onNavigate }) {
             }}
           >
             <img
-              src="https://res.cloudinary.com/dacmlsbqc/image/upload/v1777001662/WhatsApp_Image_2026-04-23_at_10.16.44_PM_diyqhj.png"
+              src="https://res.cloudinary.com/dacmlsbqc/image/upload/f_auto,q_auto/v1777001662/WhatsApp_Image_2026-04-23_at_10.16.44_PM_diyqhj.png"
               alt="Decorative Background"
               style={{
                 width: '100%',
@@ -305,7 +308,7 @@ export function SobreMiSection({ onNavigate }) {
             style={{ position: 'relative', zIndex: 1 }}
           >
             <CldImage
-              publicId="https://res.cloudinary.com/dacmlsbqc/image/upload/v1776050039/freepik_br_0eee4a49-2084-4fb7-b60e-51d1ef8493af_v8siqp.png"
+              publicId="https://res.cloudinary.com/dacmlsbqc/image/upload/f_auto,q_auto/v1776050039/freepik_br_0eee4a49-2084-4fb7-b60e-51d1ef8493af_v8siqp.png"
               alt="Laura Velásquez"
             />
           </motion.div>
@@ -313,6 +316,8 @@ export function SobreMiSection({ onNavigate }) {
           <motion.div
             className="sobremi-hero__badge"
             variants={fadeUp}
+            initial="hidden"
+            animate={shouldAnimate ? "visible" : "hidden"}
             custom={1}
             style={{ zIndex: 2 }}
           >
@@ -362,7 +367,7 @@ export function SobreMiSection({ onNavigate }) {
               className="sobremi-formation__header"
               variants={fadeUp}
               initial="hidden"
-              whileInView="visible"
+              animate={shouldAnimate ? "visible" : "hidden"}
               viewport={viewportConfig}
               custom={0.1}
             >
@@ -384,7 +389,7 @@ export function SobreMiSection({ onNavigate }) {
               style={{ display: 'block' }}
               variants={revealScale}
               initial="hidden"
-              whileInView="visible"
+              animate={shouldAnimate ? "visible" : "hidden"}
               viewport={viewportConfig}
               custom={0.3}
             >
@@ -404,7 +409,7 @@ export function SobreMiSection({ onNavigate }) {
             <motion.div
               variants={fadeUp}
               initial="hidden"
-              whileInView="visible"
+              animate={shouldAnimate ? "visible" : "hidden"}
               viewport={viewportConfig}
               custom={0.1}
               style={{ width: '100%' }}
@@ -423,7 +428,7 @@ export function SobreMiSection({ onNavigate }) {
               style={{ maxWidth: '1200px', width: '100%' }}
               variants={revealScale}
               initial="hidden"
-              whileInView="visible"
+              animate={shouldAnimate ? "visible" : "hidden"}
               viewport={viewportConfig}
               custom={0.3}
             >
@@ -436,11 +441,81 @@ export function SobreMiSection({ onNavigate }) {
         </section>
       </div>
 
+      {/* ── Video Pitch ──────────────────────────────────────── */}
+      <motion.section
+        className="sobremi-pitch"
+        variants={fadeUp}
+        initial="hidden"
+        animate={shouldAnimate ? "visible" : "hidden"}
+        custom={0.2}
+        style={{
+          padding: '80px 48px 80px',
+          maxWidth: '900px',
+          margin: '0 auto',
+          width: '100%',
+          boxSizing: 'border-box',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '8px',
+        }}
+      >
+        <p style={{
+          fontSize: '0.7rem',
+          fontWeight: 700,
+          letterSpacing: '0.18em',
+          textTransform: 'uppercase',
+          color: '#9013fe',
+          margin: 0,
+          textAlign: 'center',
+          lineHeight: 1,
+        }}>
+          Video Pitch
+        </p>
+        <h2 style={{
+          fontFamily: 'Surgena, sans-serif',
+          fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)',
+          fontWeight: 700,
+          margin: 0,
+          lineHeight: 1.1,
+          textAlign: 'center',
+          background: 'linear-gradient(135deg, #9013fe, #b456ff)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+        }}>
+          Quien soy en 60 segundos
+        </h2>
+        <div style={{
+          position: 'relative',
+          width: '100%',
+          paddingTop: '56.25%',
+          borderRadius: '20px',
+          overflow: 'hidden',
+          boxShadow: '0 32px 64px -16px rgba(144, 19, 254, 0.15), 0 0 0 1px rgba(144, 19, 254, 0.08)',
+          marginTop: '8px',
+        }}>
+          <iframe
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              border: 'none',
+            }}
+            src="https://www.youtube.com/embed/2hMkuUaYCcg?rel=0&modestbranding=1&disablekb=1"
+            title="Video Pitch – Laura Velásquez"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+      </motion.section>
+
       <motion.div
         className="sobremi-cta"
         variants={fadeUp}
         initial="hidden"
-        whileInView="visible"
+        animate={shouldAnimate ? "visible" : "hidden"}
         viewport={viewportConfig}
         custom={0.2}
       >

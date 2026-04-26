@@ -77,10 +77,12 @@ function App() {
     { title: 'Contacto', href: '#contacto', onClick: () => navigateTo('contacto'), highlighted: currentSection === 'contacto' },
   ];
 
-  // purple = home/sobre-mi, white = proyectos/contacto
-  const navTheme = (currentSection === 'proyectos' || !!activeProject || currentSection === 'contacto')
-    ? 'white'
-    : 'purple';
+  // purple = home/sobre-mi, white = proyectos/contacto, project-detail = individual projects
+  const navTheme = !!activeProject
+    ? 'project-detail'
+    : (currentSection === 'proyectos' || currentSection === 'contacto')
+      ? 'white'
+      : 'purple';
 
   // ── Render ──────────────────────────────────────────────
   return (
@@ -164,7 +166,7 @@ function App() {
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
             style={{ overflowY: 'auto', overflowX: 'hidden' }}>
-            <SobreMiSection onNavigate={navigateTo} />
+            <SobreMiSection onNavigate={navigateTo} currentSection={currentSection} />
           </motion.div>
         )}
 
@@ -172,7 +174,7 @@ function App() {
           <motion.div key="contacto" className="section-full section-contacto"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: 0.8 }}>
-            <ContactoSection />
+            <ContactoSection currentSection={currentSection} />
           </motion.div>
         )}
 
