@@ -230,3 +230,86 @@
   background-color: #7c3aed;
   color: white;
 }
+
+/* ── Landscape mobile (phone rotated) ── */
+@media (max-height: 520px) and (orientation: landscape) {
+  .ec-container {
+    padding: 3rem 1rem 1rem 1rem;
+    align-items: flex-start;
+    overflow-y: auto;
+  }
+
+  .ec-card-expanded {
+    height: auto;
+    max-height: 85vh;
+    flex-direction: row;
+    max-width: 90vw;
+    overflow: hidden;
+  }
+
+  .ec-img-wrapper {
+    width: 40%;
+    height: auto;
+    flex-shrink: 0;
+    border-radius: 1rem 0 0 1rem;
+  }
+
+  .ec-card-body {
+    height: auto;
+    width: 60%;
+    overflow-y: auto;
+  }
+
+  .ec-expanded-header {
+    padding: 1rem 1.25rem 0.4rem;
+  }
+
+  .ec-expanded-title {
+    font-size: 0.95rem;
+  }
+
+  .ec-expanded-desc {
+    font-size: 0.78rem;
+  }
+
+  .ec-expanded-content {
+    padding: 0.4rem 1.25rem 1rem;
+    font-size: 0.82rem;
+    line-height: 1.55;
+  }
+
+  /* List view — always horizontal in landscape */
+  .ec-list-item {
+    flex-direction: row;
+    padding: 0.75rem 1rem;
+  }
+
+  .ec-list-item-content {
+    flex-direction: row;
+    gap: 0.75rem;
+  }
+
+  .ec-list-img {
+    height: 3.5rem;
+    width: 3.5rem;
+    flex-shrink: 0;
+  }
+
+  .ec-list-text {
+    text-align: left;
+  }
+
+  .ec-list-title {
+    font-size: 0.9rem;
+  }
+
+  .ec-list-desc {
+    font-size: 0.78rem;
+  }
+
+  .ec-list-btn {
+    margin-top: 0;
+    padding: 0.4rem 1rem;
+    font-size: 0.78rem;
+  }
+}
