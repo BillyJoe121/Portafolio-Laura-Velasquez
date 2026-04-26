@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import './SplineHint.css';
 
 const ICON_URL =
@@ -7,19 +7,40 @@ const ICON_URL =
 /**
  * SplineHint — Shows a pulsing "drag to interact" icon over a Spline 3D viewer.
  *
- * Spline renders inside an iframe, so pointer events from inside it do NOT
- * bubble up to the React parent. The fix: a transparent full-cover div with
- * pointer-events: auto sits above the scene and intercepts the very first
- * pointerdown. On that event it removes itself (and the visual hint), giving
- * the iframe full pointer control from that point on.
- *
- * @param {{ children: React.ReactNode }} props
+ * Fix: on first pointerdown, we hide the capture layer, then re-dispatch the
+ * same event at the same coordinates so it reaches the Spline iframe underneath.
+ * This way the first interaction both dismisses the hint AND moves the 3D model.
  */
 export function SplineHint({ children }) {
   const [visible, setVisible] = useState(true);
+  const captureRef = useRef(null);
 
-  const handleFirstInteraction = useCallback(() => {
+  const handleFirstInteraction = useCallback((e) => {
+    // 1. Hide the capture layer immediately so it's out of the hit-test path
     setVisible(false);
+
+    // 2. Re-dispatch the same pointer event at the same position so the
+    //    Spline iframe underneath receives it as if the overlay never existed.
+    //    We do this in a microtask so React has time to unmount the overlay first.
+    const { clientX, clientY, pointerId, pointerType, button, buttons, pressure } = e;
+    requestAnimationFrame(() => {
+      const target = document.elementFromPoint(clientX, clientY);
+      if (target) {
+        target.dispatchEvent(
+          new PointerEvent('pointerdown', {
+            bubbles: true,
+            cancelable: true,
+            clientX,
+            clientY,
+            pointerId,
+            pointerType,
+            button,
+            buttons,
+            pressure,
+          })
+        );
+      }
+    });
   }, []);
 
   return (
@@ -28,17 +49,15 @@ export function SplineHint({ children }) {
 
       {visible && (
         <>
-          {/* Transparent capture layer — absorbs the very first pointer event
-              so the hint dismisses on click/drag.  After removal the Spline
-              iframe receives all subsequent events normally. */}
+          {/* Transparent capture layer */}
           <div
+            ref={captureRef}
             className="spline-hint-capture"
             onPointerDown={handleFirstInteraction}
             aria-hidden="true"
           />
 
-          {/* Visual pulsing icon overlay (pointer-events: none so clicks
-              fall through to the capture layer below in z-order) */}
+          {/* Visual pulsing icon overlay (pointer-events: none) */}
           <div className="spline-hint-overlay" aria-hidden="true">
             <div className="spline-hint-icon-ring">
               <img
