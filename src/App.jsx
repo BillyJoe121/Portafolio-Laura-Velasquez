@@ -18,6 +18,7 @@ import { ProjectDetail } from './pages/ProjectDetail/ProjectDetail';
 import { LuminyDetail } from './pages/ProjectDetail/LuminyDetail';
 import { MiloDetail } from './pages/ProjectDetail/MiloDetail';
 import { PeairDetail } from './pages/ProjectDetail/PeairDetail';
+import { MobileGate } from './components/MobileGate';
 // Assets
 
 
@@ -87,6 +88,8 @@ function App() {
   // ── Render ──────────────────────────────────────────────
   return (
     <div className="app-container">
+      {/* Mobile portrait gate — shows rotate message, hides on landscape/desktop */}
+      <MobileGate />
 
       {/* Capa 0: fondo de base del hero (blanco sólido) */}
       {showHeroBg && (
@@ -98,8 +101,6 @@ function App() {
 
       {/* Capa 10: overlay de transición */}
       <div ref={transOverlayRef} className="transition-overlay" />
-
-
 
       {/* Top fade global: disuelve el contenido que sube hacia el navbar */}
       <div className="global-top-fade" />

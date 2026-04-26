@@ -1,0 +1,136 @@
+/* ══════════════════════════════════════════════
+   MOBILE GATE — Portrait-only overlay
+══════════════════════════════════════════════ */
+.mobile-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0a0612;
+  overflow: hidden;
+}
+
+/* Decorative blobs */
+.mobile-gate__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+.mobile-gate__blob--1 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(144, 19, 254, 0.35) 0%, transparent 70%);
+  top: -80px;
+  right: -60px;
+}
+.mobile-gate__blob--2 {
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(180, 86, 255, 0.2) 0%, transparent 70%);
+  bottom: -60px;
+  left: -40px;
+}
+
+/* Card */
+.mobile-gate__card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 32px;
+  max-width: 320px;
+  width: 100%;
+}
+
+/* Phone + arrow icon area */
+.mobile-gate__icon-wrap {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 28px;
+  color: #b456ff;
+  animation: mobile-gate-rotate 2.5s ease-in-out infinite;
+}
+.mobile-gate__phone {
+  width: 56px;
+  height: 56px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #b456ff;
+  filter: drop-shadow(0 0 12px rgba(144, 19, 254, 0.6));
+}
+.mobile-gate__arrow {
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  color: #9013fe;
+  opacity: 0.8;
+}
+
+@keyframes mobile-gate-rotate {
+  0%   { transform: rotate(0deg);  }
+  30%  { transform: rotate(-90deg); }
+  60%  { transform: rotate(-90deg); }
+  90%  { transform: rotate(0deg);  }
+  100% { transform: rotate(0deg);  }
+}
+
+/* Text */
+.mobile-gate__title {
+  font-family: 'Surgena', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 12px;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ffffff 40%, #b456ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.mobile-gate__subtitle {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0;
+  font-family: var(--font-main, 'Poppins', sans-serif);
+}
+
+/* Divider */
+.mobile-gate__divider {
+  width: 48px;
+  height: 1px;
+  background: rgba(144, 19, 254, 0.4);
+  margin: 28px auto;
+}
+
+.mobile-gate__alt {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.35);
+  margin: 0 0 6px;
+  font-family: var(--font-main, 'Poppins', sans-serif);
+}
+.mobile-gate__url {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #9013fe;
+  margin: 0;
+  font-family: var(--font-main, 'Poppins', sans-serif);
+  letter-spacing: 0.02em;
+}
+
+/* Only show this overlay in portrait mode — hide on landscape/desktop */
+@media (orientation: landscape), (min-width: 900px) {
+  .mobile-gate {
+    display: none !important;
+  }
+}
